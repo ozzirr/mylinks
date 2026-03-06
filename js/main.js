@@ -110,6 +110,35 @@
     });
   };
 
+  const initHeroParallax = () => {
+    const heroMedia = document.querySelector(".hero-media");
+    const heroImage = document.querySelector(".hero-image");
+    if (!heroMedia || !heroImage || reduceMotion) {
+      return;
+    }
+
+    let frameId = null;
+
+    const updateShift = () => {
+      frameId = null;
+      const mediaTop = heroMedia.getBoundingClientRect().top;
+      const scrolled = Math.max(0, -mediaTop);
+      const shift = -Math.min(18, scrolled * 0.16);
+      heroImage.style.setProperty("--hero-shift", `${shift.toFixed(2)}px`);
+    };
+
+    const requestShiftUpdate = () => {
+      if (frameId !== null) {
+        return;
+      }
+      frameId = window.requestAnimationFrame(updateShift);
+    };
+
+    updateShift();
+    window.addEventListener("scroll", requestShiftUpdate, { passive: true });
+    window.addEventListener("resize", requestShiftUpdate);
+  };
+
   const initExternalLinks = () => {
     const links = [...document.querySelectorAll("a[data-external='true']")];
     links.forEach((link) => {
@@ -131,6 +160,134 @@
           setOpening();
         }
       });
+    });
+  };
+
+  const initMusicControl = () => {
+    const control = document.querySelector("[data-music-control]");
+    if (!control) {
+      return;
+    }
+
+    const toggle = control.querySelector("[data-music-toggle]");
+    const label = control.querySelector("[data-music-label]");
+    const audio = control.querySelector("[data-music-audio]");
+
+    if (!toggle || !label || !audio) {
+      return;
+    }
+
+    const audioSrc = (control.dataset.audioSrc || "").trim();
+    const playlistUrl = (control.dataset.playlistUrl || "").trim();
+    const autoStart = control.dataset.autostart === "true";
+    const IDLE_LABEL = "\u266a My playlist";
+    const PLAYING_LABEL = "Now playing";
+
+    const setLabel = (text) => {
+      label.textContent = text;
+    };
+
+    const setPlayingState = (isPlaying) => {
+      toggle.classList.toggle("is-active", isPlaying);
+      toggle.setAttribute("aria-pressed", String(isPlaying));
+      toggle.setAttribute("aria-label", isPlaying ? "Pause audio" : "Play playlist");
+    };
+
+    if (audioSrc) {
+      audio.src = audioSrc;
+      audio.loop = true;
+      audio.preload = "metadata";
+      audio.volume = 0.78;
+      setLabel(IDLE_LABEL);
+      setPlayingState(false);
+    } else {
+      setLabel(IDLE_LABEL);
+      setPlayingState(false);
+    }
+
+    let unlocked = false;
+    const unlockAudioContext = () => {
+      if (unlocked || !audioSrc) {
+        return;
+      }
+      unlocked = true;
+      audio.load();
+
+      if (autoStart) {
+        audio
+          .play()
+          .then(() => {
+            setPlayingState(true);
+            setLabel(PLAYING_LABEL);
+          })
+          .catch(() => {
+            setPlayingState(false);
+            setLabel(IDLE_LABEL);
+          });
+      }
+    };
+
+    document.addEventListener("pointerdown", unlockAudioContext, { once: true, passive: true });
+    document.addEventListener("keydown", unlockAudioContext, { once: true });
+
+    const openPlaylistFallback = () => {
+      if (!playlistUrl) {
+        setLabel(IDLE_LABEL);
+        return;
+      }
+      window.open(playlistUrl, "_blank", "noopener,noreferrer");
+      setLabel(IDLE_LABEL);
+    };
+
+    const tryPlay = async () => {
+      if (!audioSrc) {
+        openPlaylistFallback();
+        return;
+      }
+
+      try {
+        await audio.play();
+        setPlayingState(true);
+        setLabel(PLAYING_LABEL);
+      } catch {
+        setPlayingState(false);
+        setLabel(IDLE_LABEL);
+      }
+    };
+
+    toggle.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      if (!audioSrc) {
+        openPlaylistFallback();
+        return;
+      }
+
+      if (audio.paused) {
+        tryPlay();
+      } else {
+        audio.pause();
+        setPlayingState(false);
+        setLabel(IDLE_LABEL);
+      }
+    });
+
+    audio.addEventListener("play", () => {
+      setPlayingState(true);
+      setLabel(PLAYING_LABEL);
+    });
+
+    audio.addEventListener("pause", () => {
+      if (audio.ended) {
+        return;
+      }
+      setPlayingState(false);
+      setLabel(IDLE_LABEL);
+    });
+
+    audio.addEventListener("error", () => {
+      setPlayingState(false);
+      setLabel(IDLE_LABEL);
     });
   };
 
@@ -189,8 +346,6 @@
       const body = encodeURIComponent(
         [
           `Full name: ${values.fullName}`,
-          `Phone: ${values.phone}`,
-          `Email: ${values.email}`,
           `Request type: ${values.requestType}`,
           "",
           "Message:",
@@ -240,7 +395,9 @@
   const init = () => {
     initReveal();
     initTypewriter();
+    initHeroParallax();
     initExternalLinks();
+    initMusicControl();
     initContactForm();
     initFooterYear();
     initTrackingStub();
