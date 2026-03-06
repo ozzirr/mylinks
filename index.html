@@ -1,55 +1,218 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Miei Link</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin: 15px 0;
-        }
-        a {
-            text-decoration: none;
-            color: #3498db;
-            font-weight: bold;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Andre Rizzo | Profile Hub</title>
+    <meta name="description" content="Andre Rizzo. Project Manager, Engineer IT, Digital Advisor." />
+    <meta name="theme-color" content="#060a12" />
 
-<div class="container">
-    <h1>I miei Link</h1>
-    <ul>
-        <li><a href="https://www.instagram.com/ozzirr" target="_blank">Instagram</a></li>
-        <li><a href="https://www.linkedin.com/in/ozzirr/" target="_blank">LinkedIn</a></li>
-        <li><a href="https://github.com/ozzirr" target="_blank">GitHub</a></li>
-        <li><a href="https://www.airbnb.it/rooms/1080363939705470017" target="_blank">Airbnb</a></li>
-    </ul>
-</div>
+    <meta property="og:title" content="Andre Rizzo | Profile Hub" />
+    <meta property="og:description" content="Project Manager | Engineer IT | Digital Advisor" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/andrerizzo_profile_img.jpg" />
 
-</body>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Andre Rizzo | Profile Hub" />
+    <meta name="twitter:description" content="Project Manager | Engineer IT | Digital Advisor" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%23060a12'/><text x='50%' y='58%' font-size='68' text-anchor='middle' fill='%23d3a289' font-family='Arial, sans-serif'>AR</text></svg>"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <script defer src="js/main.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero" id="top">
+        <div class="container">
+          <section class="hero-panel" data-reveal style="--delay: 0.04s">
+            <div class="hero-media" data-reveal style="--delay: 0.08s">
+              <img
+                src="assets/andrerizzo_profile_img.jpg"
+                alt="Andre Rizzo al tramonto sul mare"
+                class="hero-image"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+
+            <div class="hero-content">
+              <h1 data-reveal style="--delay: 0.14s">Andre Rizzo</h1>
+              <p class="role-stack" data-reveal style="--delay: 0.2s">
+                Project Manager<br />| Engineer IT |<br />Digital Advisor
+              </p>
+
+              <div class="social-row" data-reveal style="--delay: 0.26s">
+                <a
+                  href="https://instagram.com/ozzirr"
+                  class="social-link"
+                  aria-label="Instagram"
+                  data-external="true"
+                  data-track="social_instagram"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8a2.7 2.7 0 0 0-2.7 2.7v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.5 1.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 1.8a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/andrea-rizzo-ar"
+                  class="social-link"
+                  aria-label="LinkedIn"
+                  data-external="true"
+                  data-track="social_linkedin"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M6.9 8.6v8.8H4V8.6h2.9zM5.4 4a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4zM20 12.5v4.9h-2.9v-4.3c0-1.1-.4-1.9-1.4-1.9-.8 0-1.2.5-1.4 1-.1.2-.1.5-.1.8v4.4H11V8.6h2.9v1.2c.4-.6 1.1-1.4 2.8-1.4 2 0 3.3 1.3 3.3 4.1z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="mailto:ing.and.rizzo@gmail.com"
+                  class="social-link"
+                  aria-label="Invia email"
+                  data-track="social_mail"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M3.8 5h16.4C21.2 5 22 5.8 22 6.8v10.4c0 1-.8 1.8-1.8 1.8H3.8c-1 0-1.8-.8-1.8-1.8V6.8C2 5.8 2.8 5 3.8 5zm0 1.8 8.1 5.4 8.3-5.4H3.8zm16.4 10.4V8.7l-7.8 5.1a.9.9 0 0 1-1 0L3.8 8.7v8.5h16.4z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </header>
+
+      <main>
+        <section class="section" id="links">
+          <div class="container">
+            <div class="group-stack">
+              <article class="link-group" data-reveal>
+                <h2 class="group-title">Contacts</h2>
+                <div class="cards-grid">
+                  <a href="https://it.linkedin.com/in/andrea-rizzo-ar" class="link-card" data-external="true" data-track="card_linkedin">
+                    <span class="card-title">LinkedIn</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+
+                  <a href="https://www.instagram.com/ozzirr/" class="link-card" data-external="true" data-track="card_instagram">
+                    <span class="card-title">Instagram</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+
+                  <a href="mailto:ing.and.rizzo@gmail.com" class="link-card" data-track="card_email">
+                    <span class="card-title">Email</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+                </div>
+              </article>
+
+              <article class="link-group" data-reveal>
+                <h2 class="group-title">My Airbnb</h2>
+                <div class="cards-grid">
+                  <a href="https://www.airbnb.com/l/z0k4JRlX" class="link-card" data-external="true" data-track="card_airbnb">
+                    <span class="card-title">Torre Lapillo, Italy | Salento</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+                </div>
+              </article>
+
+              <article class="link-group" data-reveal>
+                <h2 class="group-title">Tech &amp; Digital Advisory</h2>
+                <div class="cards-grid">
+                  <a href="https://momafruit.it" class="link-card" data-external="true" data-track="card_moma_fruit">
+                    <span class="card-title">Moma Fruit</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+
+                  <a href="https://generale-elettrica.com" class="link-card" data-external="true" data-track="card_generale_elettrica">
+                    <span class="card-title">Generale Elettrica</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+
+                  <a href="https://www.msporte.it" class="link-card" data-external="true" data-track="card_ms_porte">
+                    <span class="card-title">MS Porte</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+
+                  <a href="https://olioarsieni.it" class="link-card" data-external="true" data-track="card_olio_arsieni">
+                    <span class="card-title">Olio Arsieni</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+
+                  <a href="http://salvatoremazzotta.it" class="link-card" data-external="true" data-track="card_vini_s_m">
+                    <span class="card-title">Vini Salvatore Mazzotta</span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-contact" id="contact">
+          <div class="container">
+            <article class="contact-shell" data-reveal>
+              <h2 class="group-title">Contact</h2>
+              <form
+                class="contact-form"
+                id="contactForm"
+                action="#"
+                method="post"
+                novalidate
+                data-contact-form
+                data-mailto="mailto:ing.and.rizzo@gmail.com"
+              >
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="fullName">Full name</label>
+                    <input id="fullName" name="fullName" type="text" autocomplete="name" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="requestType">Request type</label>
+                    <select id="requestType" name="requestType" required>
+                      <option value="" selected disabled>Select a request type</option>
+                      <option>General inquiry</option>
+                      <option>Business collaboration</option>
+                      <option>Tech consulting</option>
+                      <option>Airbnb / hospitality</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <div class="field">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn-primary" data-track="submit_contact">Send request</button>
+                  <p class="form-status" role="status" aria-live="polite" hidden data-form-status></p>
+                </div>
+              </form>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <p>&copy; <span id="year"></span> Andre Rizzo</p>
+          <nav aria-label="Legal links" class="footer-nav">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms &amp; Conditions</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
