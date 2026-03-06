@@ -139,156 +139,192 @@
     window.addEventListener("resize", requestShiftUpdate);
   };
 
-  const initExternalLinks = () => {
-    const links = [...document.querySelectorAll("a[data-external='true']")];
-    links.forEach((link) => {
-      link.setAttribute("target", "_blank");
-      link.setAttribute("rel", "noopener noreferrer");
+  const enhanceExternalLink = (link) => {
+    if (link.dataset.externalReady === "true") {
+      return;
+    }
 
-      if (reduceMotion) {
-        return;
+    link.dataset.externalReady = "true";
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener noreferrer");
+
+    if (reduceMotion) {
+      return;
+    }
+
+    const setOpening = () => {
+      link.classList.add("is-opening");
+      window.setTimeout(() => link.classList.remove("is-opening"), 220);
+    };
+
+    link.addEventListener("pointerdown", setOpening);
+    link.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        setOpening();
       }
-
-      const setOpening = () => {
-        link.classList.add("is-opening");
-        window.setTimeout(() => link.classList.remove("is-opening"), 220);
-      };
-
-      link.addEventListener("pointerdown", setOpening);
-      link.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          setOpening();
-        }
-      });
     });
   };
 
-  const initMusicControl = () => {
-    const control = document.querySelector("[data-music-control]");
-    if (!control) {
+  const initExternalLinks = (scope = document) => {
+    const links = [...scope.querySelectorAll("a[data-external='true']")];
+    links.forEach((link) => {
+      enhanceExternalLink(link);
+    });
+  };
+
+  const formatDate = (value) => {
+    try {
+      return new Date(value).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    } catch {
+      return "Recently updated";
+    }
+  };
+
+  const formatTime = (value = Date.now()) => {
+    try {
+      return new Date(value).toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch {
+      return "--";
+    }
+  };
+
+  const initGithubActivity = async () => {
+    const shell = document.querySelector("[data-github-activity]");
+    if (!shell) {
       return;
     }
 
-    const toggle = control.querySelector("[data-music-toggle]");
-    const label = control.querySelector("[data-music-label]");
-    const audio = control.querySelector("[data-music-audio]");
-
-    if (!toggle || !label || !audio) {
+    const list = shell.querySelector("[data-github-list]");
+    const status = shell.querySelector("[data-github-status]");
+    const publicReposNode = shell.querySelector("[data-github-public]");
+    const syncNode = shell.querySelector("[data-github-sync]");
+    const username = (shell.dataset.githubUser || "").trim();
+    if (!list || !username) {
       return;
     }
 
-    const audioSrc = (control.dataset.audioSrc || "").trim();
-    const playlistUrl = (control.dataset.playlistUrl || "").trim();
-    const autoStart = control.dataset.autostart === "true";
-    const IDLE_LABEL = "\u266a My playlist";
-    const PLAYING_LABEL = "Now playing";
-
-    const setLabel = (text) => {
-      label.textContent = text;
+    const setStatus = (text) => {
+      if (status) {
+        status.textContent = text;
+      }
     };
 
-    const setPlayingState = (isPlaying) => {
-      toggle.classList.toggle("is-active", isPlaying);
-      toggle.setAttribute("aria-pressed", String(isPlaying));
-      toggle.setAttribute("aria-label", isPlaying ? "Pause audio" : "Play playlist");
+    const setSync = (text) => {
+      if (syncNode) {
+        syncNode.textContent = text;
+      }
     };
 
-    if (audioSrc) {
-      audio.src = audioSrc;
-      audio.loop = true;
-      audio.preload = "metadata";
-      audio.volume = 0.78;
-      setLabel(IDLE_LABEL);
-      setPlayingState(false);
-    } else {
-      setLabel(IDLE_LABEL);
-      setPlayingState(false);
+    setSync(formatTime());
+
+    try {
+      // Public endpoint works on static hosting; can be replaced with authenticated proxy later.
+      const [reposResponse, userResponse] = await Promise.all([
+        fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=8`, {
+          headers: { Accept: "application/vnd.github+json" },
+        }),
+        fetch(`https://api.github.com/users/${username}`, {
+          headers: { Accept: "application/vnd.github+json" },
+        }),
+      ]);
+
+      if (!reposResponse.ok) {
+        throw new Error(`GitHub request failed: ${reposResponse.status}`);
+      }
+
+      const repos = await reposResponse.json();
+      if (!Array.isArray(repos) || repos.length === 0) {
+        return;
+      }
+
+      if (userResponse.ok) {
+        const profile = await userResponse.json();
+        if (publicReposNode && typeof profile.public_repos === "number") {
+          publicReposNode.textContent = String(profile.public_repos);
+        }
+      }
+
+      const nonForkRepos = repos.filter((repo) => !repo.fork);
+      const featuredRepos = (nonForkRepos.length ? nonForkRepos : repos).slice(0, 2);
+
+      const fragment = document.createDocumentFragment();
+      featuredRepos.forEach((repo) => {
+        const card = document.createElement("a");
+        card.className = "github-card";
+        card.href = repo.html_url;
+        card.dataset.external = "true";
+        card.dataset.track = `github_repo_${repo.name.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`;
+
+        const title = document.createElement("h3");
+        title.className = "github-name";
+        title.textContent = repo.name;
+
+        const description = document.createElement("p");
+        description.className = "github-desc";
+        description.textContent = repo.description || "Repository update in progress.";
+
+        const meta = document.createElement("p");
+        meta.className = "github-meta";
+
+        const language = document.createElement("span");
+        language.textContent = repo.language || "Multi-stack";
+
+        const updated = document.createElement("span");
+        updated.textContent = formatDate(repo.pushed_at || repo.updated_at);
+
+        meta.append(language, updated);
+        card.append(title, description, meta);
+        fragment.append(card);
+      });
+
+      list.replaceChildren(fragment);
+      initExternalLinks(list);
+      setStatus("Live from GitHub");
+      setSync(formatTime());
+    } catch {
+      setStatus("Curated snapshot");
+    }
+  };
+
+  const initVisitorCounter = async () => {
+    const card = document.querySelector("[data-visitor-counter]");
+    if (!card) {
+      return;
     }
 
-    let unlocked = false;
-    const unlockAudioContext = () => {
-      if (unlocked || !audioSrc) {
-        return;
-      }
-      unlocked = true;
-      audio.load();
+    const countNode = card.querySelector("[data-visitor-count]");
+    const statusNode = card.querySelector("[data-visitor-status]");
+    const namespace = (card.dataset.counterNamespace || "ozzirr.github.io").trim();
+    const key = (card.dataset.counterKey || "mylinks_profile").trim();
 
-      if (autoStart) {
-        audio
-          .play()
-          .then(() => {
-            setPlayingState(true);
-            setLabel(PLAYING_LABEL);
-          })
-          .catch(() => {
-            setPlayingState(false);
-            setLabel(IDLE_LABEL);
-          });
+    const setStatus = (text) => {
+      if (statusNode) {
+        statusNode.textContent = text;
       }
     };
 
-    document.addEventListener("pointerdown", unlockAudioContext, { once: true, passive: true });
-    document.addEventListener("keydown", unlockAudioContext, { once: true });
-
-    const openPlaylistFallback = () => {
-      if (!playlistUrl) {
-        setLabel(IDLE_LABEL);
-        return;
+    try {
+      const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}`;
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`Counter request failed: ${response.status}`);
       }
-      window.open(playlistUrl, "_blank", "noopener,noreferrer");
-      setLabel(IDLE_LABEL);
-    };
-
-    const tryPlay = async () => {
-      if (!audioSrc) {
-        openPlaylistFallback();
-        return;
+      const payload = await response.json();
+      if (countNode && typeof payload.value === "number") {
+        const visits = new Intl.NumberFormat("en-US").format(payload.value);
+        countNode.textContent = `${visits} visits`;
       }
-
-      try {
-        await audio.play();
-        setPlayingState(true);
-        setLabel(PLAYING_LABEL);
-      } catch {
-        setPlayingState(false);
-        setLabel(IDLE_LABEL);
-      }
-    };
-
-    toggle.addEventListener("click", (event) => {
-      event.preventDefault();
-
-      if (!audioSrc) {
-        openPlaylistFallback();
-        return;
-      }
-
-      if (audio.paused) {
-        tryPlay();
-      } else {
-        audio.pause();
-        setPlayingState(false);
-        setLabel(IDLE_LABEL);
-      }
-    });
-
-    audio.addEventListener("play", () => {
-      setPlayingState(true);
-      setLabel(PLAYING_LABEL);
-    });
-
-    audio.addEventListener("pause", () => {
-      if (audio.ended) {
-        return;
-      }
-      setPlayingState(false);
-      setLabel(IDLE_LABEL);
-    });
-
-    audio.addEventListener("error", () => {
-      setPlayingState(false);
-      setLabel(IDLE_LABEL);
-    });
+      setStatus("Updated live");
+    } catch {
+      setStatus("Snapshot mode");
+    }
   };
 
   const initContactForm = () => {
@@ -342,18 +378,22 @@
       const data = new FormData(form);
       const values = Object.fromEntries(data.entries());
       const mailtoTarget = form.dataset.mailto || "mailto:ing.and.rizzo@gmail.com";
-      const subject = encodeURIComponent(`New request: ${values.requestType}`);
+      const fullName = String(values.fullName || "").trim();
+      const requestType = String(values.requestType || "").trim();
+      const message = String(values.message || "").trim();
+
+      const subject = encodeURIComponent(`[Website Inquiry] ${requestType} - ${fullName}`);
       const body = encodeURIComponent(
         [
-          `Full name: ${values.fullName}`,
-          `Request type: ${values.requestType}`,
+          `Name: ${fullName}`,
+          `Request type: ${requestType}`,
           "",
           "Message:",
-          values.message,
+          message,
         ].join("\n")
       );
 
-      setStatus("success", "Opening your email client...");
+      setStatus("success", "Opening your email draft...");
 
       window.setTimeout(() => {
         window.location.href = `${mailtoTarget}?subject=${subject}&body=${body}`;
@@ -382,13 +422,23 @@
       }
     });
 
-    document.querySelectorAll("[data-track]").forEach((element) => {
-      element.addEventListener("click", () => {
-        const eventName = element.getAttribute("data-track");
-        if (eventName) {
-          window.ProfileHub.track(eventName, { location: window.location.pathname });
-        }
-      });
+    if (window.ProfileHub.boundTracking) {
+      return;
+    }
+
+    window.ProfileHub.boundTracking = true;
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) {
+        return;
+      }
+      const element = event.target.closest("[data-track]");
+      if (!element) {
+        return;
+      }
+      const eventName = element.getAttribute("data-track");
+      if (eventName) {
+        window.ProfileHub.track(eventName, { location: window.location.pathname });
+      }
     });
   };
 
@@ -397,7 +447,8 @@
     initTypewriter();
     initHeroParallax();
     initExternalLinks();
-    initMusicControl();
+    initGithubActivity();
+    initVisitorCounter();
     initContactForm();
     initFooterYear();
     initTrackingStub();
