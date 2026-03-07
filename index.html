@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Andre Rizzo | Digital Card</title>
-    <meta name="description" content="Andre Rizzo. Project Manager, IT Engineer, Digital Advisor." />
+    <meta name="description" content="Andre Rizzo. Project Manager, IT Engineer, Digital Advisor." data-meta="description" />
     <meta name="theme-color" content="#060a12" />
 
-    <meta property="og:title" content="Andre Rizzo | Digital Card" />
-    <meta property="og:description" content="Project Manager | IT Engineer | Digital Advisor" />
+    <meta property="og:title" content="Andre Rizzo | Digital Card" data-meta="og:title" />
+    <meta property="og:description" content="Project Manager | IT Engineer | Digital Advisor" data-meta="og:description" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" data-meta="og:locale" />
     <meta property="og:image" content="assets/andre-rizzo-beach-optimized.webp" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Andre Rizzo | Digital Card" />
-    <meta name="twitter:description" content="Project Manager | IT Engineer | Digital Advisor" />
+    <meta name="twitter:title" content="Andre Rizzo | Digital Card" data-meta="twitter:title" />
+    <meta name="twitter:description" content="Project Manager | IT Engineer | Digital Advisor" data-meta="twitter:description" />
 
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%23060a12'/><text x='50%' y='58%' font-size='68' text-anchor='middle' fill='%23d3a289' font-family='Arial, sans-serif'>AR</text></svg>"
     />
     <link rel="stylesheet" href="css/main.css" />
+    <script defer src="js/locales-bundle.js"></script>
+    <script defer src="js/i18n.js"></script>
     <script defer src="js/main.js"></script>
   </head>
-  <body>
+  <body data-page="home" data-i18n-title-key="meta.homeTitle" data-i18n-description-key="meta.homeDescription">
     <div class="page-shell">
+      <div class="lang-switch" data-lang-switch data-i18n-aria-label="nav.languageSwitcher">
+        <button type="button" class="lang-switch-btn" data-lang-option="it">IT</button>
+        <span aria-hidden="true">|</span>
+        <button type="button" class="lang-switch-btn" data-lang-option="en">EN</button>
+      </div>
+
       <header class="hero" id="top">
         <div class="container">
           <section class="hero-panel" data-reveal style="--delay: 0.02s">
@@ -43,16 +52,17 @@
               <h1 data-reveal style="--delay: 0.14s">Andre Rizzo</h1>
 
               <p class="role-line" data-reveal style="--delay: 0.2s">
-                <span class="sr-only">AI Integration, Digital Advisory, Project Management, Hospitality</span>
+                <span class="sr-only" data-i18n="hero.rolesSrOnly">AI Integration, Digital Advisory, Project Management, Hospitality</span>
                 <button
                   type="button"
                   class="role-rotator"
                   aria-label="Open role details"
+                  data-i18n-aria-label="hero.roleButtonAria"
                   aria-haspopup="dialog"
                   data-role-rotator
                   data-role-modal-trigger
                   data-track="hero_role_detail"
-                  data-roles="AI Integration|Digital Advisory|Project Management|Hospitality"
+                  data-role-keys="ai-integration|digital-advisory|project-management|hospitality"
                 >
                   <span class="role-rotator-text">AI Integration</span>
                 </button>
@@ -63,6 +73,7 @@
                   href="https://instagram.com/ozzirr"
                   class="social-link"
                   aria-label="Instagram"
+                  data-i18n-aria-label="social.instagram"
                   data-external="true"
                   data-track="social_instagram"
                 >
@@ -76,6 +87,7 @@
                   href="https://www.linkedin.com/in/andrea-rizzo-ar"
                   class="social-link"
                   aria-label="LinkedIn"
+                  data-i18n-aria-label="social.linkedin"
                   data-external="true"
                   data-track="social_linkedin"
                 >
@@ -89,6 +101,7 @@
                   href="https://t.me/ozzirr"
                   class="social-link"
                   aria-label="Telegram"
+                  data-i18n-aria-label="social.telegram"
                   data-external="true"
                   data-track="social_telegram"
                 >
@@ -113,6 +126,7 @@
                 class="featured-cta"
                 data-external="true"
                 data-track="balance_featured_cta"
+                data-i18n="balance.cta"
                 >Discover Balance</a>
               <a
                 href="https://ozzirr.github.io/balance/index.html"
@@ -134,26 +148,30 @@
         <section class="section section-selected" id="selected-work">
           <div class="container">
             <div class="section-head" data-reveal>
-              <p class="section-kicker">Airbnb</p>
-              <h2 class="section-title">Listings</h2>
+              <p class="section-kicker" data-i18n="selected.kicker">Hospitality</p>
+              <h2 class="section-title" data-i18n="selected.title">Selected stays</h2>
             </div>
             <div class="work-grid">
               <a
-                href="https://www.airbnb.com/l/z0k4JRlX"
+                href="stay.html?place=torre-lapillo"
                 class="work-card work-card--torrelapillo"
-                data-external="true"
-                data-track="airbnb_torre_lapillo"
+                data-track="stay_torre_lapillo"
                 data-reveal
               >
                 <span class="work-thumb" aria-hidden="true"></span>
-                <span class="work-name">Torre Lapillo, Italy</span>
-                <span class="work-note">Holiday Home in Salento</span>
+                <span class="work-name" data-i18n="selected.torre.title">Torre Lapillo, Italia</span>
+                <span class="work-note" data-i18n="selected.torre.note">Casa Vacanze in Salento a due passi dal mare</span>
               </a>
 
-              <article class="work-card work-card--rome work-card--coming" data-reveal aria-label="Roma listing coming soon">
+              <article
+                class="work-card work-card--rome work-card--coming"
+                data-reveal
+                aria-label="Rome listing coming soon"
+                data-i18n-aria-label="selected.rome.aria"
+              >
                 <span class="work-thumb" aria-hidden="true"></span>
-                <span class="work-name">Rome, Italy</span>
-                <span class="work-note">Coming soon</span>
+                <span class="work-name" data-i18n="selected.rome.title">Rome, Italia</span>
+                <span class="work-note" data-i18n="selected.rome.note">Coming soon</span>
               </article>
             </div>
           </div>
@@ -162,8 +180,8 @@
         <section class="section section-ai" id="ai-projects">
           <div class="container">
             <div class="section-head" data-reveal>
-              <p class="section-kicker">Core services</p>
-              <h2 class="section-title">Digital Services</h2>
+              <p class="section-kicker" data-i18n="services.kicker">Core services</p>
+              <h2 class="section-title" data-i18n="services.title">Digital Services</h2>
             </div>
             <div class="ai-grid">
               <a
@@ -172,9 +190,9 @@
                 data-track="service_ai_systems"
                 data-reveal
               >
-                <span class="ai-tag">AI</span>
-                <h3>AI Systems</h3>
-                <p>AI assistants and integrations for business operations.</p>
+                <span class="ai-tag" data-i18n="services.items.ai.tag">AI</span>
+                <h3 data-i18n="services.items.ai.title">AI Systems</h3>
+                <p data-i18n="services.items.ai.description">AI assistants and integrations for business operations.</p>
               </a>
 
               <a
@@ -183,9 +201,9 @@
                 data-track="service_web_design"
                 data-reveal
               >
-                <span class="ai-tag">WEB</span>
-                <h3>Web Design</h3>
-                <p>Premium websites designed for clarity, trust and conversion.</p>
+                <span class="ai-tag" data-i18n="services.items.web.tag">WEB</span>
+                <h3 data-i18n="services.items.web.title">Web Design</h3>
+                <p data-i18n="services.items.web.description">Premium websites designed for clarity, trust and conversion.</p>
               </a>
 
               <a
@@ -194,9 +212,9 @@
                 data-track="service_ecommerce"
                 data-reveal
               >
-                <span class="ai-tag">ECOMMERCE</span>
-                <h3>E-commerce</h3>
-                <p>Online stores built to sell and connect with business workflows.</p>
+                <span class="ai-tag" data-i18n="services.items.ecommerce.tag">ECOMMERCE</span>
+                <h3 data-i18n="services.items.ecommerce.title">E-commerce</h3>
+                <p data-i18n="services.items.ecommerce.description">Online stores built to sell and connect with business workflows.</p>
               </a>
 
               <a
@@ -205,9 +223,9 @@
                 data-track="service_custom_development"
                 data-reveal
               >
-                <span class="ai-tag">DEVELOPMENT</span>
-                <h3>Development</h3>
-                <p>Custom digital solutions, business tools and tailored implementations.</p>
+                <span class="ai-tag" data-i18n="services.items.development.tag">DEVELOPMENT</span>
+                <h3 data-i18n="services.items.development.title">Development</h3>
+                <p data-i18n="services.items.development.description">Custom digital solutions, business tools and tailored implementations.</p>
               </a>
             </div>
           </div>
@@ -216,13 +234,25 @@
         <section class="section section-advisory" id="advisory">
           <div class="container">
             <article class="link-group" data-reveal>
-              <h2 class="group-title">Digital Advisory</h2>
+              <h2 class="group-title" data-i18n="advisory.title">Digital Advisory</h2>
               <div class="carousel-shell" data-carousel>
-                <div class="carousel-controls" aria-label="Digital advisory carousel controls">
-                  <button type="button" class="carousel-btn" data-carousel-prev aria-label="Previous advisory card">
+                <div class="carousel-controls" aria-label="Digital advisory carousel controls" data-i18n-aria-label="advisory.carouselAria">
+                  <button
+                    type="button"
+                    class="carousel-btn"
+                    data-carousel-prev
+                    aria-label="Previous advisory card"
+                    data-i18n-aria-label="advisory.prevAria"
+                  >
                     &#8592;
                   </button>
-                  <button type="button" class="carousel-btn" data-carousel-next aria-label="Next advisory card">
+                  <button
+                    type="button"
+                    class="carousel-btn"
+                    data-carousel-next
+                    aria-label="Next advisory card"
+                    data-i18n-aria-label="advisory.nextAria"
+                  >
                     &#8594;
                   </button>
                 </div>
@@ -243,9 +273,8 @@
                         />
                       </span>
                       <span class="card-tags">
-                        <span class="card-tag card-tag--ecommerce">Ecommerce</span>
-                        <span class="card-tag card-tag--integration">Integration</span>
-                        <span class="card-tag card-tag--development">Development</span>
+                        <span class="card-tag card-tag--ecommerce" data-i18n="tags.ecommerce">Ecommerce</span>
+                        <span class="card-tag card-tag--integration" data-i18n="tags.integration">Integration</span>
                       </span>
                     </span>
                     <span class="card-action" aria-hidden="true">&#8942;</span>
@@ -267,7 +296,7 @@
                         />
                       </span>
                       <span class="card-tags">
-                        <span class="card-tag card-tag--web">Web design</span>
+                        <span class="card-tag card-tag--web" data-i18n="tags.webDesign">Web design</span>
                       </span>
                     </span>
                     <span class="card-action" aria-hidden="true">&#8942;</span>
@@ -280,7 +309,7 @@
                         <span class="card-wordmark-sub">Fruit</span>
                       </span>
                       <span class="card-tags">
-                        <span class="card-tag card-tag--web">Web design</span>
+                        <span class="card-tag card-tag--web" data-i18n="tags.webDesign">Web design</span>
                       </span>
                     </span>
                     <span class="card-action" aria-hidden="true">&#8942;</span>
@@ -302,9 +331,8 @@
                         />
                       </span>
                       <span class="card-tags">
-                        <span class="card-tag card-tag--ecommerce">Ecommerce</span>
-                        <span class="card-tag card-tag--web">Web design</span>
-                        <span class="card-tag card-tag--graphic">Graphic design</span>
+                        <span class="card-tag card-tag--web" data-i18n="tags.webDesign">Web design</span>
+                        <span class="card-tag card-tag--graphic" data-i18n="tags.graphicDesign">Graphic design</span>
                       </span>
                     </span>
                     <span class="card-action" aria-hidden="true">&#8942;</span>
@@ -318,9 +346,9 @@
         <section class="section section-availability" id="availability">
           <div class="container">
             <article class="availability-card" data-reveal>
-              <h2>Available for selected collaborations</h2>
-              <p>Tech, digital strategy, and curated projects.</p>
-              <a href="#contact" class="availability-cta" data-track="availability_get_in_touch">Get in touch</a>
+              <h2 data-i18n="availability.title">Available for selected collaborations</h2>
+              <p data-i18n="availability.subtitle">Tech, digital strategy, and curated projects.</p>
+              <a href="#contact" class="availability-cta" data-track="availability_get_in_touch" data-i18n="availability.cta">Get in touch</a>
             </article>
           </div>
         </section>
@@ -328,7 +356,7 @@
         <section class="section section-contact" id="contact">
           <div class="container">
             <article class="contact-shell" data-reveal>
-              <h2 class="group-title">Let's talk</h2>
+              <h2 class="group-title" data-i18n="contact.title">Let's talk</h2>
               <form
                 class="contact-form"
                 id="contactForm"
@@ -340,45 +368,47 @@
               >
                 <div class="form-grid">
                   <div class="field">
-                    <label for="fullName">Full name</label>
+                    <label for="fullName" data-i18n="contact.fullNameLabel">Full name</label>
                     <input
                       id="fullName"
                       name="fullName"
                       type="text"
                       autocomplete="name"
                       placeholder="Your full name"
+                      data-i18n-placeholder="contact.fullNamePlaceholder"
                       required
                     />
                   </div>
 
                   <div class="field">
-                    <label for="requestType">Request type</label>
+                    <label for="requestType" data-i18n="contact.requestTypeLabel">Request type</label>
                     <select id="requestType" name="requestType" required>
-                      <option value="" selected disabled>Select a request type</option>
-                      <option>General inquiry</option>
-                      <option>Business collaboration</option>
-                      <option>Tech consulting</option>
-                      <option>Hospitality / Airbnb</option>
-                      <option>Other</option>
+                      <option value="" selected disabled data-i18n="contact.requestTypePlaceholder">Select a request type</option>
+                      <option value="general" data-i18n="contact.requestTypes.general">General inquiry</option>
+                      <option value="business" data-i18n="contact.requestTypes.business">Business collaboration</option>
+                      <option value="tech" data-i18n="contact.requestTypes.tech">Tech consulting</option>
+                      <option value="hospitality" data-i18n="contact.requestTypes.hospitality">Hospitality / Airbnb</option>
+                      <option value="other" data-i18n="contact.requestTypes.other">Other</option>
                     </select>
                   </div>
 
                 </div>
 
                 <div class="field">
-                  <label for="message">Message</label>
+                  <label for="message" data-i18n="contact.messageLabel">Message</label>
                   <textarea
                     id="message"
                     name="message"
                     rows="6"
                     placeholder="Share context, goals, and what you need."
+                    data-i18n-placeholder="contact.messagePlaceholder"
                     required
                   ></textarea>
                 </div>
 
                 <div class="form-actions">
-                  <button type="submit" class="btn-primary" data-track="submit_contact">Open email draft</button>
-                  <p class="form-helper">Opens your default email app.</p>
+                  <button type="submit" class="btn-primary" data-track="submit_contact" data-i18n="contact.submit">Open email draft</button>
+                  <p class="form-helper" data-i18n="contact.helper">Opens your default email app.</p>
                   <p class="form-status" role="status" aria-live="polite" hidden data-form-status></p>
                 </div>
               </form>
@@ -397,22 +427,30 @@
           aria-labelledby="focusModalTitle"
           aria-describedby="focusModalDescription"
         >
-          <button type="button" class="focus-modal-close" aria-label="Close details" data-focus-close>
+          <button
+            type="button"
+            class="focus-modal-close"
+            aria-label="Close details"
+            data-focus-close
+            data-i18n-aria-label="focusModal.closeAria"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
-          <p class="focus-modal-kicker">Role detail</p>
+          <p class="focus-modal-kicker" data-i18n="focusModal.kicker">Role detail</p>
           <h2 id="focusModalTitle" class="focus-modal-title" data-focus-title>Tech Strategy</h2>
           <p id="focusModalDescription" class="focus-modal-copy" data-focus-description></p>
-          <a href="#contact" class="focus-modal-cta" data-focus-cta data-track="focus_modal_lets_talk">Let's talk</a>
+          <a href="#contact" class="focus-modal-cta" data-focus-cta data-track="focus_modal_lets_talk" data-i18n="focusModal.cta"
+            >Let's talk</a
+          >
         </article>
       </div>
 
       <footer class="site-footer">
         <div class="container footer-inner">
           <p>&copy; <span id="year"></span> Andre Rizzo</p>
-          <nav aria-label="Legal links" class="footer-nav">
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms &amp; Conditions</a>
+          <nav aria-label="Legal links" class="footer-nav" data-i18n-aria-label="footer.navAria">
+            <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+            <a href="terms.html" data-i18n="footer.terms">Terms &amp; Conditions</a>
           </nav>
         </div>
       </footer>

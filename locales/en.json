@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "homeTitle": "Andre Rizzo | Digital Card",
+    "homeDescription": "Andre Rizzo. Project management, digital advisory, AI systems, and hospitality projects.",
+    "stayTitle": "Stay | Andre Rizzo",
+    "stayDescription": "Curated hospitality stay details, amenities and availability request.",
+    "stayPageTitle": "{stayTitle} | Andre Rizzo",
+    "stayPageDescription": "{subtitle} {shortDescription}"
+  },
+  "nav": {
+    "languageSwitcher": "Language switcher"
+  },
+  "hero": {
+    "rolesSrOnly": "AI Integration, Digital Advisory, Project Management, Hospitality",
+    "roleButtonAria": "Open role details",
+    "roles": [
+      "AI Integration",
+      "Digital Advisory",
+      "Project Management",
+      "Hospitality"
+    ]
+  },
+  "social": {
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn",
+    "telegram": "Telegram"
+  },
+  "balance": {
+    "cta": "Discover Balance"
+  },
+  "selected": {
+    "kicker": "Hospitality",
+    "title": "Selected stays",
+    "torre": {
+      "title": "Torre Lapillo, Italy",
+      "note": "Holiday Home in Salento, steps from the sea"
+    },
+    "rome": {
+      "title": "Rome, Italy",
+      "note": "Coming soon",
+      "aria": "Rome listing coming soon"
+    }
+  },
+  "services": {
+    "kicker": "Core services",
+    "title": "Digital Services",
+    "items": {
+      "ai": {
+        "tag": "AI",
+        "title": "AI Systems",
+        "description": "AI assistants and integrations for business operations."
+      },
+      "web": {
+        "tag": "WEB",
+        "title": "Web Design",
+        "description": "Premium websites designed for clarity, trust and conversion."
+      },
+      "ecommerce": {
+        "tag": "ECOMMERCE",
+        "title": "E-commerce",
+        "description": "Online stores built to sell and connect with business workflows."
+      },
+      "development": {
+        "tag": "DEVELOPMENT",
+        "title": "Development",
+        "description": "Custom digital solutions, business tools and tailored implementations."
+      }
+    }
+  },
+  "advisory": {
+    "title": "Digital Advisory",
+    "carouselAria": "Digital advisory carousel controls",
+    "prevAria": "Previous advisory card",
+    "nextAria": "Next advisory card"
+  },
+  "tags": {
+    "ecommerce": "Ecommerce",
+    "integration": "Integration",
+    "webDesign": "Web design",
+    "graphicDesign": "Graphic design"
+  },
+  "availability": {
+    "title": "Available for selected collaborations",
+    "subtitle": "Tech, digital strategy, and curated projects.",
+    "cta": "Get in touch"
+  },
+  "contact": {
+    "title": "Let's talk",
+    "fullNameLabel": "Full name",
+    "fullNamePlaceholder": "Your full name",
+    "requestTypeLabel": "Request type",
+    "requestTypePlaceholder": "Select a request type",
+    "requestTypes": {
+      "general": "General inquiry",
+      "business": "Business collaboration",
+      "tech": "Tech consulting",
+      "hospitality": "Hospitality / Airbnb",
+      "other": "Other"
+    },
+    "messageLabel": "Message",
+    "messagePlaceholder": "Share context, goals, and what you need.",
+    "submit": "Open email draft",
+    "helper": "Opens your default email app."
+  },
+  "focusModal": {
+    "closeAria": "Close details",
+    "kicker": "Role detail",
+    "cta": "Let's talk",
+    "roles": {
+      "ai-integration": {
+        "title": "AI Integration",
+        "description": "I design AI-powered systems that connect tools, data and workflows to reduce manual work and accelerate execution."
+      },
+      "digital-advisory": {
+        "title": "Digital Advisory",
+        "description": "I help businesses align positioning, digital presence and execution priorities through practical, clear decisions."
+      },
+      "project-management": {
+        "title": "Project Management",
+        "description": "I structure delivery with clear scope, milestones and ownership so teams can execute with momentum and reliability."
+      },
+      "hospitality": {
+        "title": "Hospitality",
+        "description": "I build digital positioning and guest-facing systems for hospitality projects, with a focus on trust and conversion."
+      }
+    }
+  },
+  "footer": {
+    "navAria": "Legal links",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions"
+  },
+  "status": {
+    "invalidContact": "Please check the highlighted fields.",
+    "openingContact": "Opening your email draft...",
+    "invalidBooking": "Please check your booking details.",
+    "openingBooking": "Opening your booking email draft..."
+  },
+  "email": {
+    "contact": {
+      "subjectPrefix": "Website Inquiry",
+      "labelName": "Name",
+      "labelRequestType": "Request type",
+      "labelMessage": "Message"
+    },
+    "stay": {
+      "subjectPrefix": "Booking request",
+      "greeting": "Hello,",
+      "intro": "I would like to request availability for the following stay:",
+      "lineProperty": "Property",
+      "lineCheckIn": "Check-in",
+      "lineCheckOut": "Check-out",
+      "lineGuests": "Guests",
+      "lineName": "Name",
+      "lineEmail": "Email",
+      "lineMessage": "Message",
+      "closing": "Please let me know availability and next steps."
+    }
+  },
+  "stay": {
+    "backToHome": "← Back to stays",
+    "hero": {
+      "kicker": "Hospitality stay",
+      "quickInfoAria": "Location, guests and booking availability"
+    },
+    "badges": {
+      "directBooking": "Direct booking available",
+      "guests": "{count} guests"
+    },
+    "cta": {
+      "requestDirect": "Request direct booking",
+      "viewAirbnb": "View on Airbnb",
+      "directContact": "Direct contact",
+      "requestBooking": "Request availability"
+    },
+    "sections": {
+      "gallery": {
+        "kicker": "Gallery",
+        "title": "Gallery"
+      },
+      "overview": {
+        "kicker": "Overview",
+        "title": "Designed for comfort and simplicity"
+      },
+      "amenities": {
+        "kicker": "Amenities",
+        "title": "What you get"
+      },
+      "info": {
+        "kicker": "Property info",
+        "title": "At a glance"
+      },
+      "notes": {
+        "kicker": "Good to know",
+        "title": "House rules"
+      },
+      "booking": {
+        "kicker": "Availability",
+        "title": "Check availability"
+      }
+    },
+    "overview": {
+      "perfectForLabel": "Perfect for"
+    },
+    "booking": {
+      "note": "Select your dates and details. A prefilled email will open in your default mail app."
+    },
+    "form": {
+      "checkInLabel": "Check-in date",
+      "checkOutLabel": "Check-out date",
+      "guestsLabel": "Guests",
+      "guestsPlaceholder": "Select guests",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "messageLabel": "Message (optional)",
+      "messagePlaceholder": "Any extra request or note.",
+      "submit": "Request availability",
+      "guestSingular": "guest",
+      "guestPlural": "guests"
+    },
+    "lightbox": {
+      "closeAria": "Close gallery image"
+    },
+    "facts": {
+      "propertyType": "Property type",
+      "maxGuests": "Max guests",
+      "bedrooms": "Bedrooms",
+      "beds": "Beds",
+      "bathrooms": "Bathrooms",
+      "wifi": "WiFi",
+      "workspace": "Workspace",
+      "parking": "Parking",
+      "airConditioning": "Air conditioning",
+      "beachDistance": "Beach distance",
+      "location": "Location",
+      "registrationId": "Registration ID"
+    },
+    "factsValues": {
+      "included": "Included",
+      "onRequest": "On request",
+      "available": "Available",
+      "nearby": "Nearby options",
+      "optional": "Optional"
+    },
+    "propertyTypes": {
+      "independentVilla": "Independent villa"
+    },
+    "amenities": {
+      "fastWifi": "Fast WiFi",
+      "airConditioning": "Air conditioning",
+      "privateGarden": "Private garden",
+      "coveredVeranda": "Covered veranda",
+      "barbecueWoodOven": "Barbecue and wood-fired oven",
+      "outdoorShower": "Outdoor shower",
+      "privateParking": "Private parking (2 cars)",
+      "equippedKitchen": "Equipped kitchen",
+      "smartTv": "Smart TV",
+      "welcomeKit": "Welcome kit",
+      "cribHighChair": "Crib and high chair on request",
+      "dedicatedWorkspace": "Dedicated workspace",
+      "easyCityAccess": "Easy city access"
+    },
+    "ideal": {
+      "families": "Families",
+      "couples": "Couples",
+      "friends": "Groups of friends",
+      "relaxingHolidays": "Relaxing holidays",
+      "remoteWorkers": "Remote workers",
+      "businessTrips": "Business trips",
+      "cityStays": "City stays",
+      "weekendEscapes": "Weekend escapes"
+    },
+    "defaults": {
+      "stayImage": "Stay image"
+    },
+    "rome": {
+      "comingSoonTitle": "Rome stay (coming soon)",
+      "comingSoonSubtitle": "Details will be published soon."
+    }
+  }
+}

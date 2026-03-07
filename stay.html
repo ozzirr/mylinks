@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stay | Andre Rizzo</title>
+    <meta
+      name="description"
+      content="Curated hospitality stay details by Andre Rizzo. Availability request and direct booking contact."
+      data-meta="description"
+    />
+    <meta name="theme-color" content="#060a12" />
+
+    <meta property="og:title" content="Stay | Andre Rizzo" data-meta="og:title" />
+    <meta
+      property="og:description"
+      content="Curated hospitality stay details, amenities and availability request."
+      data-meta="og:description"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" data-meta="og:locale" />
+    <meta property="og:image" content="assets/hospitality/salento/272093c8-6342-4eaa-9e21-41fa8d483db2%20(1).avif" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stay | Andre Rizzo" data-meta="twitter:title" />
+    <meta
+      name="twitter:description"
+      content="Curated hospitality stay details, amenities and availability request."
+      data-meta="twitter:description"
+    />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%23060a12'/><text x='50%' y='58%' font-size='68' text-anchor='middle' fill='%23d3a289' font-family='Arial, sans-serif'>AR</text></svg>"
+    />
+
+    <link rel="stylesheet" href="css/main.css" />
+    <script defer src="js/locales-bundle.js"></script>
+    <script defer src="js/i18n.js"></script>
+    <script defer src="js/stays.js"></script>
+    <script defer src="js/main.js"></script>
+  </head>
+  <body data-page="stay" data-i18n-title-key="meta.stayTitle" data-i18n-description-key="meta.stayDescription">
+    <div class="page-shell">
+      <div class="lang-switch" data-lang-switch data-i18n-aria-label="nav.languageSwitcher">
+        <button type="button" class="lang-switch-btn" data-lang-option="it">IT</button>
+        <span aria-hidden="true">|</span>
+        <button type="button" class="lang-switch-btn" data-lang-option="en">EN</button>
+      </div>
+
+      <main class="stay-page" data-stay-page>
+        <div class="container">
+          <a href="index.html#selected-work" class="legal-back stay-back" data-i18n="stay.backToHome">&larr; Back to stays</a>
+
+          <section class="stay-hero-card" data-reveal>
+            <div class="stay-hero-media">
+              <img
+                src="assets/hospitality/salento/272093c8-6342-4eaa-9e21-41fa8d483db2%20(1).avif"
+                alt=""
+                class="stay-hero-image"
+                data-stay-cover
+                loading="eager"
+              />
+            </div>
+            <div class="stay-hero-content">
+              <p class="section-kicker" data-i18n="stay.hero.kicker">Hospitality stay</p>
+              <h1 class="stay-title" data-stay-title>Stay title</h1>
+              <p class="stay-subtitle" data-stay-subtitle>Stay subtitle</p>
+              <p class="stay-quick-info" aria-label="Stay quick info" data-i18n-aria-label="stay.hero.quickInfoAria">
+                <span data-stay-badge-location>Location</span>
+                <span class="stay-dot" aria-hidden="true">•</span>
+                <span data-stay-badge-guests>Guests</span>
+                <span class="stay-dot" aria-hidden="true">•</span>
+                <span data-i18n="stay.badges.directBooking">Direct booking available</span>
+              </p>
+              <div class="stay-actions">
+                <a href="#stay-booking" class="stay-cta stay-cta--primary" data-stay-request-cta data-i18n="stay.cta.requestBooking"
+                  >Request availability</a
+                >
+                <a href="https://www.airbnb.com/" class="stay-cta stay-cta--ghost" data-stay-airbnb data-external="true"
+                  data-i18n="stay.cta.viewAirbnb"
+                  >View on Airbnb</a
+                >
+              </div>
+            </div>
+          </section>
+
+          <section class="stay-section stay-section-gallery" data-stay-gallery-section data-reveal>
+            <div class="section-head stay-section-head">
+              <p class="section-kicker" data-i18n="stay.sections.gallery.kicker">Gallery</p>
+              <h2 class="section-title stay-section-title" data-i18n="stay.sections.gallery.title">Gallery</h2>
+            </div>
+            <div class="stay-gallery" data-stay-gallery></div>
+          </section>
+
+          <section class="stay-section stay-overview" data-reveal>
+            <div class="section-head stay-section-head">
+              <p class="section-kicker" data-i18n="stay.sections.overview.kicker">Overview</p>
+              <h2 class="section-title stay-section-title" data-i18n="stay.sections.overview.title">Designed for comfort and simplicity</h2>
+            </div>
+            <article class="stay-panel">
+              <p class="stay-overview-short" data-stay-short-description></p>
+              <p class="stay-overview-long" data-stay-long-description></p>
+              <div class="stay-perfect-for" data-stay-perfect-for>
+                <p class="stay-perfect-for-label" data-i18n="stay.overview.perfectForLabel">Perfect for</p>
+                <ul class="stay-ideal" data-stay-ideal></ul>
+              </div>
+            </article>
+          </section>
+
+          <section class="stay-section" data-reveal>
+            <div class="section-head stay-section-head">
+              <p class="section-kicker" data-i18n="stay.sections.amenities.kicker">Amenities</p>
+              <h2 class="section-title stay-section-title" data-i18n="stay.sections.amenities.title">What you get</h2>
+            </div>
+            <article class="stay-panel">
+              <ul class="stay-amenities" data-stay-amenities></ul>
+            </article>
+          </section>
+
+          <section class="stay-section" data-reveal>
+            <div class="section-head stay-section-head">
+              <p class="section-kicker" data-i18n="stay.sections.info.kicker">Property info</p>
+              <h2 class="section-title stay-section-title" data-i18n="stay.sections.info.title">At a glance</h2>
+            </div>
+            <article class="stay-panel">
+              <dl class="stay-facts" data-stay-facts></dl>
+            </article>
+          </section>
+
+          <section class="stay-section" data-stay-notes-section hidden data-reveal>
+            <div class="section-head stay-section-head">
+              <p class="section-kicker" data-i18n="stay.sections.notes.kicker">Good to know</p>
+              <h2 class="section-title stay-section-title" data-i18n="stay.sections.notes.title">House rules</h2>
+            </div>
+            <article class="stay-panel">
+              <ul class="stay-notes" data-stay-notes></ul>
+            </article>
+          </section>
+
+          <section class="stay-section" id="stay-booking" data-reveal>
+            <div class="section-head stay-section-head">
+              <p class="section-kicker" data-i18n="stay.sections.booking.kicker">Availability</p>
+              <h2 class="section-title stay-section-title" data-i18n="stay.sections.booking.title">Check availability</h2>
+            </div>
+            <article class="stay-panel stay-booking-panel">
+              <p class="stay-booking-note" data-i18n="stay.booking.note">
+                Select your dates and details. A prefilled email draft will open in your default mail app.
+              </p>
+              <form class="stay-booking-form" data-stay-booking-form novalidate>
+                <div class="form-grid stay-form-grid">
+                  <div class="field">
+                    <label for="stayCheckIn" data-i18n="stay.form.checkInLabel">Check-in date</label>
+                    <input id="stayCheckIn" name="checkIn" type="date" required />
+                  </div>
+                  <div class="field">
+                    <label for="stayCheckOut" data-i18n="stay.form.checkOutLabel">Check-out date</label>
+                    <input id="stayCheckOut" name="checkOut" type="date" required />
+                  </div>
+                  <div class="field">
+                    <label for="stayGuests" data-i18n="stay.form.guestsLabel">Guests</label>
+                    <select id="stayGuests" name="guests" required>
+                      <option value="" selected disabled data-i18n="stay.form.guestsPlaceholder">Select guests</option>
+                      <option value="1">1 guest</option>
+                      <option value="2">2 guests</option>
+                      <option value="3">3 guests</option>
+                      <option value="4">4 guests</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="stayFullName" data-i18n="stay.form.fullNameLabel">Full name</label>
+                    <input
+                      id="stayFullName"
+                      name="fullName"
+                      type="text"
+                      autocomplete="name"
+                      placeholder="Your full name"
+                      data-i18n-placeholder="stay.form.fullNamePlaceholder"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-grid stay-form-grid">
+                  <div class="field">
+                    <label for="stayEmail" data-i18n="stay.form.emailLabel">Email</label>
+                    <input
+                      id="stayEmail"
+                      name="email"
+                      type="email"
+                      autocomplete="email"
+                      placeholder="you@example.com"
+                      data-i18n-placeholder="stay.form.emailPlaceholder"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="stayMessage" data-i18n="stay.form.messageLabel">Message (optional)</label>
+                  <textarea
+                    id="stayMessage"
+                    name="message"
+                    rows="5"
+                    placeholder="Any extra request or note."
+                    data-i18n-placeholder="stay.form.messagePlaceholder"
+                  ></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn-primary" data-track="submit_stay_booking_request" data-i18n="stay.form.submit">
+                    Request availability
+                  </button>
+                  <p class="form-status" role="status" aria-live="polite" hidden data-stay-form-status></p>
+                </div>
+              </form>
+
+              <div class="stay-inline-actions stay-inline-actions--single">
+                <a class="stay-cta stay-cta--ghost" href="https://www.airbnb.com/" data-stay-airbnb-inline data-external="true"
+                  data-i18n="stay.cta.viewAirbnb"
+                  >View on Airbnb</a
+                >
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
+
+      <div class="stay-lightbox" data-stay-lightbox hidden>
+        <button
+          type="button"
+          class="stay-lightbox-backdrop"
+          data-stay-lightbox-close
+          aria-label="Close gallery image"
+          data-i18n-aria-label="stay.lightbox.closeAria"
+        ></button>
+        <figure class="stay-lightbox-figure">
+          <img src="" alt="" class="stay-lightbox-image" data-stay-lightbox-image />
+          <figcaption class="stay-lightbox-caption" data-stay-lightbox-caption></figcaption>
+          <button
+            type="button"
+            class="stay-lightbox-close"
+            data-stay-lightbox-close
+            aria-label="Close gallery image"
+            data-i18n-aria-label="stay.lightbox.closeAria"
+          >
+            &times;
+          </button>
+        </figure>
+      </div>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <p>&copy; <span id="year"></span> Andre Rizzo</p>
+          <nav aria-label="Legal links" class="footer-nav" data-i18n-aria-label="footer.navAria">
+            <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+            <a href="terms.html" data-i18n="footer.terms">Terms &amp; Conditions</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

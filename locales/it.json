@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "homeTitle": "Andre Rizzo | Digital Card",
+    "homeDescription": "Andre Rizzo. Project management, consulenza digitale, sistemi AI e hospitality.",
+    "stayTitle": "Soggiorno | Andre Rizzo",
+    "stayDescription": "Dettagli soggiorno hospitality, servizi e richiesta disponibilità.",
+    "stayPageTitle": "{stayTitle} | Andre Rizzo",
+    "stayPageDescription": "{subtitle} {shortDescription}"
+  },
+  "nav": {
+    "languageSwitcher": "Selettore lingua"
+  },
+  "hero": {
+    "rolesSrOnly": "Integrazione AI, Consulenza Digitale, Project Management, Hospitality",
+    "roleButtonAria": "Apri dettaglio ruolo",
+    "roles": [
+      "Integrazione AI",
+      "Consulenza Digitale",
+      "Project Management",
+      "Hospitality"
+    ]
+  },
+  "social": {
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn",
+    "telegram": "Telegram"
+  },
+  "balance": {
+    "cta": "Scopri Balance"
+  },
+  "selected": {
+    "kicker": "Hospitality",
+    "title": "Soggiorni selezionati",
+    "torre": {
+      "title": "Torre Lapillo, Italia",
+      "note": "Casa Vacanze in Salento a due passi dal mare"
+    },
+    "rome": {
+      "title": "Roma, Italia",
+      "note": "In arrivo",
+      "aria": "Annuncio Roma in arrivo"
+    }
+  },
+  "services": {
+    "kicker": "Servizi core",
+    "title": "Servizi digitali",
+    "items": {
+      "ai": {
+        "tag": "AI",
+        "title": "Sistemi AI",
+        "description": "Assistenti AI e integrazioni per operazioni business."
+      },
+      "web": {
+        "tag": "WEB",
+        "title": "Web Design",
+        "description": "Siti premium progettati per chiarezza, fiducia e conversione."
+      },
+      "ecommerce": {
+        "tag": "ECOMMERCE",
+        "title": "E-commerce",
+        "description": "Store online costruiti per vendere e integrarsi con i flussi aziendali."
+      },
+      "development": {
+        "tag": "SVILUPPO",
+        "title": "Development",
+        "description": "Soluzioni digitali custom, strumenti business e implementazioni su misura."
+      }
+    }
+  },
+  "advisory": {
+    "title": "Digital Advisory",
+    "carouselAria": "Controlli carosello digital advisory",
+    "prevAria": "Scheda advisory precedente",
+    "nextAria": "Scheda advisory successiva"
+  },
+  "tags": {
+    "ecommerce": "Ecommerce",
+    "integration": "Integrazione",
+    "webDesign": "Web design",
+    "graphicDesign": "Graphic design"
+  },
+  "availability": {
+    "title": "Disponibile per collaborazioni selezionate",
+    "subtitle": "Tech, strategia digitale e progetti curati.",
+    "cta": "Parliamone"
+  },
+  "contact": {
+    "title": "Parliamone",
+    "fullNameLabel": "Nome completo",
+    "fullNamePlaceholder": "Il tuo nome completo",
+    "requestTypeLabel": "Tipo richiesta",
+    "requestTypePlaceholder": "Seleziona un tipo di richiesta",
+    "requestTypes": {
+      "general": "Informazioni generali",
+      "business": "Collaborazione business",
+      "tech": "Consulenza tech",
+      "hospitality": "Hospitality / Airbnb",
+      "other": "Altro"
+    },
+    "messageLabel": "Messaggio",
+    "messagePlaceholder": "Condividi contesto, obiettivi e necessità.",
+    "submit": "Apri bozza email",
+    "helper": "Si apre la tua app email predefinita."
+  },
+  "focusModal": {
+    "closeAria": "Chiudi dettagli",
+    "kicker": "Dettaglio ruolo",
+    "cta": "Parliamone",
+    "roles": {
+      "ai-integration": {
+        "title": "Integrazione AI",
+        "description": "Progetto sistemi AI che connettono strumenti, dati e workflow per ridurre lavoro manuale e accelerare l'esecuzione."
+      },
+      "digital-advisory": {
+        "title": "Consulenza Digitale",
+        "description": "Aiuto aziende ad allineare posizionamento, presenza digitale e priorità operative con decisioni pratiche e chiare."
+      },
+      "project-management": {
+        "title": "Project Management",
+        "description": "Strutturo scope, milestone e ownership per una delivery affidabile, con ritmo e controllo."
+      },
+      "hospitality": {
+        "title": "Hospitality",
+        "description": "Costruisco posizionamento digitale e sistemi guest-facing per progetti hospitality, con focus su fiducia e conversione."
+      }
+    }
+  },
+  "footer": {
+    "navAria": "Link legali",
+    "privacy": "Privacy Policy",
+    "terms": "Termini & Condizioni"
+  },
+  "status": {
+    "invalidContact": "Controlla i campi evidenziati.",
+    "openingContact": "Apertura bozza email in corso...",
+    "invalidBooking": "Controlla i dettagli della richiesta.",
+    "openingBooking": "Apertura bozza richiesta prenotazione..."
+  },
+  "email": {
+    "contact": {
+      "subjectPrefix": "Richiesta da sito web",
+      "labelName": "Nome",
+      "labelRequestType": "Tipo richiesta",
+      "labelMessage": "Messaggio"
+    },
+    "stay": {
+      "subjectPrefix": "Richiesta prenotazione",
+      "greeting": "Ciao,",
+      "intro": "Vorrei richiedere disponibilità per il seguente soggiorno:",
+      "lineProperty": "Struttura",
+      "lineCheckIn": "Check-in",
+      "lineCheckOut": "Check-out",
+      "lineGuests": "Ospiti",
+      "lineName": "Nome",
+      "lineEmail": "Email",
+      "lineMessage": "Messaggio",
+      "closing": "Fammi sapere disponibilità e prossimi step."
+    }
+  },
+  "stay": {
+    "backToHome": "← Torna ai soggiorni",
+    "hero": {
+      "kicker": "Soggiorno hospitality",
+      "quickInfoAria": "Posizione, ospiti e disponibilità prenotazione"
+    },
+    "badges": {
+      "directBooking": "Prenotazione diretta disponibile",
+      "guests": "{count} ospiti"
+    },
+    "cta": {
+      "requestDirect": "Richiedi prenotazione diretta",
+      "viewAirbnb": "Vedi su Airbnb",
+      "directContact": "Contatto diretto",
+      "requestBooking": "Richiedi disponibilità"
+    },
+    "sections": {
+      "gallery": {
+        "kicker": "Gallery",
+        "title": "Gallery"
+      },
+      "overview": {
+        "kicker": "Overview",
+        "title": "Pensata per comfort e semplicità"
+      },
+      "amenities": {
+        "kicker": "Servizi",
+        "title": "Cosa trovi"
+      },
+      "info": {
+        "kicker": "Informazioni struttura",
+        "title": "A colpo d'occhio"
+      },
+      "notes": {
+        "kicker": "Da sapere",
+        "title": "Regole della casa"
+      },
+      "booking": {
+        "kicker": "Disponibilità",
+        "title": "Verifica disponibilità"
+      }
+    },
+    "overview": {
+      "perfectForLabel": "Perfetta per"
+    },
+    "booking": {
+      "note": "Seleziona date e dettagli. Si aprirà una bozza email precompilata nella tua app predefinita."
+    },
+    "form": {
+      "checkInLabel": "Data check-in",
+      "checkOutLabel": "Data check-out",
+      "guestsLabel": "Ospiti",
+      "guestsPlaceholder": "Seleziona ospiti",
+      "fullNameLabel": "Nome completo",
+      "fullNamePlaceholder": "Il tuo nome completo",
+      "emailLabel": "Email",
+      "emailPlaceholder": "tuo@email.com",
+      "messageLabel": "Messaggio (opzionale)",
+      "messagePlaceholder": "Richieste aggiuntive o note.",
+      "submit": "Richiedi disponibilità",
+      "guestSingular": "ospite",
+      "guestPlural": "ospiti"
+    },
+    "lightbox": {
+      "closeAria": "Chiudi immagine gallery"
+    },
+    "facts": {
+      "propertyType": "Tipologia",
+      "maxGuests": "Ospiti max",
+      "bedrooms": "Camere da letto",
+      "beds": "Letti",
+      "bathrooms": "Bagni",
+      "wifi": "WiFi",
+      "workspace": "Workspace",
+      "parking": "Parcheggio",
+      "airConditioning": "Aria condizionata",
+      "beachDistance": "Distanza spiaggia",
+      "location": "Posizione",
+      "registrationId": "Codice registrazione"
+    },
+    "factsValues": {
+      "included": "Incluso",
+      "onRequest": "Su richiesta",
+      "available": "Disponibile",
+      "nearby": "Opzioni vicine",
+      "optional": "Opzionale"
+    },
+    "propertyTypes": {
+      "independentVilla": "Villetta indipendente"
+    },
+    "amenities": {
+      "fastWifi": "WiFi veloce",
+      "airConditioning": "Aria condizionata",
+      "privateGarden": "Giardino privato",
+      "coveredVeranda": "Veranda coperta",
+      "barbecueWoodOven": "Barbecue e forno a legna",
+      "outdoorShower": "Doccia esterna",
+      "privateParking": "Parcheggio privato (2 auto)",
+      "equippedKitchen": "Cucina attrezzata",
+      "smartTv": "Smart TV",
+      "welcomeKit": "Welcome kit",
+      "cribHighChair": "Culla e seggiolone su richiesta",
+      "dedicatedWorkspace": "Spazio lavoro dedicato",
+      "easyCityAccess": "Comodo accesso alla città"
+    },
+    "ideal": {
+      "families": "Famiglie",
+      "couples": "Coppie",
+      "friends": "Gruppi di amici",
+      "relaxingHolidays": "Vacanze rilassanti",
+      "remoteWorkers": "Remote workers",
+      "businessTrips": "Viaggi business",
+      "cityStays": "Soggiorni in città",
+      "weekendEscapes": "Weekend escape"
+    },
+    "defaults": {
+      "stayImage": "Immagine soggiorno"
+    },
+    "rome": {
+      "comingSoonTitle": "Soggiorno Roma (coming soon)",
+      "comingSoonSubtitle": "I dettagli saranno pubblicati a breve."
+    }
+  }
+}
