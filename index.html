@@ -10,7 +10,7 @@
     <meta property="og:title" content="Andre Rizzo | Digital Card" />
     <meta property="og:description" content="Project Manager | IT Engineer | Digital Advisor" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="assets/andrerizzo_profile_img.jpg" />
+    <meta property="og:image" content="assets/andre-rizzo-beach-optimized.webp" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Andre Rizzo | Digital Card" />
@@ -30,9 +30,10 @@
           <section class="hero-panel" data-reveal style="--delay: 0.02s">
             <div class="hero-media" data-reveal style="--delay: 0.08s">
               <img
-                src="assets/andrerizzo_profile_img.jpg"
+                src="assets/andre-rizzo-beach-optimized.webp"
                 alt="Andre Rizzo al tramonto sul mare"
-                class="hero-image"
+                class="hero-image is-active"
+                style="--hero-focus: 34%;"
                 loading="eager"
                 fetchpriority="high"
               />
@@ -43,13 +44,18 @@
 
               <p class="role-line" data-reveal style="--delay: 0.2s">
                 <span class="sr-only">AI Integration, Digital Advisory, Project Management, Hospitality</span>
-                <span
-                  class="typewriter"
-                  aria-hidden="true"
-                  data-typewriter
+                <button
+                  type="button"
+                  class="role-rotator"
+                  aria-label="Open role details"
+                  aria-haspopup="dialog"
+                  data-role-rotator
+                  data-role-modal-trigger
+                  data-track="hero_role_detail"
                   data-roles="AI Integration|Digital Advisory|Project Management|Hospitality"
-                  >AI Integration</span>
-                <span class="typewriter-caret" aria-hidden="true"></span>
+                >
+                  <span class="role-rotator-text">AI Integration</span>
+                </button>
               </p>
 
               <div class="social-row" data-reveal style="--delay: 0.26s">
@@ -101,88 +107,54 @@
       <main>
         <section class="section section-featured" id="balance">
           <div class="container">
-            <article class="featured-card" data-reveal>
-              <p class="featured-kicker">Featured Project</p>
-              <h2 class="featured-title">Balance</h2>
-              <p class="featured-subtitle">Personal finance app</p>
-              <p class="featured-meta">Privacy-first &middot; Offline-first &middot; Open source</p>
+            <article class="featured-card featured-card--banner" data-reveal>
               <a
                 href="https://ozzirr.github.io/balance/index.html"
                 class="featured-cta"
                 data-external="true"
                 data-track="balance_featured_cta"
                 >Discover Balance</a>
+              <a
+                href="https://ozzirr.github.io/balance/index.html"
+                class="balance-banner-card"
+                data-external="true"
+                data-track="balance_banner_top"
+              >
+                <img
+                  src="assets/projects/balance/banner-balance.webp"
+                  alt="Balance banner preview"
+                  class="balance-banner-image"
+                  loading="lazy"
+                />
+              </a>
             </article>
-          </div>
-        </section>
-
-        <section class="section section-focus" id="focus">
-          <div class="container">
-            <div class="section-head" data-reveal>
-              <p class="section-kicker">Focus</p>
-            </div>
-            <div class="focus-grid" data-reveal>
-              <article class="focus-item">Tech Strategy</article>
-              <article class="focus-item">AI Integration</article>
-              <article class="focus-item">Hospitality</article>
-            </div>
           </div>
         </section>
 
         <section class="section section-selected" id="selected-work">
           <div class="container">
             <div class="section-head" data-reveal>
-              <p class="section-kicker">Selected work</p>
-              <h2 class="section-title">Curated projects</h2>
+              <p class="section-kicker">Airbnb</p>
+              <h2 class="section-title">Listings</h2>
             </div>
             <div class="work-grid">
-              <a
-                href="https://ozzirr.github.io/balance/index.html"
-                class="work-card work-card--balance"
-                data-external="true"
-                data-track="selected_balance"
-                data-reveal
-              >
-                <span class="work-thumb" aria-hidden="true"></span>
-                <span class="work-name">Balance</span>
-                <span class="work-note">Product</span>
-              </a>
-
               <a
                 href="https://www.airbnb.com/l/z0k4JRlX"
                 class="work-card work-card--torrelapillo"
                 data-external="true"
-                data-track="selected_torre_lapillo"
+                data-track="airbnb_torre_lapillo"
                 data-reveal
               >
                 <span class="work-thumb" aria-hidden="true"></span>
-                <span class="work-name">Salento</span>
-                <span class="work-note">Hospitality</span>
+                <span class="work-name">Torre Lapillo, Italy</span>
+                <span class="work-note">Holiday Home in Salento</span>
               </a>
 
-              <a
-                href="https://generale-elettrica.com"
-                class="work-card work-card--generale"
-                data-external="true"
-                data-track="selected_generale_elettrica"
-                data-reveal
-              >
+              <article class="work-card work-card--rome work-card--coming" data-reveal aria-label="Roma listing coming soon">
                 <span class="work-thumb" aria-hidden="true"></span>
-                <span class="work-name">Generale Elettrica</span>
-                <span class="work-note">Industry</span>
-              </a>
-
-              <a
-                href="https://www.msporte.it"
-                class="work-card work-card--msporte"
-                data-external="true"
-                data-track="selected_ms_porte"
-                data-reveal
-              >
-                <span class="work-thumb" aria-hidden="true"></span>
-                <span class="work-name">MS Porte</span>
-                <span class="work-note">Manufacturing</span>
-              </a>
+                <span class="work-name">Rome, Italy</span>
+                <span class="work-note">Coming soon</span>
+              </article>
             </div>
           </div>
         </section>
@@ -190,32 +162,52 @@
         <section class="section section-ai" id="ai-projects">
           <div class="container">
             <div class="section-head" data-reveal>
-              <p class="section-kicker">Selected initiatives</p>
-              <h2 class="section-title">AI Projects</h2>
+              <p class="section-kicker">Core services</p>
+              <h2 class="section-title">Digital Services</h2>
             </div>
             <div class="ai-grid">
-              <a class="ai-card ai-card--systems" href="#contact" data-track="ai_systems_integration" data-reveal>
-                <span class="ai-tag">AI SYSTEMS</span>
-                <h3>AI Systems Integration</h3>
-                <p>Connecting tools, workflows, and intelligence.</p>
+              <a
+                class="ai-card ai-card--systems"
+                href="service.html?type=ai-systems"
+                data-track="service_ai_systems"
+                data-reveal
+              >
+                <span class="ai-tag">AI</span>
+                <h3>AI Systems</h3>
+                <p>AI assistants and integrations for business operations.</p>
               </a>
 
-              <a class="ai-card ai-card--automation" href="#contact" data-track="ai_workflow_automation" data-reveal>
-                <span class="ai-tag">AUTOMATION</span>
-                <h3>Workflow Automation</h3>
-                <p>Smarter operational flows with AI support.</p>
+              <a
+                class="ai-card ai-card--web"
+                href="service.html?type=web-design"
+                data-track="service_web_design"
+                data-reveal
+              >
+                <span class="ai-tag">WEB</span>
+                <h3>Web Design</h3>
+                <p>Premium websites designed for clarity, trust and conversion.</p>
               </a>
 
-              <a class="ai-card ai-card--assistants" href="#contact" data-track="ai_intelligent_assistants" data-reveal>
-                <span class="ai-tag">ASSISTANTS</span>
-                <h3>Intelligent Assistants</h3>
-                <p>Assistants built for real business usage.</p>
+              <a
+                class="ai-card ai-card--commerce"
+                href="service.html?type=ecommerce"
+                data-track="service_ecommerce"
+                data-reveal
+              >
+                <span class="ai-tag">ECOMMERCE</span>
+                <h3>E-commerce</h3>
+                <p>Online stores built to sell and connect with business workflows.</p>
               </a>
 
-              <a class="ai-card ai-card--design" href="#contact" data-track="ai_process_design" data-reveal>
-                <span class="ai-tag">DESIGN</span>
-                <h3>Digital Process Design</h3>
-                <p>AI-enhanced systems for execution and scale.</p>
+              <a
+                class="ai-card ai-card--development"
+                href="service.html?type=custom-development"
+                data-track="service_custom_development"
+                data-reveal
+              >
+                <span class="ai-tag">DEVELOPMENT</span>
+                <h3>Development</h3>
+                <p>Custom digital solutions, business tools and tailored implementations.</p>
               </a>
             </div>
           </div>
@@ -224,154 +216,100 @@
         <section class="section section-advisory" id="advisory">
           <div class="container">
             <article class="link-group" data-reveal>
-              <h2 class="group-title">Digital &amp; AI Advisory</h2>
-              <div class="cards-grid">
-                <a href="https://momafruit.it" class="link-card" data-external="true" data-track="card_moma_fruit">
-                  <span class="card-copy">
-                    <span class="card-title">Moma Fruit</span>
-                    <span class="card-subtitle">Brand systems</span>
-                  </span>
-                  <span class="card-action" aria-hidden="true">&#8942;</span>
-                </a>
+              <h2 class="group-title">Digital Advisory</h2>
+              <div class="carousel-shell" data-carousel>
+                <div class="carousel-controls" aria-label="Digital advisory carousel controls">
+                  <button type="button" class="carousel-btn" data-carousel-prev aria-label="Previous advisory card">
+                    &#8592;
+                  </button>
+                  <button type="button" class="carousel-btn" data-carousel-next aria-label="Next advisory card">
+                    &#8594;
+                  </button>
+                </div>
+                <div class="cards-carousel" data-carousel-track>
+                  <a
+                    href="https://generale-elettrica.com"
+                    class="link-card"
+                    data-external="true"
+                    data-track="card_generale_elettrica"
+                  >
+                    <span class="card-copy">
+                      <span class="card-logo-wrap">
+                        <img
+                          src="assets/logos/logo-generale-elettrica-optimized.webp"
+                          alt="Generale Elettrica"
+                          class="card-logo"
+                          loading="lazy"
+                        />
+                      </span>
+                      <span class="card-tags">
+                        <span class="card-tag card-tag--ecommerce">Ecommerce</span>
+                        <span class="card-tag card-tag--integration">Integration</span>
+                        <span class="card-tag card-tag--development">Development</span>
+                      </span>
+                    </span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
 
-                <a
-                  href="https://olioarsieni.it"
-                  class="link-card"
-                  data-external="true"
-                  data-track="card_olio_arsieni"
-                >
-                  <span class="card-copy">
-                    <span class="card-title">Olio Arsieni</span>
-                    <span class="card-subtitle">Digital presence</span>
-                  </span>
-                  <span class="card-action" aria-hidden="true">&#8942;</span>
-                </a>
-              </div>
-            </article>
-          </div>
-        </section>
+                  <a
+                    href="https://www.msporte.it"
+                    class="link-card"
+                    data-external="true"
+                    data-track="card_ms_porte"
+                  >
+                    <span class="card-copy">
+                      <span class="card-logo-wrap">
+                        <img
+                          src="assets/logos/logo-ms-porte-optimized.webp"
+                          alt="MS Porte"
+                          class="card-logo"
+                          loading="lazy"
+                        />
+                      </span>
+                      <span class="card-tags">
+                        <span class="card-tag card-tag--web">Web design</span>
+                      </span>
+                    </span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
 
-        <section class="section section-github" id="github-activity">
-          <div class="container">
-            <div class="section-head" data-reveal>
-              <p class="section-kicker">Code footprint</p>
-              <h2 class="section-title">GitHub Activity</h2>
-            </div>
-            <article class="github-shell" data-github-activity data-github-user="ozzirr" data-reveal>
-              <div class="github-head">
-                <p class="github-label">Featured repositories</p>
-                <p class="github-status" data-github-status>Curated snapshot</p>
-              </div>
-              <div class="github-inline-meta">
-                <span><strong data-github-public>--</strong> public repositories</span>
-                <span><strong data-github-sync>--</strong> last sync</span>
-              </div>
-              <div class="github-grid" data-github-list>
-                <a
-                  href="https://github.com/ozzirr/mylinks"
-                  class="github-card"
-                  data-external="true"
-                  data-track="github_card_mylinks"
-                >
-                  <h3 class="github-name">mylinks</h3>
-                  <p class="github-desc">Premium profile hub and personal brand website.</p>
-                  <p class="github-meta"><span>HTML</span><span>Recently updated</span></p>
-                </a>
-                <a
-                  href="https://github.com/ozzirr/balance"
-                  class="github-card"
-                  data-external="true"
-                  data-track="github_card_balance"
-                >
-                  <h3 class="github-name">balance</h3>
-                  <p class="github-desc">Personal finance app focused on clarity and control.</p>
-                  <p class="github-meta"><span>JavaScript</span><span>Recently updated</span></p>
-                </a>
-              </div>
-            </article>
-          </div>
-        </section>
+                  <a href="https://momafruit.it" class="link-card" data-external="true" data-track="card_moma_fruit">
+                    <span class="card-copy">
+                      <span class="card-wordmark" aria-label="Moma Fruit">
+                        <span class="card-wordmark-main">MOMA</span>
+                        <span class="card-wordmark-sub">Fruit</span>
+                      </span>
+                      <span class="card-tags">
+                        <span class="card-tag card-tag--web">Web design</span>
+                      </span>
+                    </span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
 
-        <section class="section section-case-study" id="balance-case-study">
-          <div class="container">
-            <div class="section-head" data-reveal>
-              <p class="section-kicker">Flagship product</p>
-              <h2 class="section-title">Balance Case Study</h2>
-            </div>
-            <article class="case-shell" data-reveal>
-              <div class="case-visual" aria-hidden="true">
-                <img src="assets/projects/balance-cover.svg" alt="" class="case-cover" loading="lazy" />
-                <img src="assets/logos/balance-mark.svg" alt="" class="case-mark" loading="lazy" />
-              </div>
-              <p class="case-intro">A personal finance app designed for clarity, control, and simplicity.</p>
-              <div class="case-principles">
-                <article class="case-principle">
-                  <h3>Privacy-first</h3>
-                  <p>Your financial data stays under your control.</p>
-                </article>
-                <article class="case-principle">
-                  <h3>Offline-first</h3>
-                  <p>Core functionality designed to work reliably and privately.</p>
-                </article>
-                <article class="case-principle">
-                  <h3>Open source</h3>
-                  <p>Transparent, flexible, and built with long-term trust in mind.</p>
-                </article>
-              </div>
-              <div class="case-why">
-                <h3>Why Balance</h3>
-                <p>A more intentional way to manage money.</p>
-              </div>
-              <a
-                href="https://ozzirr.github.io/balance/index.html"
-                class="case-cta"
-                data-external="true"
-                data-track="balance_case_study_cta"
-                >Explore Balance</a>
-            </article>
-          </div>
-        </section>
-
-        <section class="section section-connect" id="connect">
-          <div class="container">
-            <article class="link-group" data-reveal>
-              <h2 class="group-title">Connect</h2>
-              <div class="cards-grid">
-                <a
-                  href="https://it.linkedin.com/in/andrea-rizzo-ar"
-                  class="link-card"
-                  data-external="true"
-                  data-track="card_linkedin"
-                >
-                  <span class="card-title">LinkedIn</span>
-                  <span class="card-action" aria-hidden="true">&#8942;</span>
-                </a>
-
-                <a
-                  href="https://www.instagram.com/ozzirr/"
-                  class="link-card"
-                  data-external="true"
-                  data-track="card_instagram"
-                >
-                  <span class="card-title">Instagram</span>
-                  <span class="card-action" aria-hidden="true">&#8942;</span>
-                </a>
-
-                <a href="https://t.me/ozzirr" class="link-card" data-external="true" data-track="card_telegram">
-                  <span class="card-copy">
-                    <span class="card-title">Telegram</span>
-                    <span class="card-subtitle">Fast reply</span>
-                  </span>
-                  <span class="card-action" aria-hidden="true">&#8942;</span>
-                </a>
-
-                <a href="mailto:ing.and.rizzo@gmail.com" class="link-card" data-track="card_email">
-                  <span class="card-copy">
-                    <span class="card-title">Email</span>
-                    <span class="card-subtitle">Business inquiries</span>
-                  </span>
-                  <span class="card-action" aria-hidden="true">&#8942;</span>
-                </a>
+                  <a
+                    href="https://olioarsieni.it"
+                    class="link-card"
+                    data-external="true"
+                    data-track="card_olio_arsieni"
+                  >
+                    <span class="card-copy">
+                      <span class="card-logo-wrap">
+                        <img
+                          src="assets/logos/logo-olio-arsieni-optimized.webp"
+                          alt="Olio Arsieni"
+                          class="card-logo"
+                          loading="lazy"
+                        />
+                      </span>
+                      <span class="card-tags">
+                        <span class="card-tag card-tag--ecommerce">Ecommerce</span>
+                        <span class="card-tag card-tag--web">Web design</span>
+                        <span class="card-tag card-tag--graphic">Graphic design</span>
+                      </span>
+                    </span>
+                    <span class="card-action" aria-hidden="true">&#8942;</span>
+                  </a>
+                </div>
               </div>
             </article>
           </div>
@@ -383,20 +321,6 @@
               <h2>Available for selected collaborations</h2>
               <p>Tech, digital strategy, and curated projects.</p>
               <a href="#contact" class="availability-cta" data-track="availability_get_in_touch">Get in touch</a>
-            </article>
-          </div>
-        </section>
-
-        <section class="section section-visitor" id="visitor-counter">
-          <div class="container">
-            <article class="visitor-card" data-visitor-counter data-counter-namespace="ozzirr.github.io" data-counter-key="mylinks_profile" data-reveal>
-              <p class="visitor-kicker">
-                <span class="live-dot" aria-hidden="true"></span>
-                Live signal
-              </p>
-              <p class="visitor-count" data-visitor-count>-- visits</p>
-              <p class="visitor-caption">Audience activity on this profile</p>
-              <p class="visitor-status" data-visitor-status>Syncing...</p>
             </article>
           </div>
         </section>
@@ -461,7 +385,27 @@
             </article>
           </div>
         </section>
+
       </main>
+
+      <div class="focus-modal" data-focus-modal hidden>
+        <div class="focus-modal-backdrop" data-focus-close></div>
+        <article
+          class="focus-modal-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="focusModalTitle"
+          aria-describedby="focusModalDescription"
+        >
+          <button type="button" class="focus-modal-close" aria-label="Close details" data-focus-close>
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <p class="focus-modal-kicker">Role detail</p>
+          <h2 id="focusModalTitle" class="focus-modal-title" data-focus-title>Tech Strategy</h2>
+          <p id="focusModalDescription" class="focus-modal-copy" data-focus-description></p>
+          <a href="#contact" class="focus-modal-cta" data-focus-cta data-track="focus_modal_lets_talk">Let's talk</a>
+        </article>
+      </div>
 
       <footer class="site-footer">
         <div class="container footer-inner">

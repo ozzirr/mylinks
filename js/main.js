@@ -1,5 +1,21 @@
 (() => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const roleKeyFromLabel = (label = "") => {
+    const normalized = label.trim().toLowerCase();
+    if (normalized === "ai integration") {
+      return "ai-integration";
+    }
+    if (normalized === "digital advisory") {
+      return "digital-advisory";
+    }
+    if (normalized === "project management") {
+      return "project-management";
+    }
+    if (normalized === "hospitality") {
+      return "hospitality";
+    }
+    return normalized.replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  };
 
   if (reduceMotion) {
     document.body.classList.add("reduce-motion");
@@ -40,13 +56,18 @@
     revealElements.forEach((element) => observer.observe(element));
   };
 
-  const initTypewriter = () => {
-    const target = document.querySelector("[data-typewriter]");
-    if (!target) {
+  const initRoleRotator = () => {
+    const rotator = document.querySelector("[data-role-rotator]");
+    if (!rotator) {
       return;
     }
 
-    const roles = (target.dataset.roles || "")
+    const textNode = rotator.querySelector(".role-rotator-text");
+    if (!textNode) {
+      return;
+    }
+
+    const roles = (rotator.dataset.roles || "")
       .split("|")
       .map((item) => item.trim())
       .filter(Boolean);
@@ -56,52 +77,40 @@
     }
 
     if (reduceMotion) {
-      target.textContent = roles[0];
+      textNode.textContent = roles[0];
+      rotator.dataset.currentRoleKey = roleKeyFromLabel(roles[0]);
       return;
     }
 
+    const maxLength = roles.reduce((max, role) => Math.max(max, role.length), 0);
+    rotator.style.setProperty("--role-width", `${maxLength + 2}ch`);
+
     let roleIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
     let timerId = null;
+    const outDuration = 260;
+    const holdDuration = 1800;
 
-    const typeSpeed = 72;
-    const deleteSpeed = 44;
-    const holdDelay = 1320;
-    const betweenDelay = 260;
+    const swapRole = () => {
+      textNode.classList.add("is-out");
 
-    const tick = () => {
-      const role = roles[roleIndex];
+      timerId = window.setTimeout(() => {
+        roleIndex = (roleIndex + 1) % roles.length;
+        textNode.textContent = roles[roleIndex];
+        rotator.dataset.currentRoleKey = roleKeyFromLabel(roles[roleIndex]);
+        textNode.classList.remove("is-out");
+        textNode.classList.add("is-in");
 
-      if (deleting) {
-        charIndex -= 1;
-        target.textContent = role.slice(0, charIndex);
+        window.setTimeout(() => {
+          textNode.classList.remove("is-in");
+        }, 220);
 
-        if (charIndex <= 0) {
-          deleting = false;
-          roleIndex = (roleIndex + 1) % roles.length;
-          timerId = window.setTimeout(tick, betweenDelay);
-          return;
-        }
-
-        timerId = window.setTimeout(tick, deleteSpeed);
-        return;
-      }
-
-      charIndex += 1;
-      target.textContent = role.slice(0, charIndex);
-
-      if (charIndex >= role.length) {
-        deleting = true;
-        timerId = window.setTimeout(tick, holdDelay);
-        return;
-      }
-
-      timerId = window.setTimeout(tick, typeSpeed);
+        timerId = window.setTimeout(swapRole, holdDuration);
+      }, outDuration);
     };
 
-    target.textContent = "";
-    timerId = window.setTimeout(tick, 320);
+    textNode.textContent = roles[0];
+    rotator.dataset.currentRoleKey = roleKeyFromLabel(roles[0]);
+    timerId = window.setTimeout(swapRole, holdDuration);
 
     window.addEventListener("beforeunload", () => {
       if (timerId) {
@@ -123,7 +132,7 @@
       frameId = null;
       const mediaTop = heroMedia.getBoundingClientRect().top;
       const scrolled = Math.max(0, -mediaTop);
-      const shift = -Math.min(18, scrolled * 0.16);
+      const shift = -Math.min(11, scrolled * 0.1);
       heroImage.style.setProperty("--hero-shift", `${shift.toFixed(2)}px`);
     };
 
@@ -172,175 +181,179 @@
     });
   };
 
-  const formatDate = (value) => {
-    try {
-      return new Date(value).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
-    } catch {
-      return "Recently updated";
-    }
-  };
-
-  const formatTime = (value = Date.now()) => {
-    try {
-      return new Date(value).toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    } catch {
-      return "--";
-    }
-  };
-
-  const initGithubActivity = async () => {
-    const shell = document.querySelector("[data-github-activity]");
-    if (!shell) {
+  const initCarousels = () => {
+    const carousels = [...document.querySelectorAll("[data-carousel]")];
+    if (!carousels.length) {
       return;
     }
 
-    const list = shell.querySelector("[data-github-list]");
-    const status = shell.querySelector("[data-github-status]");
-    const publicReposNode = shell.querySelector("[data-github-public]");
-    const syncNode = shell.querySelector("[data-github-sync]");
-    const username = (shell.dataset.githubUser || "").trim();
-    if (!list || !username) {
-      return;
-    }
-
-    const setStatus = (text) => {
-      if (status) {
-        status.textContent = text;
-      }
-    };
-
-    const setSync = (text) => {
-      if (syncNode) {
-        syncNode.textContent = text;
-      }
-    };
-
-    setSync(formatTime());
-
-    try {
-      // Public endpoint works on static hosting; can be replaced with authenticated proxy later.
-      const [reposResponse, userResponse] = await Promise.all([
-        fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=8`, {
-          headers: { Accept: "application/vnd.github+json" },
-        }),
-        fetch(`https://api.github.com/users/${username}`, {
-          headers: { Accept: "application/vnd.github+json" },
-        }),
-      ]);
-
-      if (!reposResponse.ok) {
-        throw new Error(`GitHub request failed: ${reposResponse.status}`);
-      }
-
-      const repos = await reposResponse.json();
-      if (!Array.isArray(repos) || repos.length === 0) {
+    carousels.forEach((carousel) => {
+      const track = carousel.querySelector("[data-carousel-track]");
+      const prevButton = carousel.querySelector("[data-carousel-prev]");
+      const nextButton = carousel.querySelector("[data-carousel-next]");
+      if (!track || !prevButton || !nextButton) {
         return;
       }
 
-      if (userResponse.ok) {
-        const profile = await userResponse.json();
-        if (publicReposNode && typeof profile.public_repos === "number") {
-          publicReposNode.textContent = String(profile.public_repos);
+      const getStep = () => {
+        const firstCard = track.querySelector(".link-card");
+        if (!firstCard) {
+          return Math.max(240, track.clientWidth * 0.8);
         }
-      }
 
-      const nonForkRepos = repos.filter((repo) => !repo.fork);
-      const featuredRepos = (nonForkRepos.length ? nonForkRepos : repos).slice(0, 2);
+        const styles = window.getComputedStyle(track);
+        const gapValue = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+        return firstCard.getBoundingClientRect().width + gapValue;
+      };
 
-      const fragment = document.createDocumentFragment();
-      featuredRepos.forEach((repo) => {
-        const card = document.createElement("a");
-        card.className = "github-card";
-        card.href = repo.html_url;
-        card.dataset.external = "true";
-        card.dataset.track = `github_repo_${repo.name.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`;
+      const updateButtons = () => {
+        const maxScroll = track.scrollWidth - track.clientWidth - 2;
+        prevButton.disabled = track.scrollLeft <= 2;
+        nextButton.disabled = track.scrollLeft >= maxScroll;
+      };
 
-        const title = document.createElement("h3");
-        title.className = "github-name";
-        title.textContent = repo.name;
+      const scrollByStep = (direction) => {
+        track.scrollBy({
+          left: getStep() * direction,
+          behavior: reduceMotion ? "auto" : "smooth",
+        });
+      };
 
-        const description = document.createElement("p");
-        description.className = "github-desc";
-        description.textContent = repo.description || "Repository update in progress.";
-
-        const meta = document.createElement("p");
-        meta.className = "github-meta";
-
-        const language = document.createElement("span");
-        language.textContent = repo.language || "Multi-stack";
-
-        const updated = document.createElement("span");
-        updated.textContent = formatDate(repo.pushed_at || repo.updated_at);
-
-        meta.append(language, updated);
-        card.append(title, description, meta);
-        fragment.append(card);
-      });
-
-      list.replaceChildren(fragment);
-      initExternalLinks(list);
-      setStatus("Live from GitHub");
-      setSync(formatTime());
-    } catch {
-      setStatus("Curated snapshot");
-    }
+      prevButton.addEventListener("click", () => scrollByStep(-1));
+      nextButton.addEventListener("click", () => scrollByStep(1));
+      track.addEventListener("scroll", updateButtons, { passive: true });
+      window.addEventListener("resize", updateButtons);
+      updateButtons();
+    });
   };
 
-  const initVisitorCounter = async () => {
-    const card = document.querySelector("[data-visitor-counter]");
-    if (!card) {
+  const initFocusModal = () => {
+    const modal = document.querySelector("[data-focus-modal]");
+    if (!modal) {
       return;
     }
 
-    const countNode = card.querySelector("[data-visitor-count]");
-    const statusNode = card.querySelector("[data-visitor-status]");
-    const namespace = (card.dataset.counterNamespace || "ozzirr.github.io").trim();
-    const key = (card.dataset.counterKey || "mylinks_profile").trim();
-    const sessionFlagKey = `visitor_counter:${namespace}:${key}`;
+    const titleNode = modal.querySelector("[data-focus-title]");
+    const descriptionNode = modal.querySelector("[data-focus-description]");
+    const cta = modal.querySelector("[data-focus-cta]");
+    const closeTriggers = [...modal.querySelectorAll("[data-focus-close]")];
+    const focusItems = [...document.querySelectorAll("[data-focus-key]")];
+    const roleTrigger = document.querySelector("[data-role-modal-trigger]");
 
-    const setStatus = (text) => {
-      if (statusNode) {
-        statusNode.textContent = text;
-      }
+    if (!titleNode || !descriptionNode || !cta || (!focusItems.length && !roleTrigger)) {
+      return;
+    }
+
+    const details = {
+      "tech-strategy": {
+        title: "Tech Strategy",
+        description:
+          "I help businesses define digital priorities, simplify operations, and design practical execution plans. From positioning and service architecture to process improvement and delivery structure, the goal is clarity and momentum.",
+      },
+      "ai-integration": {
+        title: "AI Integration",
+        description:
+          "I design AI-powered systems that connect tools, data and workflows. This includes automations, internal copilots, content pipelines, operational support systems and custom business flows built to reduce manual work.",
+      },
+      "digital-advisory": {
+        title: "Digital Advisory",
+        description:
+          "I help businesses align positioning, digital presence, and execution priorities. The focus is practical strategy: fewer assumptions, clearer decisions, and consistent delivery across channels.",
+      },
+      "project-management": {
+        title: "Project Management",
+        description:
+          "I structure projects with clear scope, milestones, and ownership so teams can execute faster and with less friction. From planning to delivery, the goal is reliable progress and measurable outcomes.",
+      },
+      hospitality: {
+        title: "Hospitality",
+        description:
+          "I build digital experiences for hospitality projects, from positioning and online presence to guest-facing systems, booking flows, branding and property presentation. The focus is conversion, clarity and premium perception.",
+      },
     };
 
-    if (countNode) {
-      countNode.textContent = "-- visits";
+    let lastTrigger = null;
+
+    const closeModal = ({ restoreFocus = true } = {}) => {
+      modal.classList.remove("is-open");
+      document.body.style.overflow = "";
+
+      const completeClose = () => {
+        modal.hidden = true;
+        if (restoreFocus && lastTrigger) {
+          lastTrigger.focus();
+        }
+      };
+
+      if (reduceMotion) {
+        completeClose();
+        return;
+      }
+
+      window.setTimeout(completeClose, 220);
+    };
+
+    const openModal = (key, trigger) => {
+      const payload = details[key];
+      if (!payload) {
+        return;
+      }
+
+      titleNode.textContent = payload.title;
+      descriptionNode.textContent = payload.description;
+      lastTrigger = trigger;
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+
+      if (reduceMotion) {
+        modal.classList.add("is-open");
+        return;
+      }
+
+      window.requestAnimationFrame(() => {
+        modal.classList.add("is-open");
+      });
+    };
+
+    focusItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        item.classList.add("is-opening");
+        window.setTimeout(() => item.classList.remove("is-opening"), 180);
+        openModal(item.dataset.focusKey, item);
+      });
+    });
+
+    if (roleTrigger) {
+      roleTrigger.addEventListener("click", () => {
+        roleTrigger.classList.add("is-opening");
+        window.setTimeout(() => roleTrigger.classList.remove("is-opening"), 180);
+        const currentKey = roleTrigger.dataset.currentRoleKey || "ai-integration";
+        openModal(currentKey, roleTrigger);
+      });
     }
 
-    try {
-      const alreadyCounted = window.sessionStorage.getItem(sessionFlagKey) === "1";
-      const mode = alreadyCounted ? "get" : "hit";
-      const url = `https://api.countapi.xyz/${mode}/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}`;
-      const response = await fetch(url, { cache: "no-store" });
-      if (!response.ok) {
-        throw new Error(`Counter request failed: ${response.status}`);
+    closeTriggers.forEach((node) => {
+      node.addEventListener("click", closeModal);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !modal.hidden) {
+        closeModal();
       }
-      const payload = await response.json();
-      if (typeof payload.value !== "number") {
-        throw new Error("Counter payload is invalid");
+    });
+
+    cta.addEventListener("click", (event) => {
+      event.preventDefault();
+      closeModal({ restoreFocus: false });
+
+      const target = document.getElementById("contact");
+      if (target) {
+        target.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "start",
+        });
       }
-      if (countNode) {
-        const visits = new Intl.NumberFormat("en-US").format(payload.value);
-        countNode.textContent = `${visits} visits`;
-      }
-      if (!alreadyCounted) {
-        window.sessionStorage.setItem(sessionFlagKey, "1");
-      }
-      setStatus(alreadyCounted ? "Live snapshot" : "Updated live");
-    } catch {
-      if (countNode) {
-        countNode.textContent = "-- visits";
-      }
-      setStatus("Live unavailable");
-    }
+    });
   };
 
   const initContactForm = () => {
@@ -460,11 +473,11 @@
 
   const init = () => {
     initReveal();
-    initTypewriter();
+    initRoleRotator();
     initHeroParallax();
     initExternalLinks();
-    initGithubActivity();
-    initVisitorCounter();
+    initCarousels();
+    initFocusModal();
     initContactForm();
     initFooterYear();
     initTrackingStub();
