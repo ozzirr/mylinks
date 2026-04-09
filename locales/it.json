@@ -1,7 +1,7 @@
 {
   "meta": {
     "homeTitle": "Andre Rizzo | Digital Card",
-    "homeDescription": "Andre Rizzo. Project management, consulenza digitale, sistemi AI e hospitality.",
+    "homeDescription": "Andre Rizzo. Portfolio di prodotti digitali, siti web e progetti selezionati.",
     "stayTitle": "Soggiorno | Andre Rizzo",
     "stayDescription": "Dettagli soggiorno hospitality, servizi e richiesta disponibilità.",
     "stayPageTitle": "{stayTitle} | Andre Rizzo",
@@ -11,13 +11,12 @@
     "languageSwitcher": "Selettore lingua"
   },
   "hero": {
-    "rolesSrOnly": "Integrazione AI, Consulenza Digitale, Project Management, Hospitality",
+    "rolesSrOnly": "Integrazione AI, Consulenza Digitale, Project Management",
     "roleButtonAria": "Apri dettaglio ruolo",
     "roles": [
       "Integrazione AI",
       "Consulenza Digitale",
-      "Project Management",
-      "Hospitality"
+      "Project Management"
     ]
   },
   "social": {
@@ -28,18 +27,10 @@
   "balance": {
     "cta": "Scopri Balance"
   },
-  "selected": {
-    "kicker": "Hospitality",
-    "title": "Soggiorni selezionati",
-    "torre": {
-      "title": "Torre Lapillo, Italia",
-      "note": "Casa Vacanze in Salento a due passi dal mare"
-    },
-    "rome": {
-      "title": "Roma, Italia",
-      "note": "In arrivo",
-      "aria": "Annuncio Roma in arrivo"
-    }
+  "odora": {
+    "cta": "Scopri Odora",
+    "kicker": "Progetto digitale",
+    "note": "Un'esperienza digitale pensata per il profumo, costruita intorno a scoperta, gusto e rituale."
   },
   "services": {
     "kicker": "Servizi core",
@@ -68,10 +59,24 @@
     }
   },
   "advisory": {
-    "title": "Digital Advisory",
+    "title": "Progetti selezionati",
     "carouselAria": "Controlli carosello digital advisory",
     "prevAria": "Scheda advisory precedente",
     "nextAria": "Scheda advisory successiva"
+  },
+  "cube": {
+    "kicker": "Portfolio interattivo",
+    "title": "Un portfolio 3D di progetti digitali",
+    "intro": "Il portfolio è tutto qui: sei facce, sei card, progetti reali.",
+    "helper": "Trascina o scorri per esplorare. Hover o focus per mettere in pausa.",
+    "profileTitle": "Andre Rizzo",
+    "profileCopy": "Ingegnere informatico e mezzo. Due dodici. Faccio cose col computer. L'equilibrio è tutto.",
+    "viewProject": "Apri progetto",
+    "balanceCopy": "Finanza personale disegnata per essere chiara, privata e sotto controllo.",
+    "odoraCopy": "Scoperta fragranze, note e confronto prezzi dentro un'esperienza prodotto più pulita.",
+    "generaleCopy": "Esperienza ecommerce connessa a integrazioni e flussi operativi.",
+    "msCopy": "Un posizionamento più netto con un sito più pulito e pronto alla conversione.",
+    "arsieniCopy": "Sito e identità digitale costruiti per risultare premium, diretti e memorabili."
   },
   "tags": {
     "ecommerce": "Ecommerce",
@@ -94,7 +99,6 @@
       "general": "Informazioni generali",
       "business": "Collaborazione business",
       "tech": "Consulenza tech",
-      "hospitality": "Hospitality / Airbnb",
       "other": "Altro"
     },
     "messageLabel": "Messaggio",
@@ -118,10 +122,6 @@
       "project-management": {
         "title": "Project Management",
         "description": "Strutturo scope, milestone e ownership per una delivery affidabile, con ritmo e controllo."
-      },
-      "hospitality": {
-        "title": "Hospitality",
-        "description": "Costruisco posizionamento digitale e sistemi guest-facing per progetti hospitality, con focus su fiducia e conversione."
       }
     }
   },

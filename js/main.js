@@ -42,10 +42,7 @@
       "digital advisory": "digital-advisory",
       "consulenza digitale": "digital-advisory",
       "project management": "project-management",
-      "gestione progetti": "project-management",
-      hospitality: "hospitality",
-      ospitalita: "hospitality",
-      "ospitalità": "hospitality"
+      "gestione progetti": "project-management"
     };
     if (map[normalized]) {
       return map[normalized];
@@ -208,6 +205,156 @@
     updateShift();
     window.addEventListener("scroll", requestShiftUpdate, { passive: true });
     window.addEventListener("resize", requestShiftUpdate);
+  };
+
+  const initProjectCube = () => {
+    const scene = document.querySelector("[data-cube-scene]");
+    const cube = document.querySelector("[data-project-cube]");
+    if (!scene || !cube) {
+      return;
+    }
+
+    let rotateX = -18;
+    let rotateY = 28;
+    let dragging = false;
+    let moved = false;
+    let pointerId = null;
+    let lastX = 0;
+    let lastY = 0;
+    let rafId = null;
+    let previousTimestamp = 0;
+    let pauseUntil = 0;
+    let pausedByFocus = false;
+    let pausedByHover = false;
+
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+    const applyRotation = () => {
+      cube.style.setProperty("--cube-rx", `${rotateX.toFixed(2)}deg`);
+      cube.style.setProperty("--cube-ry", `${rotateY.toFixed(2)}deg`);
+    };
+
+    const releasePauseSoon = () => {
+      pauseUntil = window.performance.now() + 2200;
+    };
+
+    const onFrame = (timestamp) => {
+      if (!previousTimestamp) {
+        previousTimestamp = timestamp;
+      }
+
+      const delta = timestamp - previousTimestamp;
+      previousTimestamp = timestamp;
+
+      const shouldAutoRotate = !reduceMotion && !dragging && !pausedByFocus && !pausedByHover && timestamp > pauseUntil;
+      if (shouldAutoRotate) {
+        rotateY += delta * 0.016;
+        applyRotation();
+      }
+
+      rafId = window.requestAnimationFrame(onFrame);
+    };
+
+    const endDrag = () => {
+      dragging = false;
+      pointerId = null;
+      releasePauseSoon();
+    };
+
+    applyRotation();
+
+    scene.addEventListener("mouseenter", () => {
+      pausedByHover = true;
+    });
+    scene.addEventListener("mouseleave", () => {
+      pausedByHover = false;
+      releasePauseSoon();
+    });
+    scene.addEventListener("focusin", () => {
+      pausedByFocus = true;
+    });
+    scene.addEventListener("focusout", () => {
+      pausedByFocus = false;
+      releasePauseSoon();
+    });
+
+    scene.addEventListener("pointerdown", (event) => {
+      if (!event.isPrimary) {
+        return;
+      }
+
+      if (event.pointerType === "mouse" && event.button !== 0) {
+        return;
+      }
+
+      dragging = true;
+      moved = false;
+      pointerId = event.pointerId;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      pausedByHover = true;
+      cube.classList.add("is-dragging");
+      scene.setPointerCapture(event.pointerId);
+    });
+
+    scene.addEventListener("pointermove", (event) => {
+      if (!dragging || event.pointerId !== pointerId) {
+        return;
+      }
+
+      const deltaX = event.clientX - lastX;
+      const deltaY = event.clientY - lastY;
+      if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
+        moved = true;
+      }
+
+      rotateY += deltaX * 0.42;
+      rotateX = clamp(rotateX - deltaY * 0.32, -52, 52);
+      lastX = event.clientX;
+      lastY = event.clientY;
+      applyRotation();
+    });
+
+    scene.addEventListener("pointerup", (event) => {
+      if (event.pointerId !== pointerId) {
+        return;
+      }
+      cube.classList.remove("is-dragging");
+      pausedByHover = false;
+      scene.releasePointerCapture(event.pointerId);
+      endDrag();
+    });
+
+    scene.addEventListener("pointercancel", (event) => {
+      if (event.pointerId !== pointerId) {
+        return;
+      }
+      cube.classList.remove("is-dragging");
+      pausedByHover = false;
+      endDrag();
+    });
+
+    scene.addEventListener(
+      "click",
+      (event) => {
+        if (!moved) {
+          return;
+        }
+        const target = event.target;
+        if (target instanceof Element && target.closest("a")) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      },
+      true
+    );
+
+    rafId = window.requestAnimationFrame(onFrame);
+    window.addEventListener("beforeunload", () => {
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+    });
   };
 
   const enhanceExternalLink = (link) => {
@@ -1030,6 +1177,7 @@
     initReveal();
     initRoleRotator();
     initHeroParallax();
+    initProjectCube();
     initExternalLinks();
     initCarousels();
     initFocusModal();

@@ -3,7 +3,7 @@
   "en": {
     "meta": {
       "homeTitle": "Andre Rizzo | Digital Card",
-      "homeDescription": "Andre Rizzo. Project management, digital advisory, AI systems, and hospitality projects.",
+      "homeDescription": "Andre Rizzo. Portfolio of digital products, websites, and selected project work.",
       "stayTitle": "Stay | Andre Rizzo",
       "stayDescription": "Curated hospitality stay details, amenities and availability request.",
       "stayPageTitle": "{stayTitle} | Andre Rizzo",
@@ -13,13 +13,12 @@
       "languageSwitcher": "Language switcher"
     },
     "hero": {
-      "rolesSrOnly": "AI Integration, Digital Advisory, Project Management, Hospitality",
+      "rolesSrOnly": "AI Integration, Digital Advisory, Project Management",
       "roleButtonAria": "Open role details",
       "roles": [
         "AI Integration",
         "Digital Advisory",
-        "Project Management",
-        "Hospitality"
+        "Project Management"
       ]
     },
     "social": {
@@ -30,18 +29,10 @@
     "balance": {
       "cta": "Discover Balance"
     },
-    "selected": {
-      "kicker": "Hospitality",
-      "title": "Selected stays",
-      "torre": {
-        "title": "Torre Lapillo, Italy",
-        "note": "Holiday Home in Salento, steps from the sea"
-      },
-      "rome": {
-        "title": "Rome, Italy",
-        "note": "Coming soon",
-        "aria": "Rome listing coming soon"
-      }
+    "odora": {
+      "cta": "Discover Odora",
+      "kicker": "Digital project",
+      "note": "A perfume-first digital experience built around discovery, taste and ritual."
     },
     "services": {
       "kicker": "Core services",
@@ -70,10 +61,24 @@
       }
     },
     "advisory": {
-      "title": "Digital Advisory",
+      "title": "Selected Projects",
       "carouselAria": "Digital advisory carousel controls",
       "prevAria": "Previous advisory card",
       "nextAria": "Next advisory card"
+    },
+    "cube": {
+      "kicker": "Interactive portfolio",
+      "title": "A 3D portfolio of digital projects",
+      "intro": "The portfolio lives here: six faces, six cards, real projects.",
+      "helper": "Drag or swipe to explore. Hover or focus to pause.",
+      "profileTitle": "Andre Rizzo",
+      "profileCopy": "Computer engineer and a half. Two twelve. I make things with computers. Balance is everything.",
+      "viewProject": "Open project",
+      "balanceCopy": "Personal finance designed to feel clear, private and under control.",
+      "odoraCopy": "Fragrance discovery, notes and price comparison in a cleaner product experience.",
+      "generaleCopy": "Commerce experience connected with integrations and operational flows.",
+      "msCopy": "A sharper brand presence with a cleaner, conversion-ready website structure.",
+      "arsieniCopy": "Website and digital identity shaped to feel premium, direct and memorable."
     },
     "tags": {
       "ecommerce": "Ecommerce",
@@ -96,7 +101,6 @@
         "general": "General inquiry",
         "business": "Business collaboration",
         "tech": "Tech consulting",
-        "hospitality": "Hospitality / Airbnb",
         "other": "Other"
       },
       "messageLabel": "Message",
@@ -120,10 +124,6 @@
         "project-management": {
           "title": "Project Management",
           "description": "I structure delivery with clear scope, milestones and ownership so teams can execute with momentum and reliability."
-        },
-        "hospitality": {
-          "title": "Hospitality",
-          "description": "I build digital positioning and guest-facing systems for hospitality projects, with a focus on trust and conversion."
         }
       }
     },
@@ -286,7 +286,7 @@
   "it": {
     "meta": {
       "homeTitle": "Andre Rizzo | Digital Card",
-      "homeDescription": "Andre Rizzo. Project management, consulenza digitale, sistemi AI e hospitality.",
+      "homeDescription": "Andre Rizzo. Portfolio di prodotti digitali, siti web e progetti selezionati.",
       "stayTitle": "Soggiorno | Andre Rizzo",
       "stayDescription": "Dettagli soggiorno hospitality, servizi e richiesta disponibilità.",
       "stayPageTitle": "{stayTitle} | Andre Rizzo",
@@ -296,13 +296,12 @@
       "languageSwitcher": "Selettore lingua"
     },
     "hero": {
-      "rolesSrOnly": "Integrazione AI, Consulenza Digitale, Project Management, Hospitality",
+      "rolesSrOnly": "Integrazione AI, Consulenza Digitale, Project Management",
       "roleButtonAria": "Apri dettaglio ruolo",
       "roles": [
         "Integrazione AI",
         "Consulenza Digitale",
-        "Project Management",
-        "Hospitality"
+        "Project Management"
       ]
     },
     "social": {
@@ -313,18 +312,10 @@
     "balance": {
       "cta": "Scopri Balance"
     },
-    "selected": {
-      "kicker": "Hospitality",
-      "title": "Soggiorni selezionati",
-      "torre": {
-        "title": "Torre Lapillo, Italia",
-        "note": "Casa Vacanze in Salento a due passi dal mare"
-      },
-      "rome": {
-        "title": "Roma, Italia",
-        "note": "In arrivo",
-        "aria": "Annuncio Roma in arrivo"
-      }
+    "odora": {
+      "cta": "Scopri Odora",
+      "kicker": "Progetto digitale",
+      "note": "Un'esperienza digitale pensata per il profumo, costruita intorno a scoperta, gusto e rituale."
     },
     "services": {
       "kicker": "Servizi core",
@@ -353,10 +344,24 @@
       }
     },
     "advisory": {
-      "title": "Digital Advisory",
+      "title": "Progetti selezionati",
       "carouselAria": "Controlli carosello digital advisory",
       "prevAria": "Scheda advisory precedente",
       "nextAria": "Scheda advisory successiva"
+    },
+    "cube": {
+      "kicker": "Portfolio interattivo",
+      "title": "Un portfolio 3D di progetti digitali",
+      "intro": "Il portfolio è tutto qui: sei facce, sei card, progetti reali.",
+      "helper": "Trascina o scorri per esplorare. Hover o focus per mettere in pausa.",
+      "profileTitle": "Andre Rizzo",
+      "profileCopy": "Ingegnere informatico e mezzo. Due dodici. Faccio cose col computer. L'equilibrio è tutto.",
+      "viewProject": "Apri progetto",
+      "balanceCopy": "Finanza personale disegnata per essere chiara, privata e sotto controllo.",
+      "odoraCopy": "Scoperta fragranze, note e confronto prezzi dentro un'esperienza prodotto più pulita.",
+      "generaleCopy": "Esperienza ecommerce connessa a integrazioni e flussi operativi.",
+      "msCopy": "Un posizionamento più netto con un sito più pulito e pronto alla conversione.",
+      "arsieniCopy": "Sito e identità digitale costruiti per risultare premium, diretti e memorabili."
     },
     "tags": {
       "ecommerce": "Ecommerce",
@@ -379,7 +384,6 @@
         "general": "Informazioni generali",
         "business": "Collaborazione business",
         "tech": "Consulenza tech",
-        "hospitality": "Hospitality / Airbnb",
         "other": "Altro"
       },
       "messageLabel": "Messaggio",
@@ -403,10 +407,6 @@
         "project-management": {
           "title": "Project Management",
           "description": "Strutturo scope, milestone e ownership per una delivery affidabile, con ritmo e controllo."
-        },
-        "hospitality": {
-          "title": "Hospitality",
-          "description": "Costruisco posizionamento digitale e sistemi guest-facing per progetti hospitality, con focus su fiducia e conversione."
         }
       }
     },

@@ -50,25 +50,11 @@
 
             <div class="hero-content">
               <h1 data-reveal style="--delay: 0.14s">Andre Rizzo</h1>
-
-              <p class="role-line" data-reveal style="--delay: 0.2s">
-                <span class="sr-only" data-i18n="hero.rolesSrOnly">AI Integration, Digital Advisory, Project Management, Hospitality</span>
-                <button
-                  type="button"
-                  class="role-rotator"
-                  aria-label="Open role details"
-                  data-i18n-aria-label="hero.roleButtonAria"
-                  aria-haspopup="dialog"
-                  data-role-rotator
-                  data-role-modal-trigger
-                  data-track="hero_role_detail"
-                  data-role-keys="ai-integration|digital-advisory|project-management|hospitality"
-                >
-                  <span class="role-rotator-text">AI Integration</span>
-                </button>
+              <p class="hero-bio" data-reveal data-i18n="cube.profileCopy" style="--delay: 0.18s">
+                Ingegnere informatico e mezzo. Due dodici. Faccio cose col computer. L'equilibrio è tutto.
               </p>
 
-              <div class="social-row" data-reveal style="--delay: 0.26s">
+              <div class="social-row" data-reveal style="--delay: 0.24s">
                 <a
                   href="https://instagram.com/ozzirr"
                   class="social-link"
@@ -118,312 +104,179 @@
       </header>
 
       <main>
-        <section class="section section-featured" id="balance">
+        <section class="section section-cube" id="project-cube">
           <div class="container">
-            <article class="featured-card featured-card--banner" data-reveal>
-              <a
-                href="https://ozzirr.github.io/balance/index.html"
-                class="featured-cta"
-                data-external="true"
-                data-track="balance_featured_cta"
-                data-i18n="balance.cta"
-                >Discover Balance</a>
-              <a
-                href="https://ozzirr.github.io/balance/index.html"
-                class="balance-banner-card"
-                data-external="true"
-                data-track="balance_banner_top"
-              >
-                <img
-                  src="assets/projects/balance/banner-balance.webp"
-                  alt="Balance banner preview"
-                  class="balance-banner-image"
-                  loading="lazy"
-                />
-              </a>
-            </article>
-          </div>
-        </section>
+            <div class="cube-layout" data-reveal>
+              <div class="cube-scene" data-cube-scene>
+                <div class="project-cube" data-project-cube style="--cube-rx: -18deg; --cube-ry: 28deg;">
+                  <article class="cube-face cube-face--front">
+                    <div class="cube-face-surface cube-face-surface--profile">
+                      <img
+                        src="assets/andre-rizzo-beach-optimized.webp"
+                        alt="Andre Rizzo"
+                        class="cube-profile-image"
+                        loading="lazy"
+                      />
+                      <div class="cube-face-body cube-face-body--profile">
+                        <p class="cube-face-kicker">Andre Rizzo</p>
+                        <h3 class="cube-face-title" data-i18n="cube.profileTitle">Andre Rizzo</h3>
+                        <p class="cube-face-copy" data-i18n="cube.profileCopy">
+                          Ingegnere informatico e mezzo. Due dodici. Faccio cose col computer. L'equilibrio è tutto.
+                        </p>
+                        <div class="cube-social-row">
+                          <a
+                            href="https://instagram.com/ozzirr"
+                            class="cube-social-link"
+                            aria-label="Instagram"
+                            data-i18n-aria-label="social.instagram"
+                            data-external="true"
+                            data-track="cube_social_instagram"
+                            >Instagram</a
+                          >
+                          <a
+                            href="https://www.linkedin.com/in/andrea-rizzo-ar"
+                            class="cube-social-link"
+                            aria-label="LinkedIn"
+                            data-i18n-aria-label="social.linkedin"
+                            data-external="true"
+                            data-track="cube_social_linkedin"
+                            >LinkedIn</a
+                          >
+                          <a
+                            href="https://t.me/ozzirr"
+                            class="cube-social-link"
+                            aria-label="Telegram"
+                            data-i18n-aria-label="social.telegram"
+                            data-external="true"
+                            data-track="cube_social_telegram"
+                            >Telegram</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </article>
 
-        <section class="section section-selected" id="selected-work">
-          <div class="container">
-            <div class="section-head" data-reveal>
-              <p class="section-kicker" data-i18n="selected.kicker">Hospitality</p>
-              <h2 class="section-title" data-i18n="selected.title">Selected stays</h2>
-            </div>
-            <div class="work-grid">
-              <a
-                href="stay.html?place=torre-lapillo"
-                class="work-card work-card--torrelapillo"
-                data-track="stay_torre_lapillo"
-                data-reveal
-              >
-                <span class="work-thumb" aria-hidden="true"></span>
-                <span class="work-name" data-i18n="selected.torre.title">Torre Lapillo, Italia</span>
-                <span class="work-note" data-i18n="selected.torre.note">Casa Vacanze in Salento a due passi dal mare</span>
-              </a>
+                  <article class="cube-face cube-face--right">
+                    <a
+                      href="https://ozzirr.github.io/balance/index.html"
+                      class="cube-face-surface cube-face-surface--balance"
+                      data-external="true"
+                      data-track="cube_balance"
+                    >
+                      <img
+                        src="assets/projects/balance/banner-balance.webp"
+                        alt="Balance preview"
+                        class="cube-face-cover"
+                        loading="lazy"
+                      />
+                      <div class="cube-face-body">
+                        <p class="cube-face-kicker">APP</p>
+                        <h3 class="cube-face-title">Balance</h3>
+                        <p class="cube-face-copy" data-i18n="cube.balanceCopy">Personal finance designed to feel clear, private and under control.</p>
+                        <span class="cube-face-cta" data-i18n="cube.viewProject">Open project</span>
+                      </div>
+                    </a>
+                  </article>
 
-              <article
-                class="work-card work-card--rome work-card--coming"
-                data-reveal
-                aria-label="Rome listing coming soon"
-                data-i18n-aria-label="selected.rome.aria"
-              >
-                <span class="work-thumb" aria-hidden="true"></span>
-                <span class="work-name" data-i18n="selected.rome.title">Rome, Italia</span>
-                <span class="work-note" data-i18n="selected.rome.note">Coming soon</span>
-              </article>
-            </div>
-          </div>
-        </section>
+                  <article class="cube-face cube-face--back">
+                    <a
+                      href="https://odora.it"
+                      class="cube-face-surface cube-face-surface--odora"
+                      data-external="true"
+                      data-track="cube_odora"
+                    >
+                      <span class="cube-face-logo-badge cube-face-logo-badge--odora">
+                        <span class="cube-face-logo-wordmark">Odora</span>
+                      </span>
+                      <div class="cube-face-body">
+                        <p class="cube-face-kicker">DISCOVERY</p>
+                        <h3 class="cube-face-title">Odora</h3>
+                        <p class="cube-face-copy" data-i18n="cube.odoraCopy">Fragrance discovery, notes and price comparison in a cleaner product experience.</p>
+                        <span class="cube-face-cta" data-i18n="cube.viewProject">Open project</span>
+                      </div>
+                    </a>
+                  </article>
 
-        <section class="section section-ai" id="ai-projects">
-          <div class="container">
-            <div class="section-head" data-reveal>
-              <p class="section-kicker" data-i18n="services.kicker">Core services</p>
-              <h2 class="section-title" data-i18n="services.title">Digital Services</h2>
-            </div>
-            <div class="ai-grid">
-              <a
-                class="ai-card ai-card--systems"
-                href="service.html?type=ai-systems"
-                data-track="service_ai_systems"
-                data-reveal
-              >
-                <span class="ai-tag" data-i18n="services.items.ai.tag">AI</span>
-                <h3 data-i18n="services.items.ai.title">AI Systems</h3>
-                <p data-i18n="services.items.ai.description">AI assistants and integrations for business operations.</p>
-              </a>
-
-              <a
-                class="ai-card ai-card--web"
-                href="service.html?type=web-design"
-                data-track="service_web_design"
-                data-reveal
-              >
-                <span class="ai-tag" data-i18n="services.items.web.tag">WEB</span>
-                <h3 data-i18n="services.items.web.title">Web Design</h3>
-                <p data-i18n="services.items.web.description">Premium websites designed for clarity, trust and conversion.</p>
-              </a>
-
-              <a
-                class="ai-card ai-card--commerce"
-                href="service.html?type=ecommerce"
-                data-track="service_ecommerce"
-                data-reveal
-              >
-                <span class="ai-tag" data-i18n="services.items.ecommerce.tag">ECOMMERCE</span>
-                <h3 data-i18n="services.items.ecommerce.title">E-commerce</h3>
-                <p data-i18n="services.items.ecommerce.description">Online stores built to sell and connect with business workflows.</p>
-              </a>
-
-              <a
-                class="ai-card ai-card--development"
-                href="service.html?type=custom-development"
-                data-track="service_custom_development"
-                data-reveal
-              >
-                <span class="ai-tag" data-i18n="services.items.development.tag">DEVELOPMENT</span>
-                <h3 data-i18n="services.items.development.title">Development</h3>
-                <p data-i18n="services.items.development.description">Custom digital solutions, business tools and tailored implementations.</p>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section class="section section-advisory" id="advisory">
-          <div class="container">
-            <article class="link-group" data-reveal>
-              <h2 class="group-title" data-i18n="advisory.title">Digital Advisory</h2>
-              <div class="carousel-shell" data-carousel data-carousel-auto="true">
-                <div class="cards-carousel" data-carousel-track>
-                  <a
-                    href="https://generale-elettrica.com"
-                    class="link-card"
-                    data-external="true"
-                    data-track="card_generale_elettrica"
-                  >
-                    <span class="card-copy">
-                      <span class="card-logo-wrap">
+                  <article class="cube-face cube-face--left">
+                    <a
+                      href="https://generale-elettrica.com"
+                      class="cube-face-surface cube-face-surface--logo"
+                      data-external="true"
+                      data-track="cube_generale_elettrica"
+                    >
+                      <span class="cube-face-logo-badge">
                         <img
                           src="assets/logos/logo-generale-elettrica-optimized.webp"
                           alt="Generale Elettrica"
-                          class="card-logo"
+                          class="cube-face-logo-image"
                           loading="lazy"
                         />
                       </span>
-                      <span class="card-tags">
-                        <span class="card-tag card-tag--ecommerce" data-i18n="tags.ecommerce">Ecommerce</span>
-                        <span class="card-tag card-tag--integration" data-i18n="tags.integration">Integration</span>
-                      </span>
-                    </span>
-                    <span class="card-action" aria-hidden="true">&#8942;</span>
-                  </a>
+                      <div class="cube-face-body">
+                        <p class="cube-face-kicker">ECOMMERCE</p>
+                        <h3 class="cube-face-title">Generale Elettrica</h3>
+                        <p class="cube-face-copy" data-i18n="cube.generaleCopy">Commerce experience connected with integrations and operational flows.</p>
+                        <span class="cube-face-cta" data-i18n="cube.viewProject">Open project</span>
+                      </div>
+                    </a>
+                  </article>
 
-                  <a
-                    href="https://www.msporte.it"
-                    class="link-card"
-                    data-external="true"
-                    data-track="card_ms_porte"
-                  >
-                    <span class="card-copy">
-                      <span class="card-logo-wrap">
+                  <article class="cube-face cube-face--top">
+                    <a
+                      href="https://www.msporte.it"
+                      class="cube-face-surface cube-face-surface--logo"
+                      data-external="true"
+                      data-track="cube_ms_porte"
+                    >
+                      <span class="cube-face-logo-badge">
                         <img
                           src="assets/logos/logo-ms-porte-optimized.webp"
                           alt="MS Porte"
-                          class="card-logo"
+                          class="cube-face-logo-image"
                           loading="lazy"
                         />
                       </span>
-                      <span class="card-tags">
-                        <span class="card-tag card-tag--web" data-i18n="tags.webDesign">Web design</span>
-                      </span>
-                    </span>
-                    <span class="card-action" aria-hidden="true">&#8942;</span>
-                  </a>
+                      <div class="cube-face-body">
+                        <p class="cube-face-kicker">WEB DESIGN</p>
+                        <h3 class="cube-face-title">MS Porte</h3>
+                        <p class="cube-face-copy" data-i18n="cube.msCopy">A sharper brand presence with a cleaner, conversion-ready website structure.</p>
+                        <span class="cube-face-cta" data-i18n="cube.viewProject">Open project</span>
+                      </div>
+                    </a>
+                  </article>
 
-                  <a href="https://momafruit.it" class="link-card" data-external="true" data-track="card_moma_fruit">
-                    <span class="card-copy">
-                      <span class="card-wordmark" aria-label="Moma Fruit">
-                        <span class="card-wordmark-main">MOMA</span>
-                        <span class="card-wordmark-sub">Fruit</span>
-                      </span>
-                      <span class="card-tags">
-                        <span class="card-tag card-tag--web" data-i18n="tags.webDesign">Web design</span>
-                      </span>
-                    </span>
-                    <span class="card-action" aria-hidden="true">&#8942;</span>
-                  </a>
-
-                  <a
-                    href="https://olioarsieni.it"
-                    class="link-card"
-                    data-external="true"
-                    data-track="card_olio_arsieni"
-                  >
-                    <span class="card-copy">
-                      <span class="card-logo-wrap">
+                  <article class="cube-face cube-face--bottom">
+                    <a
+                      href="https://olioarsieni.it"
+                      class="cube-face-surface cube-face-surface--logo"
+                      data-external="true"
+                      data-track="cube_olio_arsieni"
+                    >
+                      <span class="cube-face-logo-badge">
                         <img
                           src="assets/logos/logo-olio-arsieni-optimized.webp"
                           alt="Olio Arsieni"
-                          class="card-logo"
+                          class="cube-face-logo-image"
                           loading="lazy"
                         />
                       </span>
-                      <span class="card-tags">
-                        <span class="card-tag card-tag--web" data-i18n="tags.webDesign">Web design</span>
-                        <span class="card-tag card-tag--graphic" data-i18n="tags.graphicDesign">Graphic design</span>
-                      </span>
-                    </span>
-                    <span class="card-action" aria-hidden="true">&#8942;</span>
-                  </a>
+                      <div class="cube-face-body">
+                        <p class="cube-face-kicker">BRAND SYSTEM</p>
+                        <h3 class="cube-face-title">Olio Arsieni</h3>
+                        <p class="cube-face-copy" data-i18n="cube.arsieniCopy">Website and digital identity shaped to feel premium, direct and memorable.</p>
+                        <span class="cube-face-cta" data-i18n="cube.viewProject">Open project</span>
+                      </div>
+                    </a>
+                  </article>
                 </div>
               </div>
-            </article>
-          </div>
-        </section>
 
-        <section class="section section-availability" id="availability">
-          <div class="container">
-            <article class="availability-card" data-reveal>
-              <h2 data-i18n="availability.title">Available for selected collaborations</h2>
-              <p data-i18n="availability.subtitle">Tech, digital strategy, and curated projects.</p>
-              <a href="#contact" class="availability-cta" data-track="availability_get_in_touch" data-i18n="availability.cta">Get in touch</a>
-            </article>
-          </div>
-        </section>
-
-        <section class="section section-contact" id="contact">
-          <div class="container">
-            <article class="contact-shell" data-reveal>
-              <h2 class="group-title" data-i18n="contact.title">Let's talk</h2>
-              <form
-                class="contact-form"
-                id="contactForm"
-                action="#"
-                method="post"
-                novalidate
-                data-contact-form
-                data-mailto="mailto:ing.and.rizzo@gmail.com"
-              >
-                <div class="form-grid">
-                  <div class="field">
-                    <label for="fullName" data-i18n="contact.fullNameLabel">Full name</label>
-                    <input
-                      id="fullName"
-                      name="fullName"
-                      type="text"
-                      autocomplete="name"
-                      placeholder="Your full name"
-                      data-i18n-placeholder="contact.fullNamePlaceholder"
-                      required
-                    />
-                  </div>
-
-                  <div class="field">
-                    <label for="requestType" data-i18n="contact.requestTypeLabel">Request type</label>
-                    <select id="requestType" name="requestType" required>
-                      <option value="" selected disabled data-i18n="contact.requestTypePlaceholder">Select a request type</option>
-                      <option value="general" data-i18n="contact.requestTypes.general">General inquiry</option>
-                      <option value="business" data-i18n="contact.requestTypes.business">Business collaboration</option>
-                      <option value="tech" data-i18n="contact.requestTypes.tech">Tech consulting</option>
-                      <option value="hospitality" data-i18n="contact.requestTypes.hospitality">Hospitality / Airbnb</option>
-                      <option value="other" data-i18n="contact.requestTypes.other">Other</option>
-                    </select>
-                  </div>
-
-                </div>
-
-                <div class="field">
-                  <label for="message" data-i18n="contact.messageLabel">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows="6"
-                    placeholder="Share context, goals, and what you need."
-                    data-i18n-placeholder="contact.messagePlaceholder"
-                    required
-                  ></textarea>
-                </div>
-
-                <div class="form-actions">
-                  <button type="submit" class="btn-primary" data-track="submit_contact" data-i18n="contact.submit">Open email draft</button>
-                  <p class="form-helper" data-i18n="contact.helper">Opens your default email app.</p>
-                  <p class="form-status" role="status" aria-live="polite" hidden data-form-status></p>
-                </div>
-              </form>
-            </article>
+              <p class="cube-helper" data-i18n="cube.helper">Drag or swipe to explore. Hover or focus to pause.</p>
+            </div>
           </div>
         </section>
 
       </main>
-
-      <div class="focus-modal" data-focus-modal hidden>
-        <div class="focus-modal-backdrop" data-focus-close></div>
-        <article
-          class="focus-modal-dialog"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="focusModalTitle"
-          aria-describedby="focusModalDescription"
-        >
-          <button
-            type="button"
-            class="focus-modal-close"
-            aria-label="Close details"
-            data-focus-close
-            data-i18n-aria-label="focusModal.closeAria"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <p class="focus-modal-kicker" data-i18n="focusModal.kicker">Role detail</p>
-          <h2 id="focusModalTitle" class="focus-modal-title" data-focus-title>Tech Strategy</h2>
-          <p id="focusModalDescription" class="focus-modal-copy" data-focus-description></p>
-          <a href="#contact" class="focus-modal-cta" data-focus-cta data-track="focus_modal_lets_talk" data-i18n="focusModal.cta"
-            >Let's talk</a
-          >
-        </article>
-      </div>
 
       <footer class="site-footer">
         <div class="container footer-inner">
