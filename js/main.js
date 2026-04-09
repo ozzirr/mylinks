@@ -32,6 +32,46 @@
     document.body.classList.add("reduce-motion");
   }
 
+  let scrollLockY = 0;
+  let scrollLockDepth = 0;
+
+  const lockPageScroll = () => {
+    if (scrollLockDepth > 0) {
+      scrollLockDepth += 1;
+      return;
+    }
+
+    scrollLockY = window.scrollY || window.pageYOffset || 0;
+    scrollLockDepth = 1;
+    document.documentElement.classList.add("cube-scroll-locked");
+    document.body.classList.add("cube-scroll-locked");
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollLockY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  };
+
+  const unlockPageScroll = () => {
+    if (scrollLockDepth === 0) {
+      return;
+    }
+
+    scrollLockDepth -= 1;
+    if (scrollLockDepth > 0) {
+      return;
+    }
+
+    document.documentElement.classList.remove("cube-scroll-locked");
+    document.body.classList.remove("cube-scroll-locked");
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, scrollLockY);
+  };
+
   const revealElements = [...document.querySelectorAll("[data-reveal]")];
 
   const roleKeyFromLabel = (label = "") => {
@@ -210,6 +250,7 @@
   const initProjectCube = () => {
     const scene = document.querySelector("[data-cube-scene]");
     const cube = document.querySelector("[data-project-cube]");
+    const loading = document.querySelector("[data-cube-loading]");
     if (!scene || !cube) {
       return;
     }
@@ -227,12 +268,59 @@
     let pausedByFocus = false;
     let pausedByHover = false;
 
+    const faceImages = [...scene.querySelectorAll("img")];
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
     const applyRotation = () => {
       cube.style.setProperty("--cube-rx", `${rotateX.toFixed(2)}deg`);
       cube.style.setProperty("--cube-ry", `${rotateY.toFixed(2)}deg`);
     };
+
+    const setReady = () => {
+      scene.classList.remove("is-loading");
+      scene.setAttribute("aria-busy", "false");
+      if (loading) {
+        loading.setAttribute("hidden", "");
+      }
+    };
+
+    const waitForImage = (image) =>
+      new Promise((resolve) => {
+        const finish = () => {
+          if (typeof image.decode === "function") {
+            image.decode().catch(() => {}).finally(resolve);
+            return;
+          }
+          resolve();
+        };
+
+        if (image.complete) {
+          if (image.naturalWidth > 0) {
+            finish();
+            return;
+          }
+          resolve();
+          return;
+        }
+
+        const cleanup = () => {
+          image.removeEventListener("load", onLoad);
+          image.removeEventListener("error", onError);
+        };
+
+        const onLoad = () => {
+          cleanup();
+          finish();
+        };
+
+        const onError = () => {
+          cleanup();
+          resolve();
+        };
+
+        image.addEventListener("load", onLoad, { once: true });
+        image.addEventListener("error", onError, { once: true });
+      });
 
     const releasePauseSoon = () => {
       pauseUntil = window.performance.now() + 2200;
@@ -258,10 +346,17 @@
     const endDrag = () => {
       dragging = false;
       pointerId = null;
+      unlockPageScroll();
       releasePauseSoon();
     };
 
     applyRotation();
+
+    Promise.all(faceImages.map(waitForImage)).finally(() => {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(setReady);
+      });
+    });
 
     scene.addEventListener("mouseenter", () => {
       pausedByHover = true;
@@ -293,6 +388,7 @@
       lastX = event.clientX;
       lastY = event.clientY;
       pausedByHover = true;
+      lockPageScroll();
       cube.classList.add("is-dragging");
       scene.setPointerCapture(event.pointerId);
     });
@@ -306,6 +402,10 @@
       const deltaY = event.clientY - lastY;
       if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
         moved = true;
+      }
+
+      if (event.cancelable) {
+        event.preventDefault();
       }
 
       rotateY += deltaX * 0.42;
@@ -354,6 +454,7 @@
       if (rafId !== null) {
         window.cancelAnimationFrame(rafId);
       }
+      unlockPageScroll();
     });
   };
 

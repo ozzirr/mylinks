@@ -107,7 +107,11 @@
         <section class="section section-cube" id="project-cube">
           <div class="container">
             <div class="cube-layout" data-reveal>
-              <div class="cube-scene" data-cube-scene>
+              <div class="cube-scene is-loading" data-cube-scene aria-busy="true">
+                <div class="cube-loading" data-cube-loading aria-hidden="true">
+                  <span class="cube-loading-spinner"></span>
+                  <span class="cube-loading-spinner cube-loading-spinner--delay"></span>
+                </div>
                 <div class="project-cube" data-project-cube style="--cube-rx: -18deg; --cube-ry: 28deg;">
                   <article class="cube-face cube-face--front">
                     <div class="cube-face-surface cube-face-surface--profile">

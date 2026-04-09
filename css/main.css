@@ -446,6 +446,7 @@ h1 {
   height: var(--cube-size);
   perspective: 1600px;
   perspective-origin: 50% 42%;
+  isolation: isolate;
 }
 
 .project-cube {
@@ -456,6 +457,63 @@ h1 {
   transform: rotateX(var(--cube-rx, -18deg)) rotateY(var(--cube-ry, 28deg));
   will-change: transform;
   touch-action: none;
+  transition: opacity 280ms ease;
+}
+
+.cube-scene.is-loading .project-cube {
+  opacity: 0;
+}
+
+.cube-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  transition:
+    opacity 240ms ease,
+    visibility 240ms ease;
+}
+
+.cube-scene:not(.is-loading) .cube-loading {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cube-loading::before {
+  content: "";
+  position: absolute;
+  inset: 0.6rem;
+  border-radius: 30px;
+  background:
+    linear-gradient(165deg, rgba(20, 15, 24, 0.9), rgba(13, 11, 17, 0.96)),
+    radial-gradient(circle at 50% 22%, rgba(214, 172, 150, 0.12), transparent 36%);
+  border: 1px solid rgba(217, 171, 146, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 20px 38px rgba(0, 0, 0, 0.24);
+}
+
+.cube-loading-spinner {
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: 1px solid rgba(231, 191, 170, 0.26);
+  border-top-color: rgba(231, 191, 170, 0.92);
+  border-right-color: rgba(108, 179, 167, 0.72);
+  animation: cube-loader-spin 1.05s linear infinite;
+}
+
+.cube-loading-spinner--delay {
+  width: 106px;
+  height: 106px;
+  border-color: rgba(231, 191, 170, 0.12);
+  border-bottom-color: rgba(231, 191, 170, 0.5);
+  border-left-color: rgba(108, 179, 167, 0.28);
+  animation-duration: 1.45s;
+  animation-direction: reverse;
 }
 
 .project-cube.is-dragging,
@@ -757,6 +815,15 @@ h1 {
   text-align: center;
 }
 
+html.cube-scroll-locked,
+body.cube-scroll-locked {
+  overscroll-behavior: none;
+}
+
+body.cube-scroll-locked {
+  touch-action: none;
+}
+
 .featured-banner-stack {
   display: grid;
   gap: 1rem;
@@ -995,14 +1062,6 @@ h1 {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.work-card--balance .work-thumb {
-  background-image: linear-gradient(150deg, rgba(15, 11, 17, 0.2), rgba(15, 11, 17, 0.7)), url("../assets/projects/balance-cover.svg");
-}
-
-.work-card--torrelapillo .work-thumb {
-  background-image: linear-gradient(150deg, rgba(15, 11, 17, 0.12), rgba(15, 11, 17, 0.6)), url("../assets/projects/torrelapillo-cover.svg");
-}
-
 .work-card--rome .work-thumb {
   background-image:
     linear-gradient(150deg, rgba(16, 12, 20, 0.16), rgba(16, 12, 20, 0.72)),
@@ -1020,14 +1079,6 @@ h1 {
   border-color: var(--line);
   background: rgba(18, 14, 20, 0.74);
   box-shadow: none;
-}
-
-.work-card--generale .work-thumb {
-  background-image: linear-gradient(150deg, rgba(15, 11, 17, 0.12), rgba(15, 11, 17, 0.64)), url("../assets/projects/generaleelettrica-cover.svg");
-}
-
-.work-card--msporte .work-thumb {
-  background-image: linear-gradient(150deg, rgba(15, 11, 17, 0.16), rgba(15, 11, 17, 0.66)), url("../assets/projects/msporte-cover.svg");
 }
 
 .section-ai {
@@ -1106,22 +1157,6 @@ h1 {
   color: var(--text-soft);
   font-size: 0.85rem;
   line-height: 1.42;
-}
-
-.ai-card--systems::after {
-  background-image: url("../assets/projects/ai-systems-pattern.svg");
-}
-
-.ai-card--web::after {
-  background-image: url("../assets/projects/workflow-automation-pattern.svg");
-}
-
-.ai-card--commerce::after {
-  background-image: url("../assets/projects/assistants-pattern.svg");
-}
-
-.ai-card--development::after {
-  background-image: url("../assets/projects/process-design-pattern.svg");
 }
 
 .ai-card:hover,
@@ -2599,6 +2634,16 @@ body.reduce-motion [data-reveal] {
   45%,
   100% {
     transform: translateX(140%);
+  }
+}
+
+@keyframes cube-loader-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 
