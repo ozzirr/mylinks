@@ -216,7 +216,7 @@
     }
 
     let rotateX = -18;
-    let rotateY = 28;
+    let rotateY = 0;
     let dragging = false;
     let moved = false;
     let pointerId = null;
@@ -328,6 +328,18 @@
       }, reduceMotion ? 0 : 900);
     };
 
+    const resetToFace = (faceName) => {
+      const target = faceTargets[faceName];
+      if (!target) {
+        return;
+      }
+      pauseUntil = window.performance.now() + 4200;
+      rotateX = target.x;
+      rotateY = target.y;
+      cube.classList.remove("is-snapping");
+      applyRotation();
+    };
+
     const onFrame = (timestamp) => {
       if (!previousTimestamp) {
         previousTimestamp = timestamp;
@@ -336,7 +348,8 @@
       const delta = timestamp - previousTimestamp;
       previousTimestamp = timestamp;
 
-      const shouldAutoRotate = !reduceMotion && !dragging && !pausedByFocus && !pausedByHover && timestamp > pauseUntil;
+      const cubeHidden = document.body.classList.contains("is-cube-stage-closed");
+      const shouldAutoRotate = !reduceMotion && !dragging && !pausedByFocus && !pausedByHover && !cubeHidden && timestamp > pauseUntil;
       if (shouldAutoRotate) {
         rotateY = wrapAngle(rotateY + delta * 0.016);
         applyRotation();
@@ -480,7 +493,8 @@
     rafId = window.requestAnimationFrame(onFrame);
     window.ProfileHub = window.ProfileHub || {};
     window.ProfileHub.cube = {
-      rotateToFace
+      rotateToFace,
+      resetToFace
     };
     window.addEventListener("beforeunload", () => {
       if (rafId !== null) {
@@ -801,7 +815,7 @@
 
     const isOpen = () => body.classList.contains("is-cube-stage-open");
 
-    const openCubeStage = ({ scroll = true } = {}) => {
+    const openCubeStage = ({ scroll = true, face = null } = {}) => {
       const alreadyOpen = isOpen();
 
       if (!alreadyOpen) {
@@ -819,6 +833,12 @@
           body.classList.remove("is-cube-stage-opening");
           openingResetId = null;
         }, reduceMotion ? 0 : 820);
+
+        const targetFace = face || "balance";
+        const cubeApi = window.ProfileHub?.cube;
+        if (cubeApi && typeof cubeApi.resetToFace === "function") {
+          cubeApi.resetToFace(targetFace);
+        }
       }
 
       if (scroll) {
@@ -847,6 +867,10 @@
     };
 
     trigger.addEventListener("click", () => {
+      const cubeApi = window.ProfileHub?.cube;
+      if (cubeApi && typeof cubeApi.resetToFace === "function") {
+        cubeApi.resetToFace("balance");
+      }
       openCubeStage({ scroll: true });
     });
 
