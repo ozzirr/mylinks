@@ -231,7 +231,7 @@
     let loadFallbackId = null;
 
     const faceImages = [...scene.querySelectorAll("img")];
-    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    const wrapAngle = (value) => ((((value + 180) % 360) + 360) % 360) - 180;
 
     const applyRotation = () => {
       cube.style.setProperty("--cube-rx", `${rotateX.toFixed(2)}deg`);
@@ -306,7 +306,7 @@
 
       const shouldAutoRotate = !reduceMotion && !dragging && !pausedByFocus && !pausedByHover && timestamp > pauseUntil;
       if (shouldAutoRotate) {
-        rotateY += delta * 0.016;
+        rotateY = wrapAngle(rotateY + delta * 0.016);
         applyRotation();
       }
 
@@ -380,8 +380,8 @@
         event.preventDefault();
       }
 
-      rotateY += deltaX * 0.42;
-      rotateX = clamp(rotateX - deltaY * 0.32, -52, 52);
+      rotateY = wrapAngle(rotateY + deltaX * 0.42);
+      rotateX = wrapAngle(rotateX - deltaY * 0.32);
       lastX = event.clientX;
       lastY = event.clientY;
       applyRotation();
