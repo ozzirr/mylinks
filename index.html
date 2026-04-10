@@ -104,22 +104,6 @@
             </div>
           </section>
 
-          <div class="hero-entry" data-reveal style="--delay: 0.3s">
-            <button type="button" class="hero-cube-trigger" data-cube-stage-trigger aria-controls="project-cube" data-i18n-aria-label="hero.cubeTriggerAria">
-              <span class="hero-cube-trigger-copy">
-                <span class="hero-cube-trigger-kicker" data-i18n="hero.cubeTriggerKicker">Portfolio</span>
-                <span class="hero-cube-trigger-title" data-i18n="hero.cubeTriggerTitle">Open the cube</span>
-              </span>
-
-              <span class="hero-mini-cube-scene" aria-hidden="true">
-                <span class="hero-mini-cube">
-                  <span class="hero-mini-cube-face hero-mini-cube-face--front"></span>
-                  <span class="hero-mini-cube-face hero-mini-cube-face--right"></span>
-                  <span class="hero-mini-cube-face hero-mini-cube-face--top"></span>
-                </span>
-              </span>
-            </button>
-          </div>
         </div>
       </header>
 
@@ -131,6 +115,7 @@
               <span data-i18n="cube.backToHero">Back</span>
             </button>
             <div class="cube-layout" data-reveal>
+              <p class="cube-hero-kicker" data-i18n="hero.cubeTriggerKicker">Portfolio</p>
               <div class="cube-scene is-loading" data-cube-scene aria-busy="true">
                 <div class="cube-loading" data-cube-loading aria-hidden="true">
                   <span class="cube-loading-spinner"></span>
@@ -259,14 +244,16 @@
 
                   <article class="cube-face cube-face--bottom">
                     <div class="cube-face-surface cube-face-surface--contact">
-                      <form class="cube-contact-form" data-contact-form data-mailto="mailto:ing.and.rizzo@gmail.com" autocomplete="off">
+                      <form class="cube-contact-form" data-cube-contact-form autocomplete="off">
                         <p class="cube-face-kicker" data-i18n="cube.contactKicker">CONTACT</p>
                         <input type="text" name="fullName" class="cube-contact-input" placeholder="Nome" required data-i18n-placeholder="contact.fullNamePlaceholder" data-cube-interactive />
-                        <textarea name="message" class="cube-contact-input cube-contact-textarea" placeholder="Il tuo messaggio..." rows="3" required data-i18n-placeholder="contact.messagePlaceholder" data-cube-interactive></textarea>
+                        <input type="email" name="email" class="cube-contact-input" placeholder="Email" required data-i18n-placeholder="cube.contactEmailPlaceholder" data-cube-interactive />
+                        <input type="tel" name="phone" class="cube-contact-input" placeholder="Telefono" data-i18n-placeholder="cube.contactPhonePlaceholder" data-cube-interactive />
+                        <textarea name="message" class="cube-contact-input cube-contact-textarea" placeholder="Il tuo messaggio..." rows="2" required data-i18n-placeholder="contact.messagePlaceholder" data-cube-interactive></textarea>
                         <button type="submit" class="cube-contact-submit" data-cube-interactive>
-                          <span data-i18n="contact.submit">Apri bozza email</span>
+                          <span data-i18n="cube.contactSubmit">Invia</span>
                         </button>
-                        <p class="cube-contact-hint" data-i18n="contact.helper" data-form-status hidden></p>
+                        <p class="cube-contact-hint" data-cube-contact-status hidden></p>
                       </form>
                     </div>
                   </article>

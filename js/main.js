@@ -350,8 +350,8 @@
       const delta = timestamp - previousTimestamp;
       previousTimestamp = timestamp;
 
-      const cubeHidden = document.body.classList.contains("is-cube-stage-closed");
-      const shouldAutoRotate = !reduceMotion && !dragging && !pausedByFocus && !pausedByHover && !cubeHidden && timestamp > pauseUntil;
+      const isClosed = document.body.classList.contains("is-cube-stage-closed");
+      const shouldAutoRotate = !reduceMotion && !dragging && (isClosed || (!pausedByFocus && !pausedByHover)) && timestamp > pauseUntil;
       if (shouldAutoRotate) {
         rotateY = wrapAngle(rotateY + delta * 0.016);
         applyRotation();
@@ -394,6 +394,10 @@
     });
 
     scene.addEventListener("pointerdown", (event) => {
+      if (document.body.classList.contains("is-cube-stage-closed")) {
+        return;
+      }
+
       if (!event.isPrimary) {
         return;
       }
@@ -813,11 +817,11 @@
 
   const initCubeStage = () => {
     const body = document.body;
-    const trigger = document.querySelector("[data-cube-stage-trigger]");
     const closeBtn = document.querySelector("[data-cube-stage-close]");
     const cubeSection = document.getElementById("project-cube");
+    const cubeScene = document.querySelector("[data-cube-scene]");
 
-    if (!body || !trigger || !cubeSection) {
+    if (!body || !cubeSection) {
       return;
     }
 
@@ -844,10 +848,12 @@
           openingResetId = null;
         }, reduceMotion ? 0 : 820);
 
-        const targetFace = face || "balance";
-        const cubeApi = window.ProfileHub?.cube;
-        if (cubeApi && typeof cubeApi.resetToFace === "function") {
-          cubeApi.resetToFace(targetFace);
+        if (face !== false) {
+          const targetFace = face || "balance";
+          const cubeApi = window.ProfileHub?.cube;
+          if (cubeApi && typeof cubeApi.resetToFace === "function") {
+            cubeApi.resetToFace(targetFace);
+          }
         }
       }
 
@@ -876,13 +882,14 @@
       });
     };
 
-    trigger.addEventListener("click", () => {
-      const cubeApi = window.ProfileHub?.cube;
-      if (cubeApi && typeof cubeApi.resetToFace === "function") {
-        cubeApi.resetToFace("balance");
-      }
-      openCubeStage({ scroll: true });
-    });
+    if (cubeScene) {
+      cubeScene.addEventListener("click", () => {
+        if (!body.classList.contains("is-cube-stage-closed")) {
+          return;
+        }
+        openCubeStage({ scroll: true, face: false });
+      });
+    }
 
     if (closeBtn) {
       closeBtn.addEventListener("click", closeCubeStage);
@@ -1757,6 +1764,79 @@
     });
   };
 
+  const initCubeContactForm = () => {
+    const form = document.querySelector("[data-cube-contact-form]");
+    if (!form) {
+      return;
+    }
+
+    const WEBHOOK_URL = "https://n8n.andrerizzo.com/webhook/contact";
+    const fields = [...form.querySelectorAll("input, textarea")];
+    const status = form.querySelector("[data-cube-contact-status]");
+    const submitBtn = form.querySelector("[type=submit]");
+
+    const setStatus = (state, message) => {
+      if (!status) {
+        return;
+      }
+      status.hidden = false;
+      status.dataset.state = state;
+      status.textContent = message;
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const allValid = fields.every((f) => f.checkValidity());
+      if (!allValid) {
+        fields.forEach((f) => {
+          if (!f.checkValidity()) {
+            f.classList.add("field-error");
+          }
+        });
+        setStatus("error", t("cube.contactError", "Compila tutti i campi richiesti."));
+        return;
+      }
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      submitBtn.disabled = true;
+      setStatus("sending", t("cube.contactSending", "Invio in corso..."));
+
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: String(data.fullName || "").trim(),
+            email: String(data.email || "").trim(),
+            phone: String(data.phone || "").trim(),
+            message: String(data.message || "").trim(),
+            source: "mylinks-cube"
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        setStatus("success", t("cube.contactSuccess", "Messaggio inviato! Ti risponderò presto."));
+        form.reset();
+        fields.forEach((f) => f.classList.remove("field-error"));
+      } catch (_err) {
+        setStatus("error", t("cube.contactFail", "Errore nell'invio. Riprova."));
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    fields.forEach((field) => {
+      field.addEventListener("input", () => {
+        field.classList.remove("field-error");
+      });
+    });
+  };
+
   const init = async () => {
     if (i18n && typeof i18n.initializeI18n === "function") {
       await i18n.initializeI18n();
@@ -1774,6 +1854,7 @@
     initCarousels();
     initFocusModal();
     initContactForm();
+    initCubeContactForm();
     initStayPage();
     initFooterYear();
     initTrackingStub();
