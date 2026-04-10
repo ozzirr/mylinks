@@ -15,6 +15,9 @@
     "roleButtonAria": "Apri dettaglio ruolo",
     "bioLead": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di",
     "bioConnector": "e",
+    "cubeTriggerKicker": "Portfolio",
+    "cubeTriggerTitle": "Apri il cubo",
+    "cubeTriggerAria": "Apri il portfolio 3D",
     "roles": [
       "Integrazione AI",
       "Consulenza Digitale",
@@ -23,8 +26,8 @@
   },
   "social": {
     "instagram": "Instagram",
-    "linkedin": "LinkedIn",
-    "telegram": "Telegram"
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
   },
   "snake": {
     "kicker": "Mini game",
@@ -83,6 +86,7 @@
     "kicker": "Portfolio interattivo",
     "title": "Un portfolio 3D di progetti digitali",
     "intro": "Il portfolio è tutto qui: sei facce, sei card, progetti reali.",
+    "backToHero": "Indietro",
     "helper": "Trascina o scorri per esplorare. Hover o focus per mettere in pausa.",
     "profileTitle": "Andre Rizzo",
     "profileCopy": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di Balance App e Odora.it",

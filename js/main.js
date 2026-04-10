@@ -753,9 +753,6 @@
       event.stopPropagation();
     };
 
-    root.addEventListener("pointerdown", stopCubeInteraction);
-    root.addEventListener("click", stopCubeInteraction);
-
     actionButton.addEventListener("click", (event) => {
       event.preventDefault();
       stopCubeInteraction(event);
@@ -790,13 +787,97 @@
     frameId = window.requestAnimationFrame(onFrame);
   };
 
+  const initCubeStage = () => {
+    const body = document.body;
+    const trigger = document.querySelector("[data-cube-stage-trigger]");
+    const closeBtn = document.querySelector("[data-cube-stage-close]");
+    const cubeSection = document.getElementById("project-cube");
+
+    if (!body || !trigger || !cubeSection) {
+      return;
+    }
+
+    let openingResetId = null;
+
+    const isOpen = () => body.classList.contains("is-cube-stage-open");
+
+    const openCubeStage = ({ scroll = true } = {}) => {
+      const alreadyOpen = isOpen();
+
+      if (!alreadyOpen) {
+        body.classList.remove("is-cube-stage-closed");
+        body.classList.add("is-cube-stage-opening");
+        window.requestAnimationFrame(() => {
+          body.classList.add("is-cube-stage-open");
+        });
+
+        if (openingResetId !== null) {
+          window.clearTimeout(openingResetId);
+        }
+
+        openingResetId = window.setTimeout(() => {
+          body.classList.remove("is-cube-stage-opening");
+          openingResetId = null;
+        }, reduceMotion ? 0 : 820);
+      }
+
+      if (scroll) {
+        const delay = alreadyOpen ? 0 : reduceMotion ? 0 : 100;
+        window.setTimeout(() => {
+          window.scrollTo({
+            top: 0,
+            behavior: reduceMotion ? "auto" : "smooth"
+          });
+        }, delay);
+      }
+
+      return { alreadyOpen };
+    };
+
+    const closeCubeStage = () => {
+      if (!isOpen()) {
+        return;
+      }
+      body.classList.remove("is-cube-stage-open", "is-cube-stage-opening");
+      body.classList.add("is-cube-stage-closed");
+      window.scrollTo({
+        top: 0,
+        behavior: reduceMotion ? "auto" : "smooth"
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      openCubeStage({ scroll: true });
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeCubeStage);
+    }
+
+    window.ProfileHub = window.ProfileHub || {};
+    window.ProfileHub.stage = {
+      isOpen,
+      openCubeStage,
+      closeCubeStage
+    };
+
+    if (window.location.hash === "#project-cube") {
+      openCubeStage({ scroll: false });
+    }
+
+    window.addEventListener("beforeunload", () => {
+      if (openingResetId !== null) {
+        window.clearTimeout(openingResetId);
+      }
+    });
+  };
+
   const initHeroCubeLinks = () => {
     const links = [...document.querySelectorAll("[data-cube-target]")];
     if (!links.length) {
       return;
     }
 
-    const cubeSection = document.getElementById("project-cube");
     let pendingRotationId = null;
 
     links.forEach((link) => {
@@ -804,14 +885,13 @@
         event.preventDefault();
         const face = link.getAttribute("data-cube-target");
         const cubeApi = window.ProfileHub?.cube;
+        const stageApi = window.ProfileHub?.stage;
         if (!face || !cubeApi || typeof cubeApi.rotateToFace !== "function") {
           return;
         }
 
-        cubeSection?.scrollIntoView({
-          behavior: reduceMotion ? "auto" : "smooth",
-          block: "center"
-        });
+        const wasClosed = stageApi && typeof stageApi.isOpen === "function" ? !stageApi.isOpen() : false;
+        stageApi?.openCubeStage({ scroll: true });
 
         if (pendingRotationId !== null) {
           window.clearTimeout(pendingRotationId);
@@ -827,7 +907,7 @@
           return;
         }
 
-        pendingRotationId = window.setTimeout(rotate, 140);
+        pendingRotationId = window.setTimeout(rotate, wasClosed ? 420 : 140);
       });
     });
   };
@@ -1654,6 +1734,7 @@
     initHeroParallax();
     initProjectCube();
     initCubeSnake();
+    initCubeStage();
     initHeroCubeLinks();
     initExternalLinks();
     initCarousels();

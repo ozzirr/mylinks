@@ -17,6 +17,9 @@
       "roleButtonAria": "Open role details",
       "bioLead": "Two twelve 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder of",
       "bioConnector": "and",
+      "cubeTriggerKicker": "Portfolio",
+      "cubeTriggerTitle": "Open the cube",
+      "cubeTriggerAria": "Open the 3D portfolio",
       "roles": [
         "AI Integration",
         "Digital Advisory",
@@ -25,8 +28,8 @@
     },
     "social": {
       "instagram": "Instagram",
-      "linkedin": "LinkedIn",
-      "telegram": "Telegram"
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
     },
     "snake": {
       "kicker": "Mini game",
@@ -85,6 +88,7 @@
       "kicker": "Interactive portfolio",
       "title": "A 3D portfolio of digital projects",
       "intro": "The portfolio lives here: six faces, six cards, real projects.",
+      "backToHero": "Back",
       "helper": "Drag or swipe to explore. Hover or focus to pause.",
       "profileTitle": "Andre Rizzo",
       "profileCopy": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di Balance App e Odora.it",
@@ -315,6 +319,9 @@
       "roleButtonAria": "Apri dettaglio ruolo",
       "bioLead": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di",
       "bioConnector": "e",
+      "cubeTriggerKicker": "Portfolio",
+      "cubeTriggerTitle": "Apri il cubo",
+      "cubeTriggerAria": "Apri il portfolio 3D",
       "roles": [
         "Integrazione AI",
         "Consulenza Digitale",
@@ -323,8 +330,8 @@
     },
     "social": {
       "instagram": "Instagram",
-      "linkedin": "LinkedIn",
-      "telegram": "Telegram"
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
     },
     "snake": {
       "kicker": "Mini game",
@@ -383,6 +390,7 @@
       "kicker": "Portfolio interattivo",
       "title": "Un portfolio 3D di progetti digitali",
       "intro": "Il portfolio è tutto qui: sei facce, sei card, progetti reali.",
+      "backToHero": "Indietro",
       "helper": "Trascina o scorri per esplorare. Hover o focus per mettere in pausa.",
       "profileTitle": "Andre Rizzo",
       "profileCopy": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di Balance App e Odora.it",

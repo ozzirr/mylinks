@@ -26,7 +26,7 @@
     <script defer src="js/i18n.js"></script>
     <script defer src="js/main.js"></script>
   </head>
-  <body data-page="home" data-i18n-title-key="meta.homeTitle" data-i18n-description-key="meta.homeDescription">
+  <body class="is-cube-stage-closed" data-page="home" data-i18n-title-key="meta.homeTitle" data-i18n-description-key="meta.homeDescription">
     <div class="page-shell">
       <div class="lang-switch" data-lang-switch data-i18n-aria-label="nav.languageSwitcher">
         <button type="button" class="lang-switch-btn" data-lang-option="it">IT</button>
@@ -87,28 +87,49 @@
                   </svg>
                 </a>
                 <a
-                  href="https://t.me/ozzirr"
+                  href="https://github.com/ozzirr"
                   class="social-link"
-                  aria-label="Telegram"
-                  data-i18n-aria-label="social.telegram"
+                  aria-label="GitHub"
+                  data-i18n-aria-label="social.github"
                   data-external="true"
-                  data-track="social_telegram"
+                  data-track="social_github"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path
-                      d="M20.5 3.6 2.9 10.4c-1.2.5-1.2 1.2-.2 1.5l4.5 1.4 1.7 5.3c.2.6.1.9.7.9.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.4.3 1.6-.8l2.8-13.4c.3-1.3-.5-1.9-1.5-1.5ZM8 12.9l10.2-6.4c.5-.3 1 0 .6.4L10.4 14l-.3 3.1-2.1-4.2Z"
+                      d="M12 .5C5.65.5.5 5.66.5 12.02c0 5.09 3.3 9.4 7.88 10.92.58.1.79-.25.79-.56 0-.28-.01-1.2-.02-2.17-3.21.7-3.89-1.37-3.89-1.37-.52-1.34-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.72-1.55-2.56-.29-5.26-1.28-5.26-5.73 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.46-2.7 5.43-5.28 5.72.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.67.8.56A11.53 11.53 0 0 0 23.5 12C23.5 5.66 18.35.5 12 .5Z"
                     />
                   </svg>
                 </a>
               </div>
             </div>
           </section>
+
+          <div class="hero-entry" data-reveal style="--delay: 0.3s">
+            <button type="button" class="hero-cube-trigger" data-cube-stage-trigger aria-controls="project-cube" data-i18n-aria-label="hero.cubeTriggerAria">
+              <span class="hero-cube-trigger-copy">
+                <span class="hero-cube-trigger-kicker" data-i18n="hero.cubeTriggerKicker">Portfolio</span>
+                <span class="hero-cube-trigger-title" data-i18n="hero.cubeTriggerTitle">Open the cube</span>
+              </span>
+
+              <span class="hero-mini-cube-scene" aria-hidden="true">
+                <span class="hero-mini-cube">
+                  <span class="hero-mini-cube-face hero-mini-cube-face--front"></span>
+                  <span class="hero-mini-cube-face hero-mini-cube-face--right"></span>
+                  <span class="hero-mini-cube-face hero-mini-cube-face--top"></span>
+                </span>
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 
-      <main>
+      <main class="portfolio-main">
         <section class="section section-cube" id="project-cube">
           <div class="container">
+            <button type="button" class="cube-back-trigger" data-cube-stage-close>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>
+              <span data-i18n="cube.backToHero">Back</span>
+            </button>
             <div class="cube-layout" data-reveal>
               <div class="cube-scene is-loading" data-cube-scene aria-busy="true">
                 <div class="cube-loading" data-cube-loading aria-hidden="true">
@@ -198,7 +219,7 @@
                   </article>
 
                   <article class="cube-face cube-face--top">
-                    <div class="cube-face-surface cube-face-surface--snake" data-cube-interactive data-snake-game>
+                    <div class="cube-face-surface cube-face-surface--snake" data-snake-game>
                       <div class="cube-snake-card">
                         <div class="cube-snake-head">
                           <p class="cube-face-kicker" data-i18n="snake.kicker">MINI GAME</p>
@@ -212,6 +233,7 @@
                           <canvas
                             class="cube-snake-canvas"
                             data-snake-canvas
+                            data-cube-interactive
                             width="216"
                             height="216"
                             tabindex="0"
@@ -227,7 +249,7 @@
                         </div>
 
                         <div class="cube-snake-actions">
-                          <button type="button" class="cube-snake-button cube-snake-button--primary" data-snake-action>Start</button>
+                          <button type="button" class="cube-snake-button cube-snake-button--primary" data-snake-action data-cube-interactive>Start</button>
                           <p class="cube-snake-tap-hint" data-i18n="snake.tapHint">Tap to jump</p>
                         </div>
                       </div>
