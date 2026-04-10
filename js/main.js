@@ -233,6 +233,10 @@
     const faceImages = [...scene.querySelectorAll("img")];
     const wrapAngle = (value) => ((((value + 180) % 360) + 360) % 360) - 180;
 
+    faceImages.forEach((image) => {
+      image.setAttribute("draggable", "false");
+    });
+
     const applyRotation = () => {
       cube.style.setProperty("--cube-rx", `${rotateX.toFixed(2)}deg`);
       cube.style.setProperty("--cube-ry", `${rotateY.toFixed(2)}deg`);
@@ -431,6 +435,10 @@
       },
       true
     );
+
+    scene.addEventListener("dragstart", (event) => {
+      event.preventDefault();
+    });
 
     rafId = window.requestAnimationFrame(onFrame);
     window.addEventListener("beforeunload", () => {

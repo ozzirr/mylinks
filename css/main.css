@@ -470,6 +470,14 @@ h1 {
   transition: opacity 280ms ease;
 }
 
+.cube-scene img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}
+
 .cube-scene.is-loading .project-cube {
   opacity: 0;
 }
