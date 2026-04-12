@@ -2,28 +2,28 @@
   window.ProfileLocaleBundles = {
   "en": {
     "meta": {
-      "homeTitle": "Andre Rizzo | Digital Card",
-      "homeDescription": "Andre Rizzo. Portfolio of digital products, websites, and selected project work.",
-      "stayTitle": "Stay | Andre Rizzo",
+      "homeTitle": "2erre | Software Systems, AI Automation, Web Experiences",
+      "homeDescription": "2erre.online designs websites, AI systems, automations, and digital products for businesses.",
+      "stayTitle": "Stay | 2erre",
       "stayDescription": "Curated hospitality stay details, amenities and availability request.",
-      "stayPageTitle": "{stayTitle} | Andre Rizzo",
+      "stayPageTitle": "{stayTitle} | 2erre",
       "stayPageDescription": "{subtitle} {shortDescription}"
     },
     "nav": {
       "languageSwitcher": "Language switcher"
     },
     "hero": {
-      "rolesSrOnly": "AI Integration, Digital Advisory, Project Management",
+      "rolesSrOnly": "Software Systems, AI Automation, Web Experiences",
       "roleButtonAria": "Open role details",
-      "bioLead": "Two twelve 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder of",
-      "bioConnector": "and",
+      "bioLead": "2erre.online designs websites, AI systems, automations, and digital products for businesses that want to move better online.",
+      "bioConnector": "",
       "cubeTriggerKicker": "Portfolio",
       "cubeTriggerTitle": "Open the cube",
       "cubeTriggerAria": "Open the 3D portfolio",
       "roles": [
-        "AI Integration",
-        "Digital Advisory",
-        "Project Management"
+        "Software Systems",
+        "AI Automation",
+        "Web Experiences"
       ]
     },
     "social": {
@@ -35,7 +35,7 @@
       "kicker": "Mini game",
       "scoreLabel": "Score",
       "title": "Runner",
-      "helper": "Tap the screen to jump. Avoid the blocks.",
+      "helper": "Tap to jump through releases, obstacles and digital systems.",
       "ready": "Ready",
       "running": "Running",
       "gameOver": "Game over",
@@ -86,28 +86,28 @@
     },
     "cube": {
       "kicker": "Interactive portfolio",
-      "title": "A 3D portfolio of digital projects",
-      "intro": "The portfolio lives here: six faces, six cards, real projects.",
+      "title": "A 3D cube of digital work and capabilities",
+      "intro": "The interactive core of 2erre: case studies, contact, mini-game and showcase.",
       "backToHero": "Back",
       "ctaKicker": "GET IN TOUCH",
-      "ctaTitle": "Want to build something?",
-      "ctaCopy": "Tell me about your idea. I always reply.",
+      "ctaTitle": "Launching something new?",
+      "ctaCopy": "Let's talk about your website, platform, AI automation, or digital product.",
       "ctaButton": "Let's talk",
       "contactKicker": "CONTACT",
       "contactEmailPlaceholder": "Email",
       "contactPhonePlaceholder": "Phone",
       "contactSubmit": "Send",
-      "contactSending": "Sending...",
-      "contactSuccess": "Message sent! I'll get back to you soon.",
-      "contactFail": "Failed to send. Please try again.",
+      "contactSending": "Opening email draft...",
+      "contactSuccess": "Opening your email app...",
+      "contactFail": "Couldn't open the email draft. Please try again.",
       "contactError": "Please fill in all required fields.",
       "helper": "Drag or swipe to explore. Hover or focus to pause.",
-      "profileTitle": "Andre Rizzo",
-      "profileCopy": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di Balance App e Odora.it",
-      "viewProject": "Open project",
-      "balanceCopy": "Personal finance designed to feel clear, private and under control.",
-      "odoraCopy": "Fragrance discovery, notes and price comparison in a cleaner product experience.",
-      "generaleCopy": "Commerce experience connected with integrations and operational flows.",
+      "profileTitle": "2erre",
+      "profileCopy": "Software company for websites, AI systems, automations, and tailored digital products.",
+      "viewProject": "Open case study",
+      "balanceCopy": "Product design, visual system, and app experience for a clearer personal finance journey.",
+      "odoraCopy": "Discovery UX, catalog logic, and product browsing shaped for better choice and conversion.",
+      "generaleCopy": "Commerce architecture, catalog clarity, and operational integrations for industrial sales.",
       "msCopy": "A sharper brand presence with a cleaner, conversion-ready website structure.",
       "arsieniCopy": "Website and digital identity shaped to feel premium, direct and memorable."
     },
@@ -118,8 +118,8 @@
       "graphicDesign": "Graphic design"
     },
     "availability": {
-      "title": "Available for selected collaborations",
-      "subtitle": "Tech, digital strategy, and curated projects.",
+      "title": "Available for new projects",
+      "subtitle": "Web, AI automation, ecommerce, and tailored digital systems.",
       "cta": "Get in touch"
     },
     "contact": {
@@ -316,28 +316,28 @@
   },
   "it": {
     "meta": {
-      "homeTitle": "Andre Rizzo | Digital Card",
-      "homeDescription": "Andre Rizzo. Portfolio di prodotti digitali, siti web e progetti selezionati.",
-      "stayTitle": "Soggiorno | Andre Rizzo",
+      "homeTitle": "2erre | Software Systems, AI Automation, Web Experiences",
+      "homeDescription": "2erre.online progetta siti web, sistemi AI, automazioni e prodotti digitali per aziende.",
+      "stayTitle": "Soggiorno | 2erre",
       "stayDescription": "Dettagli soggiorno hospitality, servizi e richiesta disponibilità.",
-      "stayPageTitle": "{stayTitle} | Andre Rizzo",
+      "stayPageTitle": "{stayTitle} | 2erre",
       "stayPageDescription": "{subtitle} {shortDescription}"
     },
     "nav": {
       "languageSwitcher": "Selettore lingua"
     },
     "hero": {
-      "rolesSrOnly": "Integrazione AI, Consulenza Digitale, Project Management",
+      "rolesSrOnly": "Sistemi software, Automazioni AI, Esperienze web",
       "roleButtonAria": "Apri dettaglio ruolo",
-      "bioLead": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di",
-      "bioConnector": "e",
+      "bioLead": "2erre.online progetta siti web, sistemi AI, automazioni e prodotti digitali per aziende che vogliono muoversi meglio online.",
+      "bioConnector": "",
       "cubeTriggerKicker": "Portfolio",
       "cubeTriggerTitle": "Apri il cubo",
       "cubeTriggerAria": "Apri il portfolio 3D",
       "roles": [
-        "Integrazione AI",
-        "Consulenza Digitale",
-        "Project Management"
+        "Sistemi software",
+        "Automazioni AI",
+        "Esperienze web"
       ]
     },
     "social": {
@@ -349,7 +349,7 @@
       "kicker": "Mini game",
       "scoreLabel": "Score",
       "title": "Runner",
-      "helper": "Tocca lo schermo per saltare. Evita i blocchi.",
+      "helper": "Tocca per saltare tra release, ostacoli e sistemi digitali.",
       "ready": "Pronto",
       "running": "In corsa",
       "gameOver": "Game over",
@@ -400,28 +400,28 @@
     },
     "cube": {
       "kicker": "Portfolio interattivo",
-      "title": "Un portfolio 3D di progetti digitali",
-      "intro": "Il portfolio è tutto qui: sei facce, sei card, progetti reali.",
+      "title": "Un cubo 3D di lavori e capability digitali",
+      "intro": "Il cuore interattivo di 2erre: case study, contatto, mini-game e showcase.",
       "backToHero": "Indietro",
       "ctaKicker": "CONTATTO",
-      "ctaTitle": "Vuoi realizzare qualcosa?",
-      "ctaCopy": "Raccontami la tua idea. Rispondo sempre.",
+      "ctaTitle": "Hai un progetto da lanciare?",
+      "ctaCopy": "Parliamo di sito, piattaforma, AI automation o prodotto digitale.",
       "ctaButton": "Parliamone",
       "contactKicker": "CONTATTO",
       "contactEmailPlaceholder": "Email",
       "contactPhonePlaceholder": "Telefono",
       "contactSubmit": "Invia",
-      "contactSending": "Invio in corso...",
-      "contactSuccess": "Messaggio inviato! Ti risponderò presto.",
-      "contactFail": "Errore nell'invio. Riprova.",
+      "contactSending": "Apro la bozza email...",
+      "contactSuccess": "Apro la tua app email...",
+      "contactFail": "Non riesco ad aprire la bozza email. Riprova.",
       "contactError": "Compila tutti i campi richiesti.",
       "helper": "Trascina o scorri per esplorare. Hover o focus per mettere in pausa.",
-      "profileTitle": "Andre Rizzo",
-      "profileCopy": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di Balance App e Odora.it",
-      "viewProject": "Apri progetto",
-      "balanceCopy": "Finanza personale disegnata per essere chiara, privata e sotto controllo.",
-      "odoraCopy": "Scoperta fragranze, note e confronto prezzi dentro un'esperienza prodotto più pulita.",
-      "generaleCopy": "Esperienza ecommerce connessa a integrazioni e flussi operativi.",
+      "profileTitle": "2erre",
+      "profileCopy": "Software company per siti web, sistemi AI, automazioni e prodotti digitali su misura.",
+      "viewProject": "Apri case study",
+      "balanceCopy": "Product design, visual system e app experience per una finanza personale più chiara.",
+      "odoraCopy": "Discovery UX, logica catalogo e navigazione prodotto orientate a scelta e conversione.",
+      "generaleCopy": "Commerce architecture, chiarezza di catalogo e integrazioni operative per la vendita industriale.",
       "msCopy": "Un posizionamento più netto con un sito più pulito e pronto alla conversione.",
       "arsieniCopy": "Sito e identità digitale costruiti per risultare premium, diretti e memorabili."
     },
@@ -432,8 +432,8 @@
       "graphicDesign": "Graphic design"
     },
     "availability": {
-      "title": "Disponibile per collaborazioni selezionate",
-      "subtitle": "Tech, strategia digitale e progetti curati.",
+      "title": "Disponibile per nuovi progetti",
+      "subtitle": "Web, AI automation, ecommerce e sistemi digitali su misura.",
       "cta": "Parliamone"
     },
     "contact": {

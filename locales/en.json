@@ -1,27 +1,27 @@
 {
   "meta": {
-    "homeTitle": "Andre Rizzo | Digital Card",
-    "homeDescription": "Andre Rizzo. Portfolio of digital products, websites, and selected project work.",
-    "stayTitle": "Stay | Andre Rizzo",
+    "homeTitle": "2erre | Software Systems, AI Automation, Web Experiences",
+    "homeDescription": "2erre.online designs websites, AI systems, automations, and digital products for businesses.",
+    "stayTitle": "Stay | 2erre",
     "stayDescription": "Curated hospitality stay details, amenities and availability request.",
-    "stayPageTitle": "{stayTitle} | Andre Rizzo",
+    "stayPageTitle": "{stayTitle} | 2erre",
     "stayPageDescription": "{subtitle} {shortDescription}"
   },
   "nav": {
     "languageSwitcher": "Language switcher"
   },
   "hero": {
-    "rolesSrOnly": "AI Integration, Digital Advisory, Project Management",
+    "rolesSrOnly": "Software Systems, AI Automation, Web Experiences",
     "roleButtonAria": "Open role details",
-    "bioLead": "Two twelve 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder of",
-    "bioConnector": "and",
+    "bioLead": "2erre.online designs websites, AI systems, automations, and digital products for businesses that want to move better online.",
+    "bioConnector": "",
     "cubeTriggerKicker": "Portfolio",
     "cubeTriggerTitle": "Open the cube",
     "cubeTriggerAria": "Open the 3D portfolio",
     "roles": [
-      "AI Integration",
-      "Digital Advisory",
-      "Project Management"
+      "Software Systems",
+      "AI Automation",
+      "Web Experiences"
     ]
   },
   "social": {
@@ -33,7 +33,7 @@
     "kicker": "Mini game",
     "scoreLabel": "Score",
     "title": "Runner",
-    "helper": "Tap the screen to jump. Avoid the blocks.",
+    "helper": "Tap to jump through releases, obstacles and digital systems.",
     "ready": "Ready",
     "running": "Running",
     "gameOver": "Game over",
@@ -84,28 +84,28 @@
   },
   "cube": {
     "kicker": "Interactive portfolio",
-    "title": "A 3D portfolio of digital projects",
-    "intro": "The portfolio lives here: six faces, six cards, real projects.",
+    "title": "A 3D cube of digital work and capabilities",
+    "intro": "The interactive core of 2erre: case studies, contact, mini-game and showcase.",
     "backToHero": "Back",
     "ctaKicker": "GET IN TOUCH",
-    "ctaTitle": "Want to build something?",
-    "ctaCopy": "Tell me about your idea. I always reply.",
+    "ctaTitle": "Launching something new?",
+    "ctaCopy": "Let's talk about your website, platform, AI automation, or digital product.",
     "ctaButton": "Let's talk",
     "contactKicker": "CONTACT",
     "contactEmailPlaceholder": "Email",
     "contactPhonePlaceholder": "Phone",
     "contactSubmit": "Send",
-    "contactSending": "Sending...",
-    "contactSuccess": "Message sent! I'll get back to you soon.",
-    "contactFail": "Failed to send. Please try again.",
+    "contactSending": "Opening email draft...",
+    "contactSuccess": "Opening your email app...",
+    "contactFail": "Couldn't open the email draft. Please try again.",
     "contactError": "Please fill in all required fields.",
     "helper": "Drag or swipe to explore. Hover or focus to pause.",
-    "profileTitle": "Andre Rizzo",
-    "profileCopy": "Due dodici 97. Developer, AI expert, Test Manager @ Intesa Sanpaolo. Founder di Balance App e Odora.it",
-    "viewProject": "Open project",
-    "balanceCopy": "Personal finance designed to feel clear, private and under control.",
-    "odoraCopy": "Fragrance discovery, notes and price comparison in a cleaner product experience.",
-    "generaleCopy": "Commerce experience connected with integrations and operational flows.",
+    "profileTitle": "2erre",
+    "profileCopy": "Software company for websites, AI systems, automations, and tailored digital products.",
+    "viewProject": "Open case study",
+    "balanceCopy": "Product design, visual system, and app experience for a clearer personal finance journey.",
+    "odoraCopy": "Discovery UX, catalog logic, and product browsing shaped for better choice and conversion.",
+    "generaleCopy": "Commerce architecture, catalog clarity, and operational integrations for industrial sales.",
     "msCopy": "A sharper brand presence with a cleaner, conversion-ready website structure.",
     "arsieniCopy": "Website and digital identity shaped to feel premium, direct and memorable."
   },
@@ -116,8 +116,8 @@
     "graphicDesign": "Graphic design"
   },
   "availability": {
-    "title": "Available for selected collaborations",
-    "subtitle": "Tech, digital strategy, and curated projects.",
+    "title": "Available for new projects",
+    "subtitle": "Web, AI automation, ecommerce, and tailored digital systems.",
     "cta": "Get in touch"
   },
   "contact": {
