@@ -1,27 +1,27 @@
 {
   "meta": {
-    "homeTitle": "2erre | Software Systems, AI Automation, Web Experiences",
-    "homeDescription": "2erre.online designs websites, AI systems, automations, and digital products for businesses.",
-    "stayTitle": "Stay | 2erre",
+    "homeTitle": "Andre Rizzo | mylinks",
+    "homeDescription": "Andre Rizzo. mylinks across digital projects, experience, and professional path.",
+    "stayTitle": "Stay | Andre Rizzo",
     "stayDescription": "Curated hospitality stay details, amenities and availability request.",
-    "stayPageTitle": "{stayTitle} | 2erre",
+    "stayPageTitle": "{stayTitle} | Andre Rizzo",
     "stayPageDescription": "{subtitle} {shortDescription}"
   },
   "nav": {
     "languageSwitcher": "Language switcher"
   },
   "hero": {
-    "rolesSrOnly": "Software Systems, AI Automation, Web Experiences",
+    "rolesSrOnly": "AI Integration, Digital Advisory, Project Management",
     "roleButtonAria": "Open role details",
-    "bioLead": "2erre.online designs websites, AI systems, automations, and digital products for businesses that want to move better online.",
+    "bioLead": "mylinks across digital projects, experience, and professional path. 2R SRL is my company.",
     "bioConnector": "",
     "cubeTriggerKicker": "Portfolio",
     "cubeTriggerTitle": "Open the cube",
     "cubeTriggerAria": "Open the 3D portfolio",
     "roles": [
-      "Software Systems",
-      "AI Automation",
-      "Web Experiences"
+      "AI Integration",
+      "Digital Advisory",
+      "Project Management"
     ]
   },
   "social": {
@@ -84,25 +84,25 @@
   },
   "cube": {
     "kicker": "Interactive portfolio",
-    "title": "A 3D cube of digital work and capabilities",
-    "intro": "The interactive core of 2erre: case studies, contact, mini-game and showcase.",
+    "title": "A 3D cube of projects and experience",
+    "intro": "The interactive core of mylinks: projects, experience, mini-game, and personal snapshot.",
     "backToHero": "Back",
-    "ctaKicker": "GET IN TOUCH",
-    "ctaTitle": "Launching something new?",
-    "ctaCopy": "Let's talk about your website, platform, AI automation, or digital product.",
-    "ctaButton": "Let's talk",
-    "contactKicker": "CONTACT",
+    "ctaKicker": "EXPERIENCE",
+    "ctaTitle": "Resume",
+    "ctaCopy": "QA, release management, product thinking, AI, and development across banking, startups, and digital products.",
+    "ctaButton": "Open experience",
+    "contactKicker": "MYLINKS",
     "contactEmailPlaceholder": "Email",
     "contactPhonePlaceholder": "Phone",
     "contactSubmit": "Send",
-    "contactSending": "Opening email draft...",
-    "contactSuccess": "Opening your email app...",
-    "contactFail": "Couldn't open the email draft. Please try again.",
+    "contactSending": "Loading...",
+    "contactSuccess": "Done.",
+    "contactFail": "Action unavailable.",
     "contactError": "Please fill in all required fields.",
     "helper": "Drag or swipe to explore. Hover or focus to pause.",
-    "profileTitle": "2erre",
-    "profileCopy": "Software company for websites, AI systems, automations, and tailored digital products.",
-    "viewProject": "Open case study",
+    "profileTitle": "Andre Rizzo",
+    "profileCopy": "Developer, AI expert, Test Manager. Digital projects, product systems, and professional path collected here.",
+    "viewProject": "Open project",
     "balanceCopy": "Product design, visual system, and app experience for a clearer personal finance journey.",
     "odoraCopy": "Discovery UX, catalog logic, and product browsing shaped for better choice and conversion.",
     "generaleCopy": "Commerce architecture, catalog clarity, and operational integrations for industrial sales.",
@@ -116,9 +116,9 @@
     "graphicDesign": "Graphic design"
   },
   "availability": {
-    "title": "Available for new projects",
-    "subtitle": "Web, AI automation, ecommerce, and tailored digital systems.",
-    "cta": "Get in touch"
+    "title": "Path in progress",
+    "subtitle": "Digital projects, experience, and systems built over time.",
+    "cta": "Explore more"
   },
   "contact": {
     "title": "Let's talk",

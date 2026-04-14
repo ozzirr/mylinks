@@ -1,27 +1,27 @@
 {
   "meta": {
-    "homeTitle": "2erre | Software Systems, AI Automation, Web Experiences",
-    "homeDescription": "2erre.online progetta siti web, sistemi AI, automazioni e prodotti digitali per aziende.",
-    "stayTitle": "Soggiorno | 2erre",
+    "homeTitle": "Andre Rizzo | mylinks",
+    "homeDescription": "Andre Rizzo. mylinks tra progetti digitali, experience e percorso professionale.",
+    "stayTitle": "Soggiorno | Andre Rizzo",
     "stayDescription": "Dettagli soggiorno hospitality, servizi e richiesta disponibilità.",
-    "stayPageTitle": "{stayTitle} | 2erre",
+    "stayPageTitle": "{stayTitle} | Andre Rizzo",
     "stayPageDescription": "{subtitle} {shortDescription}"
   },
   "nav": {
     "languageSwitcher": "Selettore lingua"
   },
   "hero": {
-    "rolesSrOnly": "Sistemi software, Automazioni AI, Esperienze web",
+    "rolesSrOnly": "Integrazione AI, Consulenza Digitale, Project Management",
     "roleButtonAria": "Apri dettaglio ruolo",
-    "bioLead": "2erre.online progetta siti web, sistemi AI, automazioni e prodotti digitali per aziende che vogliono muoversi meglio online.",
+    "bioLead": "mylinks tra progetti digitali, experience e percorso professionale. 2R SRL e' la mia realta' aziendale.",
     "bioConnector": "",
     "cubeTriggerKicker": "Portfolio",
     "cubeTriggerTitle": "Apri il cubo",
     "cubeTriggerAria": "Apri il portfolio 3D",
     "roles": [
-      "Sistemi software",
-      "Automazioni AI",
-      "Esperienze web"
+      "Integrazione AI",
+      "Consulenza Digitale",
+      "Project Management"
     ]
   },
   "social": {
@@ -84,25 +84,25 @@
   },
   "cube": {
     "kicker": "Portfolio interattivo",
-    "title": "Un cubo 3D di lavori e capability digitali",
-    "intro": "Il cuore interattivo di 2erre: case study, contatto, mini-game e showcase.",
+    "title": "Un cubo 3D di progetti ed experience",
+    "intro": "Il cuore interattivo di mylinks: progetti, experience, mini-game e snapshot personale.",
     "backToHero": "Indietro",
-    "ctaKicker": "CONTATTO",
-    "ctaTitle": "Hai un progetto da lanciare?",
-    "ctaCopy": "Parliamo di sito, piattaforma, AI automation o prodotto digitale.",
-    "ctaButton": "Parliamone",
-    "contactKicker": "CONTATTO",
+    "ctaKicker": "EXPERIENCE",
+    "ctaTitle": "Resume",
+    "ctaCopy": "QA, release management, product thinking, AI e sviluppo tra banking, startup e digital products.",
+    "ctaButton": "Apri experience",
+    "contactKicker": "MYLINKS",
     "contactEmailPlaceholder": "Email",
     "contactPhonePlaceholder": "Telefono",
     "contactSubmit": "Invia",
-    "contactSending": "Apro la bozza email...",
-    "contactSuccess": "Apro la tua app email...",
-    "contactFail": "Non riesco ad aprire la bozza email. Riprova.",
+    "contactSending": "Caricamento...",
+    "contactSuccess": "Fatto.",
+    "contactFail": "Operazione non disponibile.",
     "contactError": "Compila tutti i campi richiesti.",
     "helper": "Trascina o scorri per esplorare. Hover o focus per mettere in pausa.",
-    "profileTitle": "2erre",
-    "profileCopy": "Software company per siti web, sistemi AI, automazioni e prodotti digitali su misura.",
-    "viewProject": "Apri case study",
+    "profileTitle": "Andre Rizzo",
+    "profileCopy": "Developer, AI expert, Test Manager. Progetti digitali, product systems e percorso professionale raccolti qui.",
+    "viewProject": "Apri progetto",
     "balanceCopy": "Product design, visual system e app experience per una finanza personale più chiara.",
     "odoraCopy": "Discovery UX, logica catalogo e navigazione prodotto orientate a scelta e conversione.",
     "generaleCopy": "Commerce architecture, chiarezza di catalogo e integrazioni operative per la vendita industriale.",
@@ -116,9 +116,9 @@
     "graphicDesign": "Graphic design"
   },
   "availability": {
-    "title": "Disponibile per nuovi progetti",
-    "subtitle": "Web, AI automation, ecommerce e sistemi digitali su misura.",
-    "cta": "Parliamone"
+    "title": "Percorso in evoluzione",
+    "subtitle": "Progetti digitali, experience e sistemi costruiti nel tempo.",
+    "cta": "Scopri di più"
   },
   "contact": {
     "title": "Parliamone",

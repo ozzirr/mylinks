@@ -492,14 +492,6 @@
       event.preventDefault();
     });
 
-    const goContactBtn = document.querySelector("[data-cube-go-contact]");
-    if (goContactBtn) {
-      goContactBtn.addEventListener("click", (event) => {
-        event.stopPropagation();
-        rotateToFace("contact");
-      });
-    }
-
     rafId = window.requestAnimationFrame(onFrame);
     window.ProfileHub = window.ProfileHub || {};
     window.ProfileHub.cube = {
@@ -1929,7 +1921,7 @@
 
       const data = new FormData(form);
       const values = Object.fromEntries(data.entries());
-      const mailtoTarget = form.dataset.mailto || "mailto:info@2erre.online";
+      const mailtoTarget = form.dataset.mailto || "mailto:andre@example.com";
       const fullName = String(values.fullName || "").trim();
       const requestType = requestTypeField?.selectedOptions?.[0]?.textContent?.trim() || String(values.requestType || "").trim();
       const message = String(values.message || "").trim();
@@ -2006,7 +1998,7 @@
     const lightboxCaption = lightbox ? lightbox.querySelector("[data-stay-lightbox-caption]") : null;
     const lightboxClose = lightbox ? [...lightbox.querySelectorAll("[data-stay-lightbox-close]")] : [];
 
-    const bookingEmail = stay.bookingEmail || "info@2erre.online";
+    const bookingEmail = stay.bookingEmail || "andre@example.com";
     const airbnbUrl = stay.airbnbUrl || "https://www.airbnb.com/";
     const detailData = stay.details || {};
 
@@ -2131,7 +2123,7 @@
         i18n.applyTranslations(root);
       }
 
-      const pageTitle = t("meta.stayPageTitle", "{stayTitle} | 2erre", { stayTitle: displayTitle || "Stay" });
+      const pageTitle = t("meta.stayPageTitle", "{stayTitle} | Andre Rizzo", { stayTitle: displayTitle || "Stay" });
       const pageDescription = t("meta.stayPageDescription", "{subtitle} {shortDescription}", {
         subtitle: displaySubtitle,
         shortDescription: displayShortDescription
@@ -2396,7 +2388,7 @@
       return;
     }
 
-    const mailtoTarget = form.dataset.mailto || "mailto:info@2erre.online";
+    const mailtoTarget = form.dataset.mailto || "mailto:andre@example.com";
     const fields = [...form.querySelectorAll("input, textarea")];
     const status = form.querySelector("[data-cube-contact-status]");
     const submitBtn = form.querySelector("[type=submit]");
@@ -2430,7 +2422,7 @@
       const email = String(data.email || "").trim();
       const phone = String(data.phone || "").trim();
       const message = String(data.message || "").trim();
-      const subject = encodeURIComponent(`[2erre website] ${fullName || "New request"}`);
+      const subject = encodeURIComponent(`[mylinks] ${fullName || "New message"}`);
       const body = encodeURIComponent(
         [
           `Name: ${fullName}`,
