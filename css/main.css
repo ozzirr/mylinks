@@ -4,6 +4,7 @@
   --bg-0: #08070a;
   --bg-1: #0f0c11;
   --bg-2: #16121a;
+  --brand-1: #d3a289;
   --page-bg:
     radial-gradient(circle at 50% -16%, rgba(216, 168, 143, 0.12), transparent 38%),
     radial-gradient(circle at 8% 8%, rgba(98, 72, 64, 0.24), transparent 33%),
@@ -1502,59 +1503,6 @@ body.is-cube-stage-closed .cube-loading {
   box-shadow: 0 15px 40px rgba(214, 172, 150, 0.5);
   background: #e7bfb0;
 }
-}
-
-.lumina-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 0.6rem;
-}
-
-.lumina-pad {
-  appearance: none;
-  border: 0;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  cursor: pointer;
-  transition: background-color 150ms ease, transform 100ms ease, box-shadow 150ms ease;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.lumina-pad:active {
-  transform: scale(0.96);
-}
-
-.lumina-pad.is-active {
-  background: rgba(211, 162, 137, 0.8);
-  box-shadow: 0 0 24px rgba(211, 162, 137, 0.4);
-}
-
-.lumina-pad--tl.is-active { background: #ff9f9f; box-shadow: 0 0 24px #ff9f9f; }
-.lumina-pad--tr.is-active { background: #89dfba; box-shadow: 0 0 24px #89dfba; }
-.lumina-pad--bl.is-active { background: #89c4ff; box-shadow: 0 0 24px #89c4ff; }
-.lumina-pad--br.is-active { background: #ffe089; box-shadow: 0 0 24px #ffe089; }
-
-.lumina-start {
-  appearance: none;
-  border: 1px solid var(--line-soft);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-main);
-  padding: 0.6rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: all 200ms ease;
-}
-
-.lumina-start:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--line);
-  color: var(--text-strong);
-}
 
 /* Bottom face */
 .cube-face-surface--bottom-cap {
@@ -1638,6 +1586,8 @@ body.is-cube-stage-closed .cube-loading {
     gap: 1rem;
   }
 }
+
+.cube-cta-button {
   padding: 0.55rem 1.1rem;
   appearance: none;
   border: 1px solid rgba(210, 163, 137, 0.36);
@@ -4519,6 +4469,203 @@ body[data-page="digital-cv"] .page-shell {
   }
 }
 
+/* ─── PREMIUM ENHANCEMENTS ─────────────────────────────── */
+
+/* Ambient glow around the cube scene */
+.cube-scene {
+  position: relative;
+}
+
+.cube-scene::before {
+  content: "";
+  position: absolute;
+  inset: -28px;
+  border-radius: 48px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(211, 162, 137, 0.09), transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+  animation: cube-ambient-pulse 6s ease-in-out infinite;
+}
+
+@keyframes cube-ambient-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+/* Drag-to-spin hint */
+.cube-drag-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+  margin-top: 0.9rem;
+  color: var(--text-subtle);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 600ms ease;
+  animation: hint-fade-in 1s ease 2.2s both;
+}
+
+.cube-drag-hint.is-hidden {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.cube-drag-hint-icon {
+  display: flex;
+  animation: hint-spin 2.4s ease-in-out infinite;
+}
+
+@keyframes hint-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hint-spin {
+  0%, 100% { transform: rotate(-18deg); }
+  50% { transform: rotate(18deg); }
+}
+
+/* Scanline CRT overlay on game canvas */
+.cube-arcade-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 18px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.06) 3px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Premium cube face: stronger inner glow on hover */
+.cube-face-surface:hover {
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(214, 172, 150, 0.12);
+}
+
+/* Better project detail overlay backdrop */
+.project-overlay {
+  background: rgba(4, 3, 8, 0.96);
+}
+
+/* Premium project detail: gradient title */
+.project-detail-kicker {
+  color: var(--brand-1);
+}
+
+.project-detail-cta {
+  background: var(--brand-1);
+}
+
+/* Smooth game button pulse while ready */
+@keyframes arcade-btn-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(214, 172, 150, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(214, 172, 150, 0.12); }
+}
+
+.cube-arcade-button {
+  animation: arcade-btn-breathe 2.4s ease-in-out infinite;
+}
+
+.cube-arcade-button:hover {
+  animation: none;
+}
+
+/* Score chip accent flash when new best */
+.cube-arcade-chip.is-best {
+  border-color: rgba(255, 210, 90, 0.6);
+  background: rgba(255, 210, 90, 0.12);
+  color: #ffe078;
+  transition: all 400ms ease;
+}
+
+/* Loading screen improvements */
+.cube-loading-logo svg {
+  filter: drop-shadow(0 0 18px rgba(211, 162, 137, 0.22));
+}
+
+.cube-loading-wireframe {
+  animation: cube-loading-rotate 3s linear infinite;
+}
+
+/* Cube face CTA: premium gradient border */
+.cube-face-cta {
+  background: linear-gradient(rgba(25, 19, 28, 0.74), rgba(25, 19, 28, 0.74)) padding-box,
+              linear-gradient(135deg, rgba(214, 172, 150, 0.5), rgba(140, 100, 80, 0.3)) border-box;
+  border: 1px solid transparent;
+}
+
+/* Cube social icon: coloured hover glow per network */
+.cube-social-icon-link[aria-label="Instagram"]:hover {
+  border-color: rgba(229, 112, 135, 0.6);
+  box-shadow: 0 10px 24px rgba(229, 112, 135, 0.18);
+  color: #e57087;
+}
+
+.cube-social-icon-link[aria-label="LinkedIn"]:hover {
+  border-color: rgba(80, 150, 220, 0.6);
+  box-shadow: 0 10px 24px rgba(80, 150, 220, 0.18);
+  color: #5096dc;
+}
+
+.cube-social-icon-link[aria-label="GitHub"]:hover {
+  border-color: rgba(180, 180, 210, 0.6);
+  box-shadow: 0 10px 24px rgba(180, 180, 210, 0.14);
+  color: #c0c0d8;
+}
+
+/* Game canvas: inner border glow ring when running */
+.cube-arcade-stage.is-running {
+  border-color: rgba(214, 172, 150, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 16px 28px rgba(0, 0, 0, 0.26),
+    0 0 0 1px rgba(214, 172, 150, 0.08);
+}
+
+/* Screen-shake utility — applied via JS on canvas wrapper */
+@keyframes screen-shake {
+  0%   { transform: translate(0, 0); }
+  15%  { transform: translate(-4px, 2px); }
+  30%  { transform: translate(4px, -2px); }
+  45%  { transform: translate(-3px, 3px); }
+  60%  { transform: translate(3px, -1px); }
+  75%  { transform: translate(-2px, 2px); }
+  90%  { transform: translate(2px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+.cube-arcade-stage.is-shaking {
+  animation: screen-shake 0.36s ease-out;
+}
+
+/* Footer: add a subtle top separator accent */
+.site-footer-v2 {
+  border-top-color: rgba(214, 172, 150, 0.14);
+}
+
+/* Digital CV link in footer */
+.footer-v2-link--cv {
+  color: var(--brand-1);
+  font-weight: 700;
+}
+
+.footer-v2-link--cv:hover {
+  color: var(--text-strong);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -4540,4 +4687,19 @@ body[data-page="digital-cv"] .page-shell {
     animation: none;
   }
 
+  .cube-drag-hint {
+    animation: none;
+  }
+
+  .cube-drag-hint-icon {
+    animation: none;
+  }
+
+  .cube-scene::before {
+    animation: none;
+  }
+
+  .cube-arcade-button {
+    animation: none;
+  }
 }

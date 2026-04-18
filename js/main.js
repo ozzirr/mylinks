@@ -328,6 +328,11 @@
     let collectibles = [];
     let props = [];
     let particles = [];
+    let stars = [];
+    let deathFlash = 0;
+    let deathFlashColor = "#ffffff";
+    let nextMilestone = 0;
+    const milestones = [100, 300, 700, 1500, 3000];
 
     const player = {
       x: 72,
@@ -340,7 +345,9 @@
       coyote: 0,
       runCycle: 0,
       squash: 1,
-      stretch: 1
+      stretch: 1,
+      usedDoubleJump: false,
+      doubleJumpFlash: 0
     };
 
     const state = {
@@ -350,6 +357,19 @@
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
     const randomBetween = (min, max) => min + Math.random() * (max - min);
     const pickRandom = (items) => items[Math.floor(Math.random() * items.length)];
+
+    const initStars = () => {
+      stars = [];
+      for (let i = 0; i < 44; i++) {
+        stars.push({
+          x: Math.random() * world.width,
+          y: Math.random() * (world.groundY - 50),
+          size: Math.random() * 1.4 + 0.4,
+          twinkle: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.3 + 0.08
+        });
+      }
+    };
     const getLanguage = () => (getCurrentLanguage() === "it" ? "it" : "en");
     const getStageByIndex = (index = 0) => stageDefinitions[((index % stageDefinitions.length) + stageDefinitions.length) % stageDefinitions.length];
     const getStageIndex = (value = distance) => Math.floor(value / 220) % stageDefinitions.length;
@@ -568,6 +588,7 @@
       props = [];
       particles = [];
       spawnCursor = world.width + 28;
+      initStars();
 
       props.push(
         { x: 72, kind: "sign", layer: "far", label: "MYLINKS", wobble: 0.4 },
@@ -622,6 +643,8 @@
       scoreCarry = 0;
       stageIndex = 0;
       stageFlash = 1;
+      deathFlash = 0;
+      nextMilestone = 0;
       state.status = "running";
       player.y = world.groundY - player.height;
       player.vy = 0;
@@ -631,6 +654,10 @@
       player.runCycle = 0;
       player.squash = 1;
       player.stretch = 1;
+      player.usedDoubleJump = false;
+      player.doubleJumpFlash = 0;
+      const stage = root.querySelector(".cube-arcade-stage");
+      if (stage) stage.classList.add("is-running");
       seedWorld();
       showMessage(getStage().intro[getLanguage()], 1400);
       updateHud();
@@ -638,12 +665,32 @@
     };
 
     const finishRun = () => {
+      if (state.status === "gameover") return;
       state.status = "gameover";
-      if (Math.floor(score) > bestScore) {
+      const stageEl = root.querySelector(".cube-arcade-stage");
+      const isNewBest = Math.floor(score) > bestScore;
+      if (isNewBest) {
         bestScore = Math.floor(score);
         persistBestScore();
+        deathFlash = 0.7;
+        deathFlashColor = "#ffe080";
+        addParticles(world.width * 0.5, world.groundY - 80, "#ffe080", 22, 1.8);
+        addParticles(world.width * 0.5, world.groundY - 40, "#ffd2b8", 14, 1.4);
+        const scoreChip = root.querySelector("[data-arcade-score]")?.closest(".cube-arcade-chip");
+        if (scoreChip) {
+          scoreChip.classList.add("is-best");
+          setTimeout(() => scoreChip.classList.remove("is-best"), 3500);
+        }
+      } else {
+        deathFlash = 0.55;
+        deathFlashColor = "#ffffff";
+        addParticles(player.x + player.width * 0.5, player.y + player.height * 0.6, "#ffd2b8", 16, 1.3);
       }
-      addParticles(player.x + player.width * 0.5, player.y + player.height * 0.6, "#ffd2b8", 16, 1.3);
+      if (stageEl && !reduceMotion) {
+        stageEl.classList.add("is-shaking");
+        stageEl.classList.remove("is-running");
+        stageEl.addEventListener("animationend", () => stageEl.classList.remove("is-shaking"), { once: true });
+      }
       updateHud();
     };
 
@@ -707,6 +754,12 @@
       while (spawnCursor < world.width + 180) {
         spawnChunk();
       }
+
+      if (nextMilestone < milestones.length && score >= milestones[nextMilestone]) {
+        showMessage(`${milestones[nextMilestone]} pts!`, 1100);
+        addParticles(world.width * 0.5, world.groundY - 70, getStage().accentSoft, 14, 1.4);
+        nextMilestone += 1;
+      }
     };
 
     const updatePlayer = (delta) => {
@@ -726,9 +779,18 @@
         player.onGround = false;
         player.coyote = 0;
         player.jumpBuffer = 0;
+        player.usedDoubleJump = false;
         player.stretch = 1.16;
         player.squash = 0.88;
         addParticles(player.x + 6, world.groundY - 2, getStage().accent, 6, 0.8);
+      } else if (player.jumpBuffer > 0 && !player.onGround && !player.usedDoubleJump && player.coyote <= 0) {
+        player.vy = -5.2;
+        player.usedDoubleJump = true;
+        player.jumpBuffer = 0;
+        player.doubleJumpFlash = 6;
+        player.stretch = 1.22;
+        player.squash = 0.84;
+        addParticles(player.x + player.width * 0.5, player.y + player.height * 0.7, getStage().accentSoft, 10, 1.1);
       }
 
       player.vy += 0.34 * delta;
@@ -781,12 +843,17 @@
         }
       });
 
+      if (player.doubleJumpFlash > 0) {
+        player.doubleJumpFlash -= delta;
+      }
+
       if (landed) {
         if (!player.onGround) {
           addParticles(player.x + player.width * 0.5, player.y + player.height, getStage().accentSoft, 6, 0.6);
         }
         player.onGround = true;
         player.coyote = 6;
+        player.usedDoubleJump = false;
         player.squash = 1.12;
         player.stretch = 0.92;
       } else {
@@ -834,6 +901,53 @@
         addParticles(collectible.x + 8, collectible.y + 8, collectible.glow, 10, 1);
         return false;
       });
+    };
+
+    const drawStars = (stage) => {
+      stars.forEach((star) => {
+        star.twinkle += 0.025;
+        star.x -= star.speed * 0.18;
+        if (star.x < -2) star.x = world.width + 2;
+        const alpha = 0.28 + Math.sin(star.twinkle) * 0.28;
+        context.save();
+        context.globalAlpha = alpha;
+        context.fillStyle = star.size > 1.2 ? stage.accentSoft : "#ffffff";
+        context.beginPath();
+        context.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        context.fill();
+        context.restore();
+      });
+    };
+
+    const drawSpeedLines = () => {
+      if (speed < 3.8) return;
+      const intensity = clamp((speed - 3.8) / 1.4, 0, 1);
+      const stage = getStage();
+      context.save();
+      context.strokeStyle = stage.accentSoft;
+      context.lineWidth = 1;
+      for (let i = 0; i < 7; i++) {
+        const seed = ((distance * 0.28 + i * 139.7) | 0) % 97;
+        const y = (seed / 97) * (world.groundY - 36) + 10;
+        const len = (14 + (seed % 28)) * intensity;
+        const xEnd = ((seed * 3.3) % 1 || 0.5) * world.width * 0.7 + world.width * 0.15;
+        context.globalAlpha = intensity * 0.13;
+        context.beginPath();
+        context.moveTo(xEnd - len, y);
+        context.lineTo(xEnd, y);
+        context.stroke();
+      }
+      context.restore();
+    };
+
+    const drawVignette = () => {
+      const cx = world.width * 0.5;
+      const cy = world.height * 0.5;
+      const vignette = context.createRadialGradient(cx, cy, world.width * 0.26, cx, cy, world.width * 0.82);
+      vignette.addColorStop(0, "rgba(0,0,0,0)");
+      vignette.addColorStop(1, "rgba(0,0,0,0.32)");
+      context.fillStyle = vignette;
+      context.fillRect(0, 0, world.width, world.height);
     };
 
     const drawSkyline = (stage) => {
@@ -984,6 +1098,19 @@
       context.scale(player.stretch, player.squash);
       context.translate(-(drawX + player.width / 2), -(drawY + player.height / 2));
 
+      // Double-jump aura ring
+      if (player.doubleJumpFlash > 0) {
+        const flashAlpha = clamp(player.doubleJumpFlash / 6, 0, 1);
+        context.save();
+        context.globalAlpha = flashAlpha * 0.7;
+        context.strokeStyle = stage.accentSoft;
+        context.lineWidth = 2;
+        context.beginPath();
+        context.arc(drawX + player.width * 0.5, drawY + player.height * 0.5, 16 + (1 - flashAlpha) * 8, 0, Math.PI * 2);
+        context.stroke();
+        context.restore();
+      }
+
       fillRoundedRect(drawX + 4, drawY + 20, 4, 8, 2, "#f2d8c6");
       fillRoundedRect(drawX + 10, drawY + 20, 4, 8, 2, "#f2d8c6");
       fillRoundedRect(drawX + 2, drawY + 22, 7, 4, 2, "#4d2e2c");
@@ -1000,7 +1127,14 @@
 
     const drawParticles = () => {
       particles.forEach((particle) => {
-        fillRoundedRect(particle.x, particle.y, particle.size, particle.size, 2, particle.color, clamp(particle.life / 28, 0, 1));
+        const alpha = clamp(particle.life / 28, 0, 1);
+        context.save();
+        context.globalAlpha = alpha;
+        context.fillStyle = particle.color;
+        context.beginPath();
+        context.arc(particle.x, particle.y, particle.size * 0.6, 0, Math.PI * 2);
+        context.fill();
+        context.restore();
       });
     };
 
@@ -1025,12 +1159,24 @@
       context.fillStyle = sky;
       context.fillRect(0, 0, world.width, world.height);
 
-      context.globalAlpha = 0.18;
+      drawStars(stage);
+
+      // Celestial body (moon / sun per stage)
+      const moonAlpha = stage.id === "balance" || stage.id === "ops" ? 0.72 : 0.22;
+      const moonRadius = stage.id === "studio" ? 14 : 11;
+      context.save();
+      context.globalAlpha = moonAlpha;
       context.fillStyle = stage.accentSoft;
       context.beginPath();
-      context.arc(world.width - 46, 42, 20, 0, Math.PI * 2);
+      context.arc(world.width - 46, 38, moonRadius, 0, Math.PI * 2);
       context.fill();
-      context.globalAlpha = 1;
+      if (stage.id !== "studio") {
+        context.globalAlpha = moonAlpha * 0.22;
+        context.beginPath();
+        context.arc(world.width - 46, 38, moonRadius + 8, 0, Math.PI * 2);
+        context.fill();
+      }
+      context.restore();
 
       drawSkyline(stage);
       props.forEach(drawProp);
@@ -1040,15 +1186,17 @@
       enemies.forEach(drawEnemy);
       drawPlayer();
       drawParticles();
+      drawSpeedLines();
+      drawVignette();
       drawStageBanner();
 
       if (state.status !== "running") {
-        fillRoundedRect(78, 132, 164, 38, 14, "rgba(10, 8, 14, 0.76)", 1);
-        strokeRoundedRect(78, 132, 164, 38, 14, stage.accentSoft, 1, 0.54);
+        fillRoundedRect(78, 128, 164, 46, 14, "rgba(10, 8, 14, 0.82)", 1);
+        strokeRoundedRect(78, 128, 164, 46, 14, stage.accentSoft, 1, 0.44);
         drawText(
           state.status === "gameover" ? t("snake.gameOver", "Game over") : getStage().intro[getLanguage()],
           160,
-          146,
+          144,
           11,
           stage.accentSoft,
           "center",
@@ -1061,12 +1209,23 @@
               ? "Tap o Play per iniziare"
               : "Tap or Play to start",
           160,
-          158,
+          160,
           8,
           "#f6dfd2",
           "center",
           700
         );
+      }
+
+      // Death / new-best flash overlay
+      if (deathFlash > 0) {
+        context.save();
+        context.globalAlpha = deathFlash;
+        context.fillStyle = deathFlashColor;
+        context.fillRect(0, 0, world.width, world.height);
+        context.restore();
+        deathFlash *= 0.84;
+        if (deathFlash < 0.02) deathFlash = 0;
       }
     };
 
