@@ -131,10 +131,45 @@
 
                   <article class="cube-face cube-face--top">
                     <div class="cube-face-surface cube-face-surface--game">
-                      <div class="runner-container" data-runner-game>
-                        <canvas class="runner-canvas" data-runner-canvas></canvas>
-                        <div class="runner-ui">
-                            <button class="runner-btn" data-runner-start>Start Runner</button>
+                      <div class="cube-arcade-card" data-arcade-game>
+                        <div class="cube-arcade-head">
+                          <p class="cube-face-kicker" data-i18n="snake.kicker">Mini game</p>
+                          <div class="cube-arcade-chips" aria-hidden="true">
+                            <p class="cube-arcade-chip">
+                              <span data-i18n="snake.scoreLabel">Score</span>
+                              <span data-arcade-score>0</span>
+                            </p>
+                            <p class="cube-arcade-chip">
+                              <span>World</span>
+                              <span data-arcade-stage>2R Studio</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="cube-arcade-stage">
+                          <canvas
+                            class="cube-arcade-canvas"
+                            data-arcade-canvas
+                            data-cube-interactive
+                            width="320"
+                            height="208"
+                            tabindex="0"
+                            aria-label="Andre World mini game"
+                            data-i18n-aria-label="snake.canvasAria"
+                          ></canvas>
+                          <div class="cube-arcade-status" data-arcade-status>Ready</div>
+                        </div>
+
+                        <div class="cube-arcade-meta">
+                          <h3 class="cube-face-title cube-arcade-title" data-i18n="snake.title">Andre World</h3>
+                          <p class="cube-face-copy cube-arcade-copy" data-i18n="snake.helper">
+                            Salta tra 2R, Odora, Balance, QA, AI e blocker in un platform arcade costruito sul tuo percorso.
+                          </p>
+                        </div>
+
+                        <div class="cube-arcade-actions">
+                          <button type="button" class="cube-arcade-button" data-arcade-action data-cube-interactive>Play</button>
+                          <p class="cube-arcade-hint" data-i18n="snake.tapHint">Tap or Space to jump</p>
                         </div>
                       </div>
                     </div>

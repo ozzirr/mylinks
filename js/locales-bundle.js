@@ -32,17 +32,17 @@
       "linkedin": "LinkedIn"
     },
     "snake": {
-      "kicker": "Mini game",
+      "kicker": "Arcade game",
       "scoreLabel": "Score",
-      "title": "Runner",
-      "helper": "Tap to jump through releases, obstacles and digital systems.",
+      "title": "Andre World",
+      "helper": "Jump through 2R, Odora, Balance, QA, AI and blockers in a platform arcade run built around your path.",
       "ready": "Ready",
-      "running": "Running",
+      "running": "In run",
       "gameOver": "Game over",
-      "start": "Start",
-      "restart": "Restart",
-      "canvasAria": "Runner game",
-      "tapHint": "Tap to jump"
+      "start": "Play",
+      "restart": "Retry",
+      "canvasAria": "Andre World mini platform game",
+      "tapHint": "Tap or Space to jump"
     },
     "balance": {
       "cta": "Discover Balance"
@@ -346,17 +346,17 @@
       "linkedin": "LinkedIn"
     },
     "snake": {
-      "kicker": "Mini game",
+      "kicker": "Arcade game",
       "scoreLabel": "Score",
-      "title": "Runner",
-      "helper": "Tocca per saltare tra release, ostacoli e sistemi digitali.",
+      "title": "Andre World",
+      "helper": "Salta tra 2R, Odora, Balance, QA, AI e blocker in un mini platform arcade costruito sul tuo percorso.",
       "ready": "Pronto",
-      "running": "In corsa",
-      "gameOver": "Game over",
-      "start": "Start",
-      "restart": "Restart",
-      "canvasAria": "Gioco Runner",
-      "tapHint": "Tap per saltare"
+      "running": "In run",
+      "gameOver": "Run finita",
+      "start": "Play",
+      "restart": "Retry",
+      "canvasAria": "Mini platform game Andre World",
+      "tapHint": "Tap o Space per saltare"
     },
     "balance": {
       "cta": "Scopri Balance"
