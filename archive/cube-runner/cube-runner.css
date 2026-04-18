@@ -1,0 +1,152 @@
+.cube-snake-card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 0.48rem;
+  width: 100%;
+  height: 100%;
+  padding: 0.38rem;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(24, 18, 30, 0.92), rgba(15, 12, 20, 0.96)),
+    radial-gradient(circle at 50% 8%, rgba(214, 172, 150, 0.1), transparent 34%);
+  border: 1px solid rgba(206, 157, 131, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 30px rgba(0, 0, 0, 0.24);
+}
+
+.cube-snake-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cube-snake-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cube-snake-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  width: 100%;
+}
+
+.cube-snake-canvas {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1;
+  display: block;
+  border-radius: 16px;
+  border: none;
+  background: transparent;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.24);
+  touch-action: none;
+  cursor: pointer;
+}
+
+.cube-snake-canvas:focus,
+.cube-snake-canvas:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 1px rgba(228, 184, 161, 0.72),
+    0 0 0 4px rgba(209, 154, 127, 0.18),
+    0 14px 30px rgba(0, 0, 0, 0.28);
+}
+
+.cube-snake-status {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(26, 19, 29, 0.82);
+  border: 1px solid rgba(206, 157, 131, 0.18);
+  color: var(--text-strong);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.cube-snake-meta {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.cube-snake-title {
+  font-size: 0.92rem;
+}
+
+.cube-snake-copy {
+  font-size: 0.62rem;
+  line-height: 1.35;
+  color: var(--text-soft);
+}
+
+.cube-snake-actions {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.cube-snake-button {
+  appearance: none;
+  border: 1px solid rgba(206, 157, 131, 0.26);
+  border-radius: 14px;
+  background: rgba(28, 20, 30, 0.86);
+  color: var(--text-strong);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.cube-snake-button:hover,
+.cube-snake-button:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(232, 189, 167, 0.48);
+  background: rgba(34, 25, 36, 0.94);
+}
+
+.cube-snake-button--primary {
+  min-height: 38px;
+  padding: 0.46rem 0.86rem;
+  border-radius: 999px;
+  justify-self: start;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cube-snake-tap-hint {
+  justify-self: end;
+  margin: 0;
+  color: var(--text-subtle);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
