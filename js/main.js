@@ -28,6 +28,37 @@
     return i18n.getLanguage();
   };
 
+  const CUBE_STATE_KEY = "mylinks:cube-state.v1";
+  const readSessionState = (key, fallback = null) => {
+    try {
+      const raw = window.sessionStorage.getItem(key);
+      if (!raw) {
+        return fallback;
+      }
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? parsed : fallback;
+    } catch {
+      return fallback;
+    }
+  };
+
+  const writeSessionState = (key, value) => {
+    try {
+      window.sessionStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      return;
+    }
+  };
+
+  const withLanguageQuery = (pathname) => {
+    const language = getCurrentLanguage();
+    if (!language) {
+      return pathname;
+    }
+    const separator = pathname.includes("?") ? "&" : "?";
+    return `${pathname}${separator}lang=${language}`;
+  };
+
   if (reduceMotion) {
     document.body.classList.add("reduce-motion");
   }
@@ -219,7 +250,6 @@
       !root ||
       !(canvas instanceof HTMLCanvasElement) ||
       !scoreNode ||
-      !stageNode ||
       !statusNode ||
       !(actionButton instanceof HTMLButtonElement)
     ) {
@@ -621,7 +651,9 @@
 
     const updateHud = () => {
       scoreNode.textContent = String(Math.floor(score));
-      stageNode.textContent = getStage().name[getLanguage()];
+      if (stageNode) {
+        stageNode.textContent = getStage().name[getLanguage()];
+      }
       statusNode.textContent = getStatusText();
       actionButton.textContent = t(
         state.status === "running" ? "snake.restart" : "snake.start",
@@ -1319,22 +1351,62 @@
 
     // Cube State
     let targetX = -18;
-    let targetY = 0;
+    let targetY = -135;
     let currentX = -18;
-    let currentY = 0;
-    let velocityX = 0;
-    let velocityY = 0;
+    let currentY = -135;
+    let ambientTiltX = 0;
+    let ambientTiltY = 0;
     
     let dragging = false;
     let lastMouseX = 0;
     let lastMouseY = 0;
     let pointerId = null;
     let moved = false;
-    let pauseUntil = 0;
-    let ready = false;
+    let autoFlipAt = Number.POSITIVE_INFINITY;
+    let snapTimerId = null;
+    let cinematicSpinX = 0;
+    let cinematicDriftY = 0;
+    let descendSequence = null;
 
     const lerp = (start, end, factor) => start + (end - start) * factor;
     const wrapAngle = (value) => ((((value + 180) % 360) + 360) % 360) - 180;
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    const easeInQuart = (value) => value ** 4;
+    const scheduleAutoFlip = (delay = 1800) => {
+      autoFlipAt = performance.now() + delay;
+    };
+    const clearSnapState = () => {
+      cube.classList.remove("is-snapping");
+      if (snapTimerId !== null) {
+        window.clearTimeout(snapTimerId);
+        snapTimerId = null;
+      }
+    };
+    const triggerSnapState = () => {
+      clearSnapState();
+      cube.classList.add("is-snapping");
+      snapTimerId = window.setTimeout(() => {
+        cube.classList.remove("is-snapping");
+        snapTimerId = null;
+      }, 880);
+    };
+    const normalizeOrientation = (x, y) => {
+      let normalizedX = wrapAngle(x);
+      let normalizedY = wrapAngle(y);
+
+      if (normalizedX > 90) {
+        normalizedX = 180 - normalizedX;
+        normalizedY = wrapAngle(normalizedY + 180);
+      } else if (normalizedX < -90) {
+        normalizedX = -180 - normalizedX;
+        normalizedY = wrapAngle(normalizedY + 180);
+      }
+
+      return {
+        x: normalizedX,
+        y: normalizedY
+      };
+    };
 
     const faceTargets = {
       connect: { x: -18, y: 0 },
@@ -1345,92 +1417,125 @@
       bottom: { x: 90, y: 0 }
     };
 
-    // Project Overlay Logic
-    const overlay = document.getElementById("project-detail-overlay");
-    const overlayBody = document.getElementById("project-detail-body");
-    const closeOverlay = overlay.querySelector(".project-overlay-close");
-
-    const openProjectDetail = (id) => {
-      const data = getValue(`cube.projectDetails.${id}`);
-      if (!data) return;
-
-      const visitText = t("cube.viewProject", "Visit Project");
-      const url = id === "odora" ? "https://odora.it/?utm_source=mylinks" : 
-                  id === "balance" ? "https://ctrlbalance.com/?utm_source=mylinks" :
-                  "https://generale-elettrica.com/?utm_source=mylinks";
-
-      overlayBody.innerHTML = `
-        <div class="project-detail">
-            <p class="project-detail-kicker">${data.kicker}</p>
-            <h2 class="project-detail-title">${data.title || id.charAt(0).toUpperCase() + id.slice(1)}</h2>
-            <div class="project-detail-tags">
-                ${(data.tags || []).map(t => `<span class="project-detail-tag">${t}</span>`).join("")}
-            </div>
-            <p class="project-detail-copy">${data.description}</p>
-            <div class="project-detail-actions">
-                <a href="${url}" class="project-detail-cta" target="_blank">${visitText}</a>
-            </div>
-        </div>
-      `;
-
-      overlay.classList.add("is-active");
-      overlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
+    const projectRoutes = {
+      odora: "odora.html",
+      balance: "balance.html",
+      generale: "generale-elettrica.html"
     };
 
-    const closeProjectDetail = () => {
-      overlay.classList.remove("is-active");
-      overlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
+    const saveCubeState = () => {
+      writeSessionState(CUBE_STATE_KEY, {
+        x: wrapAngle(targetX),
+        y: wrapAngle(targetY)
+      });
     };
 
-    document.querySelectorAll("[data-project-trigger]").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openProjectDetail(btn.dataset.projectTrigger);
+    const restoreCubeState = () => {
+      const savedState = readSessionState(CUBE_STATE_KEY);
+      if (
+        !savedState ||
+        typeof savedState.x !== "number" ||
+        typeof savedState.y !== "number"
+      ) {
+        return;
+      }
+
+      targetX = savedState.x;
+      targetY = savedState.y;
+      currentX = savedState.x;
+      currentY = savedState.y;
+    };
+
+    const syncProjectLinks = () => {
+      document.querySelectorAll("[data-project-link]").forEach((link) => {
+        const projectKey = link.getAttribute("data-project-link");
+        const pathname = projectRoutes[projectKey];
+        if (!pathname) {
+          return;
+        }
+        link.setAttribute("href", withLanguageQuery(pathname));
+      });
+    };
+
+    restoreCubeState();
+    syncProjectLinks();
+    document.querySelectorAll("[data-project-link]").forEach((link) => {
+      link.addEventListener("click", () => {
+        saveCubeState();
       });
     });
-
-    closeOverlay.addEventListener("click", closeProjectDetail);
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) closeProjectDetail();
-    });
+    window.addEventListener("i18n:change", syncProjectLinks);
 
     initCubeArcadeGame();
 
     // Rotation & Interaction
     const applyRotation = () => {
-      cube.style.setProperty("--cube-rx", `${currentX.toFixed(2)}deg`);
-      cube.style.setProperty("--cube-ry", `${currentY.toFixed(2)}deg`);
+      const displayX = currentX + ambientTiltX + cinematicSpinX;
+      const displayY = currentY + ambientTiltY + cinematicDriftY;
+      cube.style.setProperty("--cube-rx", `${displayX.toFixed(2)}deg`);
+      cube.style.setProperty("--cube-ry", `${displayY.toFixed(2)}deg`);
       
       const faces = cube.querySelectorAll(".cube-face");
       faces.forEach(face => {
-        const gx = ((currentY % 90) / 90) * 100;
-        const gy = ((currentX % 90) / 90) * 100;
+        const gx = ((displayY % 90) / 90) * 100;
+        const gy = ((displayX % 90) / 90) * 100;
         face.style.setProperty("--gloss-x", `${gx}%`);
         face.style.setProperty("--gloss-y", `${gy}%`);
       });
     };
 
     const onFrame = (timestamp) => {
-      const isOpening = document.body.classList.contains("is-cube-stage-opening");
+      if (descendSequence) {
+        const elapsed = timestamp - descendSequence.startedAt;
+        const progress = clamp(elapsed / descendSequence.duration, 0, 1);
+        const eased = easeInQuart(progress);
+        const speedRamp = clamp((progress - 0.26) / 0.54, 0, 1);
 
-      if (dragging) {
-        currentX = lerp(currentX, targetX, 0.15);
-        currentY = lerp(currentY, targetY, 0.15);
-      } else {
-        const shouldAutoRotate = !reduceMotion && timestamp > pauseUntil && !isOpening;
-        if (shouldAutoRotate) {
-          targetY = wrapAngle(targetY + 0.1);
+        cinematicSpinX = descendSequence.spinX * eased;
+        cinematicDriftY = descendSequence.driftY * eased;
+        scene.classList.add("is-friction-active");
+        scene.style.setProperty("--friction-alpha", `${(0.08 + speedRamp * 0.92).toFixed(3)}`);
+        scene.style.setProperty("--friction-shift", `${(speedRamp * 112).toFixed(2)}px`);
+        scene.style.setProperty("--friction-blur", `${(4 + speedRamp * 18).toFixed(2)}px`);
+
+        if (!descendSequence.boosted && progress >= 0.74) {
+          descendSequence.boosted = true;
+          descendSequence.onBoost?.();
         }
-        
-        velocityX *= 0.95;
-        velocityY *= 0.95;
-        targetX += velocityY;
-        targetY += velocityX;
 
-        currentX = lerp(currentX, targetX, 0.1);
-        currentY = lerp(currentY, targetY, 0.1);
+        if (progress >= 1) {
+          scene.classList.remove("is-friction-active");
+          scene.style.removeProperty("--friction-alpha");
+          scene.style.removeProperty("--friction-shift");
+          scene.style.removeProperty("--friction-blur");
+          cinematicSpinX = 0;
+          cinematicDriftY = 0;
+          saveCubeState();
+          descendSequence.onComplete?.();
+          descendSequence = null;
+        }
+      } else if (dragging) {
+        currentX = lerp(currentX, targetX, 0.18);
+        currentY = lerp(currentY, targetY, 0.18);
+      } else {
+        if (timestamp >= autoFlipAt) {
+          const corrected = normalizeOrientation(targetX, targetY);
+          const shouldFlip =
+            Math.abs(corrected.x - targetX) > 0.1 ||
+            Math.abs(corrected.y - targetY) > 0.1;
+
+          if (shouldFlip) {
+            targetX = corrected.x;
+            targetY = corrected.y;
+            triggerSnapState();
+            saveCubeState();
+          }
+
+          autoFlipAt = Number.POSITIVE_INFINITY;
+        }
+
+        currentX = lerp(currentX, targetX, 0.12);
+        currentY = lerp(currentY, targetY, 0.12);
       }
 
       applyRotation();
@@ -1438,25 +1543,25 @@
     };
 
     scene.addEventListener("pointerdown", (e) => {
+      if (descendSequence) return;
       if (isInteractiveTarget(e.target)) return;
       dragging = true;
       moved = false;
       pointerId = e.pointerId;
       lastMouseX = e.clientX;
       lastMouseY = e.clientY;
-      velocityX = 0;
-      velocityY = 0;
+      autoFlipAt = Number.POSITIVE_INFINITY;
+      clearSnapState();
       cube.classList.add("is-dragging");
       scene.setPointerCapture(e.pointerId);
     });
 
     scene.addEventListener("pointermove", (e) => {
+      if (descendSequence) return;
       if (!dragging || e.pointerId !== pointerId) return;
       const dx = e.clientX - lastMouseX;
       const dy = e.clientY - lastMouseY;
       if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
-      velocityX = dx * 0.15;
-      velocityY = -dy * 0.15;
       targetY += dx * 0.4;
       targetX -= dy * 0.4;
       lastMouseX = e.clientX;
@@ -1464,11 +1569,13 @@
     });
 
     scene.addEventListener("pointerup", (e) => {
+      if (descendSequence) return;
       if (e.pointerId !== pointerId) return;
       dragging = false;
       cube.classList.remove("is-dragging");
       scene.releasePointerCapture(e.pointerId);
-      pauseUntil = performance.now() + 1500;
+      scheduleAutoFlip();
+      saveCubeState();
     });
 
     const isInteractiveTarget = (target) =>
@@ -1480,10 +1587,53 @@
       if (!t) return;
       targetX = t.x;
       targetY = t.y;
-      pauseUntil = performance.now() + 3000;
+      triggerSnapState();
+      scheduleAutoFlip(2400);
+      saveCubeState();
+    };
+
+    const setAmbientTilt = ({ x = 0, y = 0 } = {}) => {
+      ambientTiltX = x;
+      ambientTiltY = y;
+    };
+
+    const playDescendSequence = ({ onBoost, onComplete } = {}) => {
+      if (descendSequence) {
+        return false;
+      }
+
+      autoFlipAt = Number.POSITIVE_INFINITY;
+      clearSnapState();
+      dragging = false;
+      cinematicSpinX = 0;
+      cinematicDriftY = 0;
+      descendSequence = {
+        startedAt: performance.now(),
+        duration: reduceMotion ? 0 : 2200,
+        spinX: 360,
+        driftY: 0,
+        boosted: false,
+        onBoost,
+        onComplete: () => {
+          targetX = currentX;
+          targetY = currentY;
+          onComplete?.();
+        }
+      };
+
+      if (reduceMotion) {
+        descendSequence.duration = 1;
+      }
+
+      return true;
     };
 
     // Init Logic
+    scheduleAutoFlip(2600);
+    saveCubeState();
+    window.addEventListener("beforeunload", () => {
+      saveCubeState();
+    });
     requestAnimationFrame(onFrame);
     
     // Remove loading state with a professional transition
@@ -1495,7 +1645,110 @@
     }, 1500);
 
     window.ProfileHub = window.ProfileHub || {};
-    window.ProfileHub.cube = { rotateToFace };
+    window.ProfileHub.cube = { rotateToFace, setAmbientTilt, playDescendSequence, saveState: saveCubeState };
+  };
+
+  const initHomeShowcase = () => {
+    const body = document.body;
+    const scrollTriggers = [...document.querySelectorAll("[data-scroll-target]")];
+    const cubeSection = document.getElementById("project-cube");
+    const storySection = document.getElementById("home-story");
+    const cubeApi = window.ProfileHub?.cube;
+    const clampProgress = (value) => Math.min(1, Math.max(0, value));
+    let scrollUnlocked = false;
+
+    const unlockScroll = () => {
+      scrollUnlocked = true;
+      body.classList.remove("home-scroll-locked");
+    };
+
+    scrollTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const targetId = trigger.getAttribute("data-scroll-target");
+        const target = targetId ? document.getElementById(targetId) : null;
+        if (!target) {
+          return;
+        }
+
+        const performScroll = () => {
+          target.scrollIntoView({
+            behavior: reduceMotion ? "auto" : "smooth",
+            block: "start"
+          });
+        };
+
+        if (scrollUnlocked || !cubeApi || typeof cubeApi.playDescendSequence !== "function") {
+          unlockScroll();
+          performScroll();
+          return;
+        }
+
+        trigger.disabled = true;
+        body.classList.add("home-scroll-transitioning");
+
+        const played = cubeApi.playDescendSequence({
+          onBoost: () => {
+            unlockScroll();
+            performScroll();
+          },
+          onComplete: () => {
+            body.classList.remove("home-scroll-transitioning");
+            trigger.disabled = false;
+          }
+        });
+
+        if (!played) {
+          body.classList.remove("home-scroll-transitioning");
+          trigger.disabled = false;
+          unlockScroll();
+          performScroll();
+        }
+      });
+    });
+
+    if (body.dataset.page !== "home" || !cubeSection || !storySection || !cubeApi || typeof cubeApi.setAmbientTilt !== "function") {
+      return;
+    }
+
+    body.classList.add("home-scroll-locked");
+    window.scrollTo({ top: 0, behavior: "auto" });
+
+    const preventLockedScroll = (event) => {
+      if (!body.classList.contains("home-scroll-locked")) {
+        return;
+      }
+      event.preventDefault();
+    };
+
+    const preventLockedKeys = (event) => {
+      if (!body.classList.contains("home-scroll-locked")) {
+        return;
+      }
+      const blockedKeys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " ", "Spacebar"];
+      if (!blockedKeys.includes(event.key)) {
+        return;
+      }
+      event.preventDefault();
+    };
+
+    const updateCubeScrollMood = () => {
+      const viewportHeight = window.innerHeight || 1;
+      const start = cubeSection.offsetTop;
+      const end = Math.max(start + 1, storySection.offsetTop - viewportHeight * 0.42);
+      const progress = clampProgress((window.scrollY - start) / (end - start));
+      const ambientX = reduceMotion ? 0 : progress * 10;
+      const ambientY = reduceMotion ? 0 : progress * -18;
+      cubeApi.setAmbientTilt({ x: ambientX, y: ambientY });
+    };
+
+    updateCubeScrollMood();
+    window.addEventListener("scroll", () => {
+      updateCubeScrollMood();
+    }, { passive: true });
+    window.addEventListener("resize", updateCubeScrollMood);
+    window.addEventListener("wheel", preventLockedScroll, { passive: false });
+    window.addEventListener("touchmove", preventLockedScroll, { passive: false });
+    window.addEventListener("keydown", preventLockedKeys);
   };
 
   const initCubeStage = () => {
@@ -1532,7 +1785,7 @@
     if (cubeScene) {
       cubeScene.addEventListener("click", () => {
         if (!body.classList.contains("is-cube-stage-closed")) return;
-        openCubeStage({ scroll: true, face: "balance" });
+        openCubeStage({ scroll: true, face: "odora" });
       });
     }
 
@@ -2339,6 +2592,130 @@
     return renderStay;
   };
 
+  const initProjectDetailPage = () => {
+    const body = document.body;
+    const root = document.querySelector("[data-project-detail-root]");
+    const homeLinks = [...document.querySelectorAll("[data-project-home-link]")];
+
+    if (!root || body.dataset.page !== "project-detail") {
+      return;
+    }
+
+    const projectKey = root.getAttribute("data-project-key") || body.dataset.projectKey || "";
+    if (!projectKey) {
+      return;
+    }
+
+    const imageNode = root.querySelector("[data-project-image]");
+    const imageWrap = root.querySelector("[data-project-image-wrap]");
+    const kickerNode = root.querySelector("[data-project-kicker]");
+    const titleNode = root.querySelector("[data-project-title]");
+    const summaryNode = root.querySelector("[data-project-summary]");
+    const tagsNode = root.querySelector("[data-project-tags]");
+    const overviewNode = root.querySelector("[data-project-overview]");
+    const workNode = root.querySelector("[data-project-work]");
+    const outcomeNode = root.querySelector("[data-project-outcome]");
+
+    const renderParagraphs = (items = []) =>
+      items
+        .filter((item) => typeof item === "string" && item.trim().length)
+        .map((item) => `<p>${item}</p>`)
+        .join("");
+
+    const renderTags = (items = []) =>
+      items
+        .filter((item) => typeof item === "string" && item.trim().length)
+        .map((item) => `<span class="cv-chip">${item}</span>`)
+        .join("");
+
+    const setPageMeta = (title, summary, image) => {
+      const pageTitle = t("meta.projectPageTitle", "{projectTitle} | Andre Rizzo", {
+        projectTitle: title || "Project"
+      });
+      const pageDescription = t("meta.projectPageDescription", "{summary}", {
+        summary: summary || ""
+      });
+
+      document.title = pageTitle;
+      const descMeta = document.querySelector('meta[data-meta="description"]');
+      const ogTitle = document.querySelector('meta[data-meta="og:title"]');
+      const ogDescription = document.querySelector('meta[data-meta="og:description"]');
+      const ogImage = document.querySelector('meta[property="og:image"]');
+      const twitterTitle = document.querySelector('meta[data-meta="twitter:title"]');
+      const twitterDescription = document.querySelector('meta[data-meta="twitter:description"]');
+
+      if (descMeta) {
+        descMeta.setAttribute("content", pageDescription);
+      }
+      if (ogTitle) {
+        ogTitle.setAttribute("content", pageTitle);
+      }
+      if (ogDescription) {
+        ogDescription.setAttribute("content", pageDescription);
+      }
+      if (ogImage && image) {
+        ogImage.setAttribute("content", image);
+      }
+      if (twitterTitle) {
+        twitterTitle.setAttribute("content", pageTitle);
+      }
+      if (twitterDescription) {
+        twitterDescription.setAttribute("content", pageDescription);
+      }
+    };
+
+    const renderProject = () => {
+      const project = getValue(`projectPages.${projectKey}`);
+      if (!project || typeof project !== "object") {
+        return;
+      }
+
+      homeLinks.forEach((link) => {
+        link.setAttribute("href", withLanguageQuery("index.html"));
+      });
+
+      if (kickerNode) {
+        kickerNode.textContent = String(project.kicker || "");
+      }
+      if (titleNode) {
+        titleNode.textContent = String(project.title || projectKey);
+      }
+      if (summaryNode) {
+        summaryNode.textContent = String(project.summary || "");
+      }
+      if (tagsNode) {
+        tagsNode.innerHTML = renderTags(project.tags || []);
+      }
+      if (overviewNode) {
+        overviewNode.innerHTML = renderParagraphs(project.overview || []);
+      }
+      if (workNode) {
+        workNode.innerHTML = renderParagraphs(project.work || []);
+      }
+      if (outcomeNode) {
+        outcomeNode.innerHTML = renderParagraphs(project.outcome || []);
+      }
+
+      if (imageNode instanceof HTMLImageElement) {
+        imageNode.src = String(project.image || "");
+        imageNode.alt = String(project.imageAlt || project.title || projectKey);
+      }
+
+      if (imageWrap) {
+        imageWrap.toggleAttribute("data-project-has-image", Boolean(project.image));
+      }
+
+      if (i18n && typeof i18n.applyTranslations === "function") {
+        i18n.applyTranslations(root);
+      }
+
+      setPageMeta(String(project.title || projectKey), String(project.summary || ""), String(project.image || ""));
+    };
+
+    renderProject();
+    window.addEventListener("i18n:change", renderProject);
+  };
+
   const initFooterYear = () => {
     const yearNode = document.getElementById("year");
     if (yearNode) {
@@ -2463,6 +2840,7 @@
     initRoleRotator();
     initHeroParallax();
     initProjectCube();
+    initHomeShowcase();
     initCubeStage();
     initHeroCubeLinks();
     initExternalLinks();
@@ -2471,6 +2849,7 @@
     initContactForm();
     initCubeContactForm();
     initStayPage();
+    initProjectDetailPage();
     initFooterYear();
     initTrackingStub();
   };

@@ -49,13 +49,11 @@
                   </div>
                   <span class="cube-loading-text">Initializing Engine</span>
                 </div>
-                <div class="project-cube" data-project-cube style="--cube-rx: -18deg; --cube-ry: 0deg;">
+                <div class="project-cube" data-project-cube style="--cube-rx: -18deg; --cube-ry: -135deg;">
                   <article class="cube-face cube-face--front">
                     <div class="cube-face-surface cube-face-surface--cta">
-                      <div class="cube-cta-card">
-                        <p class="cube-cta-kicker">SOCIAL</p>
-                        <h3 class="cube-cta-title">Connect</h3>
-                        <p class="cube-cta-copy">Follow my work and stay in touch.</p>
+                      <div class="cube-cta-card cube-cta-card--social">
+                        <h3 class="cube-cta-title" data-i18n="cube.socialTitle">Stay connected</h3>
                         <div class="cube-social-icons">
                           <a href="https://www.instagram.com/ozzirr" class="cube-social-icon-link" data-external="true" data-cube-interactive aria-label="Instagram">
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.6">
@@ -90,7 +88,7 @@
                         <p class="cube-face-kicker">DIGITAL PROJECT</p>
                         <h3 class="cube-face-title">Odora</h3>
                         <p class="cube-face-copy" data-i18n="cube.odoraCopy">Discovery UX, catalog logic and conversion-focused product browsing for fragrance lovers.</p>
-                        <button class="cube-face-cta" data-project-trigger="odora" data-cube-interactive>Details</button>
+                        <a class="cube-face-cta" href="odora.html" data-project-link="odora" data-cube-interactive>Details</a>
                       </div>
                     </div>
                   </article>
@@ -110,7 +108,7 @@
                         <p class="cube-face-kicker">DIGITAL PROJECT</p>
                         <h3 class="cube-face-title">Balance</h3>
                         <p class="cube-face-copy" data-i18n="cube.balanceCopy">Product design, visual system and app experience for a clearer personal finance journey.</p>
-                        <button class="cube-face-cta" data-project-trigger="balance" data-cube-interactive>Details</button>
+                        <a class="cube-face-cta" href="balance.html" data-project-link="balance" data-cube-interactive>Details</a>
                       </div>
                     </div>
                   </article>
@@ -124,7 +122,7 @@
                         <p class="cube-face-kicker">DIGITAL PROJECT</p>
                         <h3 class="cube-face-title">Generale Elettrica</h3>
                         <p class="cube-face-copy" data-i18n="cube.generaleCopy">Commerce architecture, catalog clarity and operational integrations for industrial sales.</p>
-                        <button class="cube-face-cta" data-project-trigger="generale" data-cube-interactive>Details</button>
+                        <a class="cube-face-cta" href="generale-elettrica.html" data-project-link="generale" data-cube-interactive>Details</a>
                       </div>
                     </div>
                   </article>
@@ -133,17 +131,11 @@
                     <div class="cube-face-surface cube-face-surface--game">
                       <div class="cube-arcade-card" data-arcade-game>
                         <div class="cube-arcade-head">
-                          <p class="cube-face-kicker" data-i18n="snake.kicker">Mini game</p>
-                          <div class="cube-arcade-chips" aria-hidden="true">
-                            <p class="cube-arcade-chip">
-                              <span data-i18n="snake.scoreLabel">Score</span>
-                              <span data-arcade-score>0</span>
-                            </p>
-                            <p class="cube-arcade-chip">
-                              <span>World</span>
-                              <span data-arcade-stage>2R Studio</span>
-                            </p>
-                          </div>
+                          <p class="cube-face-kicker" data-i18n="snake.kicker">Arcade game</p>
+                          <p class="cube-arcade-chip" aria-hidden="true">
+                            <span data-i18n="snake.scoreLabel">Score</span>
+                            <span data-arcade-score>0</span>
+                          </p>
                         </div>
 
                         <div class="cube-arcade-stage">
@@ -186,6 +178,51 @@
                   </article>
                 </div>
               </div>
+              <div class="cube-marquee" aria-hidden="true">
+                <div class="cube-marquee-track">
+                  <span data-i18n="homeFlow.marquee">ODORA • BALANCE • AI SYSTEMS • QA • PRODUCT THINKING • DIGITAL ADVISORY • RELEASE FLOW • MYLINKS</span>
+                  <span data-i18n="homeFlow.marquee">ODORA • BALANCE • AI SYSTEMS • QA • PRODUCT THINKING • DIGITAL ADVISORY • RELEASE FLOW • MYLINKS</span>
+                </div>
+              </div>
+              <button type="button" class="cube-down-cta" data-scroll-target="home-story">
+                <span data-i18n="homeFlow.scrollCta">Scendi sotto il cubo</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 5v12m0 0 5-5m-5 5-5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-home-story" id="home-story" data-reveal>
+          <div class="container">
+            <div class="home-story-shell">
+              <div class="home-story-bio">
+                <div class="home-story-head">
+                  <p class="section-kicker" data-i18n="homeFlow.kicker">Profilo digitale</p>
+                  <h2 class="section-title" data-i18n="homeFlow.title">Andre Rizzo</h2>
+                  <p class="home-story-intro" data-i18n="homeFlow.intro">
+                    02/12/97. Test &amp; Release Manager, AI enthusiastic e builder con una crescente passione per il vibe coding. Ingegnere informatico e mezzo. Faccio cose col computer. L'equilibrio e' tutto.
+                  </p>
+                  <div class="home-story-badges" aria-label="Profile signals">
+                    <span class="home-story-badge" data-i18n="homeFlow.badges.birth">02/12/97</span>
+                    <span class="home-story-badge" data-i18n="homeFlow.badges.ai">AI Enthusiastic</span>
+                    <span class="home-story-badge" data-i18n="homeFlow.badges.qa">QA &amp; Release</span>
+                    <span class="home-story-badge" data-i18n="homeFlow.badges.vibe">Vibe Coding</span>
+                  </div>
+                </div>
+
+                <figure class="home-story-portrait" data-reveal style="--delay: 0.1s">
+                  <img
+                    src="assets/andre-rizzo-beach-optimized.webp"
+                    alt="Andre Rizzo"
+                    class="home-story-portrait-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption class="home-story-portrait-caption" data-i18n="homeFlow.photoCaption">Andre Rizzo</figcaption>
+                </figure>
+              </div>
             </div>
           </div>
         </section>
@@ -202,16 +239,6 @@
           </div>
         </div>
       </footer>
-    </div>
-
-    <!-- Project Detail Overlay -->
-    <div class="project-overlay" id="project-detail-overlay" aria-hidden="true">
-        <div class="project-overlay-content">
-            <button class="project-overlay-close" aria-label="Close details">&times;</button>
-            <div id="project-detail-body">
-                <!-- Dynamic content -->
-            </div>
-        </div>
     </div>
   </body>
 </html>

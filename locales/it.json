@@ -2,6 +2,8 @@
   "meta": {
     "homeTitle": "Andre Rizzo | mylinks",
     "homeDescription": "Andre Rizzo. mylinks tra progetti digitali, experience e percorso professionale.",
+    "projectPageTitle": "{projectTitle} | Andre Rizzo",
+    "projectPageDescription": "{summary}",
     "stayTitle": "Soggiorno | Andre Rizzo",
     "stayDescription": "Dettagli soggiorno hospitality, servizi e richiesta disponibilità.",
     "stayPageTitle": "{stayTitle} | Andre Rizzo",
@@ -41,6 +43,34 @@
     "restart": "Retry",
     "canvasAria": "Mini platform game Andre World",
     "tapHint": "Tap o Space per saltare"
+  },
+  "homeFlow": {
+    "marquee": "ODORA • BALANCE • AI SYSTEMS • QA • PRODUCT THINKING • DIGITAL ADVISORY • RELEASE FLOW • MYLINKS",
+    "scrollCta": "Scendi sotto il cubo",
+    "kicker": "Profilo digitale",
+    "title": "Andre Rizzo",
+    "intro": "02/12/97. Test & Release Manager, AI enthusiastic e builder con una crescente passione per il vibe coding. Ingegnere informatico e mezzo. Faccio cose col computer. L'equilibrio e' tutto.",
+    "photoCaption": "Andre Rizzo",
+    "badges": {
+      "birth": "02/12/97",
+      "ai": "AI Enthusiastic",
+      "qa": "QA & Release",
+      "vibe": "Vibe Coding"
+    },
+    "cards": {
+      "products": {
+        "title": "Prodotti digitali",
+        "copy": "Odora e Balance nascono da lavoro concreto su requisiti, UX, interfacce, sistemi dati, roadmap e posizionamento di prodotto."
+      },
+      "systems": {
+        "title": "AI, QA e delivery",
+        "copy": "Disegno sistemi AI, processo di test e release flow per rendere piu' affidabile l'esecuzione e ridurre il lavoro manuale nei team."
+      },
+      "next": {
+        "title": "Advisory e direzione",
+        "copy": "Con 2R SRL porto struttura, priorita', integrazione tecnica e direzione operativa su ecommerce, app e sistemi digitali."
+      }
+    }
   },
   "balance": {
     "cta": "Scopri Balance"
@@ -103,6 +133,7 @@
     "profileTitle": "Andre Rizzo",
     "profileCopy": "Developer, AI expert, Test Manager. Progetti digitali, product systems e percorso professionale raccolti qui.",
     "viewProject": "Apri progetto",
+    "socialTitle": "Stay connected",
     "balanceCopy": "Product design, visual system e app experience per una finanza personale più chiara.",
     "odoraCopy": "Discovery UX, logica catalogo e navigazione prodotto orientate a scelta e conversione.",
     "generaleCopy": "Commerce architecture, chiarezza di catalogo e integrazioni operative per la vendita industriale.",
@@ -125,6 +156,103 @@
     },
     "msCopy": "Un posizionamento più netto con un sito più pulito e pronto alla conversione.",
     "arsieniCopy": "Sito e identità digitale costruiti per risultare premium, diretti e memorabili."
+  },
+  "projectPage": {
+    "backHome": "Torna al cubo",
+    "sections": {
+      "overview": {
+        "kicker": "Contesto progetto",
+        "title": "Overview"
+      },
+      "work": {
+        "kicker": "Il mio contributo",
+        "title": "Cosa ho costruito"
+      },
+      "outcome": {
+        "kicker": "Valore del sistema",
+        "title": "Cosa lo rende forte"
+      }
+    }
+  },
+  "projectPages": {
+    "generale": {
+      "title": "Generale Elettrica",
+      "kicker": "Industrial ecommerce platform",
+      "summary": "Un ecommerce industriale collegato direttamente al gestionale interno, pensato per aggiornarsi da solo su catalogo, disponibilita', prezzi, immagini e tempi di spedizione.",
+      "image": "assets/logos/logo-generale-elettrica-optimized.webp",
+      "imageAlt": "Generale Elettrica",
+      "tags": [
+        "WooCommerce",
+        "API Custom",
+        "ERP Integration",
+        "Catalog Sync",
+        "Industrial Ecommerce"
+      ],
+      "overview": [
+        "Generale Elettrica e' un'azienda orientata a elettronica industriale, videosorveglianza, citofonia, climatizzazione e forniture per installatori. Aveva aperto un magazzino molto ampio, con migliaia di prodotti e una forte componente operativa legata al punto vendita fisico.",
+        "Il punto chiave era evitare un ecommerce scollegato dalla realta' del negozio. Il catalogo doveva vivere sugli stessi dati usati ogni giorno dal team, senza doppi inserimenti, senza aggiornamenti manuali e senza mismatch tra stock, prezzi e tempi."
+      ],
+      "work": [
+        "Ho integrato il loro gestionale interno con WordPress e WooCommerce tramite API custom, costruendo un flusso che sincronizza prodotti, disponibilita', immagini, prezzi e tempi di spedizione in modo automatico.",
+        "Ho progettato la struttura ecommerce per reggere un catalogo molto esteso e molto eterogeneo, dalle lampadine alla videosorveglianza, fino ai kit per elettricisti. Il lavoro non era solo frontend: era soprattutto architettura operativa tra sistema interno e canale digitale."
+      ],
+      "outcome": [
+        "Il risultato e' un ecommerce che si auto-aggiorna e riflette il lavoro reale del magazzino e del negozio. La parte digitale non richiede manutenzione continua per restare coerente con il business.",
+        "Questo rende il progetto forte perche' riduce attrito operativo, tiene allineati i dati critici e trasforma il gestionale in una base viva per la vendita online."
+      ]
+    },
+    "odora": {
+      "title": "Odora",
+      "kicker": "Fragrance discovery product",
+      "summary": "Un digital project end-to-end dedicato alla scoperta dei profumi, con esperienza di ricerca avanzata, logica di catalogo, note olfattive e comparazione delle migliori offerte online.",
+      "image": "assets/logos/logo_odora.png",
+      "imageAlt": "Odora",
+      "tags": [
+        "Product Design",
+        "Design System",
+        "API",
+        "Web Scraping",
+        "Price Comparison"
+      ],
+      "overview": [
+        "Odora nasce come progetto digitale completo per il mondo fragranze: non solo un catalogo, ma uno strumento di discover intelligente per trovare il profumo giusto tramite filtri, famiglie olfattive, note e preferenze.",
+        "La logica del prodotto prosegue anche nella singola scheda profumo, dove la scoperta si unisce alla conversione mostrando le migliori offerte disponibili online da player come Notino, Douglas, Sephora, Amazon e altri store rilevanti."
+      ],
+      "work": [
+        "Su Odora ho lavorato dall'inizio alla fine: definizione dei requisiti, naming, logo, design system, UX, struttura funzionale, API e parte di scraping web per raccogliere dati e offerte.",
+        "Ho costruito il prodotto come un sistema coerente, dove brand, esperienza utente, discovery, comparazione e architettura tecnica lavorano insieme invece di essere pezzi separati."
+      ],
+      "outcome": [
+        "Il valore del progetto sta nel fatto che la ricerca del profumo non si ferma al contenuto editoriale o al catalogo, ma accompagna l'utente verso una scelta piu' precisa e verso l'offerta migliore disponibile in quel momento.",
+        "Odora e' forte perche' unisce product thinking, design, dati e conversione in un'esperienza verticale, chiara e riconoscibile."
+      ]
+    },
+    "balance": {
+      "title": "Balance",
+      "kicker": "Privacy-first finance app",
+      "summary": "Un'app iOS privacy-first per monitorare finanze personali e patrimonio nel tempo, costruita per sostituire fogli Excel complessi con un'esperienza piu' chiara e sostenibile.",
+      "image": "assets/projects/balance/banner-balance.webp",
+      "imageAlt": "Balance app preview",
+      "tags": [
+        "iOS App",
+        "Personal Finance",
+        "Privacy First",
+        "Net Worth Tracking",
+        "Subscription Model"
+      ],
+      "overview": [
+        "Balance e' un'app digital oggi disponibile su App Store per iOS, con Android in arrivo. Il focus e' dare controllo reale sulle proprie finanze e sul patrimonio, senza costringere l'utente a vivere dentro fogli Excel pieni di formule e manutenzione manuale.",
+        "L'app consente di tracciare wallet, andamento storico e situazione patrimoniale nel tempo, mantenendo un approccio privacy-first e una struttura pensata per durare nel lungo periodo."
+      ],
+      "work": [
+        "Ho definito l'esperienza prodotto e la direzione del sistema in modo da trasformare un tema tipicamente complesso, come il net worth tracking, in un'interfaccia piu' pulita, leggibile e progressiva.",
+        "La logica di prodotto tiene insieme onboarding, gestione wallet, storico dei dati e modello freemium: tre wallet nella versione gratuita e uso esteso nella versione Infinity."
+      ],
+      "outcome": [
+        "Balance e' forte perche' sostituisce strumenti improvvisati con un prodotto dedicato, progettato per accompagnare l'utente nel tempo invece di richiedere continue correzioni manuali.",
+        "Il posizionamento privacy-first e la chiarezza dell'esperienza lo rendono un progetto solido sia lato utilita' quotidiana sia lato evoluzione futura su piu' piattaforme."
+      ]
+    }
   },
   "tags": {
     "ecommerce": "Ecommerce",

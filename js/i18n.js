@@ -53,11 +53,20 @@
   };
 
   const updateQueryLanguage = (language) => {
+    if (window.location.protocol === "file:") {
+      return;
+    }
+
     const params = new URLSearchParams(window.location.search);
     params.set(QUERY_KEY, language);
     const query = params.toString();
     const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
-    window.history.replaceState({}, "", nextUrl);
+
+    try {
+      window.history.replaceState({}, "", nextUrl);
+    } catch {
+      // Some browsers treat file:// previews as opaque origins and reject URL rewriting.
+    }
   };
 
   const setSavedLanguage = (language) => {
