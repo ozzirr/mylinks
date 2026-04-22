@@ -82,9 +82,10 @@ export default function PillNav() {
 
   return (
     <>
-      <header key={pathname} className="sticky top-4 z-50 flex justify-center px-4 animate-nav-drop">
+      <header className="sticky top-4 z-50 flex justify-center px-4">
         <nav
-          className={`pill-nav flex items-center gap-1 rounded-full pl-2 pr-2 py-1.5 transition-all ${
+          key={pathname}
+          className={`pill-nav animate-nav-drop backdrop-blur-2xl backdrop-saturate-150 flex items-center gap-1 rounded-full pl-2 pr-2 py-1.5 transition-[box-shadow] ${
             scrolled ? 'shadow-[0_8px_40px_-16px_rgba(0,0,0,0.8)]' : ''
           }`}
         >
