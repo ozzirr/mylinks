@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {getBrowserClient} from '@/lib/supabase';
+import AuthTrigger from '@/components/AuthTrigger';
 
 const TOOLS = [
   {key: 'qr' as const, href: '/tools/qr'},
@@ -60,9 +61,9 @@ export default function DashboardClient() {
         {(status === 'anon' || status === 'unconfigured') && (
           <div className="mt-10 card p-8">
             <p className="text-[var(--color-text-soft)]">{t('notLogged')}</p>
-            <Link href="/auth/login" className="btn btn-primary mt-4 inline-flex">
+            <AuthTrigger mode="login" className="btn btn-primary mt-4 inline-flex">
               {t('login')} →
-            </Link>
+            </AuthTrigger>
           </div>
         )}
 

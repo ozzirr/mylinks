@@ -5,6 +5,7 @@ import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {computePaycheck, formatEUR} from '@/lib/paycheck';
 import {getBrowserClient} from '@/lib/supabase';
+import AuthTrigger from '@/components/AuthTrigger';
 
 export default function PaycheckClient() {
   const t = useTranslations('tools.paycheck');
@@ -16,6 +17,11 @@ export default function PaycheckClient() {
   const [email, setEmail] = useState('');
   const [authedEmail, setAuthedEmail] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle');
+  const [used, setUsed] = useState(false);
+
+  useEffect(() => {
+    setUsed(localStorage.getItem('2erre.paycheck.used') === '1');
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -28,6 +34,15 @@ export default function PaycheckClient() {
       }
     })();
   }, []);
+
+  const locked = used && !authedEmail;
+
+  function markUsed() {
+    if (!used) {
+      localStorage.setItem('2erre.paycheck.used', '1');
+      setUsed(true);
+    }
+  }
 
   const result = useMemo(
     () => computePaycheck({grossAnnual: gross, months, dependents, spouseDependent: spouse}),
@@ -75,14 +90,16 @@ export default function PaycheckClient() {
                   max={150000}
                   step={500}
                   value={gross}
-                  onChange={(e) => setGross(Number(e.target.value))}
-                  className="flex-1 accent-[var(--color-accent)]"
+                  onChange={(e) => { if (locked) return; setGross(Number(e.target.value)); markUsed(); }}
+                  className="flex-1 accent-[var(--color-accent)] disabled:opacity-50"
+                  disabled={locked}
                 />
                 <input
                   type="number"
                   value={gross}
-                  onChange={(e) => setGross(Number(e.target.value) || 0)}
-                  className="field w-32"
+                  onChange={(e) => { if (locked) return; setGross(Number(e.target.value) || 0); markUsed(); }}
+                  className="field w-32 disabled:opacity-50"
+                  disabled={locked}
                 />
               </div>
               <div className="mt-1 text-xs text-[var(--color-text-dim)]">
@@ -97,7 +114,8 @@ export default function PaycheckClient() {
                   <button
                     key={m}
                     type="button"
-                    onClick={() => setMonths(m)}
+                    onClick={() => { if (locked) return; setMonths(m); markUsed(); }}
+                disabled={locked}
                     className={`btn flex-1 ${months === m ? 'btn-primary' : 'btn-ghost'}`}
                   >
                     {m === 13 ? t('months13') : t('months14')}
@@ -113,8 +131,9 @@ export default function PaycheckClient() {
                 min={0}
                 max={10}
                 value={dependents}
-                onChange={(e) => setDependents(Math.max(0, Number(e.target.value) || 0))}
-                className="field"
+                onChange={(e) => { if (locked) return; setDependents(Math.max(0, Number(e.target.value) || 0)); markUsed(); }}
+                className="field disabled:opacity-50"
+                disabled={locked}
               />
             </div>
 
@@ -122,14 +141,21 @@ export default function PaycheckClient() {
               <input
                 type="checkbox"
                 checked={spouse}
-                onChange={(e) => setSpouse(e.target.checked)}
+                onChange={(e) => { if (locked) return; setSpouse(e.target.checked); markUsed(); }}
                 className="accent-[var(--color-accent)]"
+                disabled={locked}
               />
               {t('fields.spouse')}
             </label>
           </div>
 
-          <div className="card p-8 flex flex-col">
+          <div className="card p-8 flex flex-col relative">
+            {locked && (
+              <div className="absolute inset-0 z-10 rounded-[inherit] backdrop-blur-sm bg-black/40 flex flex-col items-center justify-center text-center p-6">
+                <p className="text-sm text-[var(--color-text-soft)] max-w-xs">{t('locked') || 'Registrati per continuare a usare lo strumento.'}</p>
+                <AuthTrigger mode="signup" className="btn btn-primary mt-4">{t('signup') || 'Registrati gratis'} →</AuthTrigger>
+              </div>
+            )}
             <div className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-dim)]">
               {t('results.title')}
             </div>
@@ -155,36 +181,48 @@ export default function PaycheckClient() {
           </div>
         </div>
 
-        <form onSubmit={saveReport} className="mt-6 card p-6 flex flex-col sm:flex-row gap-3 items-end">
-          <div className="flex-1 w-full">
-            <label className="label">{t('save')}</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@company.com"
-              className="field"
-              readOnly={!!authedEmail}
-            />
-            {authedEmail && (
-              <div className="mt-1 text-xs text-[var(--color-text-dim)]">
-                <Link href="/account" className="hover:text-[var(--color-accent)]">
-                  Modifica email →
-                </Link>
+        {authedEmail ? (
+          <form onSubmit={saveReport} className="mt-6 card p-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
+              <div className="flex-1 w-full">
+                <label className="label">{t('save')}</label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="field bg-[var(--color-ink-1)] text-[var(--color-text-dim)] cursor-not-allowed opacity-70"
+                  readOnly
+                  aria-readonly
+                />
+                <div className="mt-1 text-xs text-[var(--color-text-dim)]">
+                  <Link href="/account" className="hover:text-[var(--color-accent)]">
+                    Modifica email →
+                  </Link>
+                </div>
+              </div>
+              <button
+                type="submit"
+                disabled={saveStatus === 'sending'}
+                className="btn btn-primary whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {t('saveCta')} →
+              </button>
+            </div>
+            {saveStatus !== 'idle' && (
+              <div className="mt-3 text-sm">
+                {saveStatus === 'sending' && <span className="text-[var(--color-text-dim)]">…</span>}
+                {saveStatus === 'ok' && <span className="text-[var(--color-accent)]">{t('saveOk')}</span>}
+                {saveStatus === 'err' && <span className="text-red-400">{t('saveErr')}</span>}
               </div>
             )}
+          </form>
+        ) : (
+          <div className="mt-6 card p-6 text-center">
+            <p className="text-sm text-[var(--color-text-soft)]">{t('locked')}</p>
+            <AuthTrigger mode="signup" className="btn btn-dark mt-4">{t('signup')} →</AuthTrigger>
           </div>
-          <button type="submit" disabled={saveStatus === 'sending'} className="btn btn-primary whitespace-nowrap">
-            {t('saveCta')} →
-          </button>
-          {saveStatus === 'ok' && (
-            <span className="text-sm text-[var(--color-accent)]">{t('saveOk')}</span>
-          )}
-          {saveStatus === 'err' && (
-            <span className="text-sm text-red-400">{t('saveErr')}</span>
-          )}
-        </form>
+        )}
       </div>
     </section>
   );

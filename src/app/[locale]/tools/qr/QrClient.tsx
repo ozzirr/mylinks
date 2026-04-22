@@ -5,6 +5,7 @@ import QRCode from 'qrcode';
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {getBrowserClient} from '@/lib/supabase';
+import AuthTrigger from '@/components/AuthTrigger';
 
 const USED_KEY = '2erre.qr.used';
 
@@ -13,7 +14,7 @@ export default function QrClient() {
   const tPay = useTranslations('tools.paycheck');
   const [text, setText] = useState('');
   const [dataUrl, setDataUrl] = useState<string | null>(null);
-  const [, setUsed] = useState(false);
+  const [used, setUsed] = useState(false);
 
   const [authedEmail, setAuthedEmail] = useState<string | null>(null);
   const [email, setEmail] = useState('');
@@ -35,8 +36,10 @@ export default function QrClient() {
     })();
   }, []);
 
+  const locked = used && !authedEmail;
+
   async function generate() {
-    if (!text.trim()) return;
+    if (!text.trim() || locked) return;
     const url = await QRCode.toDataURL(text, {
       errorCorrectionLevel: 'H',
       margin: 1,
@@ -85,9 +88,16 @@ export default function QrClient() {
             onChange={(e) => setText(e.target.value)}
             className="field"
             placeholder={t('placeholder')}
+            disabled={locked}
           />
           <div className="mt-4 flex gap-3">
-            <button className="btn btn-primary" onClick={generate}>{t('generate')} →</button>
+            <button
+              className="btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={generate}
+              disabled={locked}
+            >
+              {t('generate')} →
+            </button>
             {dataUrl && (
               <a className="btn btn-ghost" href={dataUrl} download="2erre-qr.png">
                 {t('download')}
@@ -106,41 +116,47 @@ export default function QrClient() {
         </div>
 
         {authedEmail ? (
-          <form onSubmit={saveReport} className="mt-6 card p-6 flex flex-col sm:flex-row gap-3 items-end">
-            <div className="flex-1 w-full">
-              <label className="label">{tPay('save')}</label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="field"
-                readOnly
-              />
-              <div className="mt-1 text-xs text-[var(--color-text-dim)]">
-                <Link href="/account" className="hover:text-[var(--color-accent)]">
-                  Modifica email →
-                </Link>
+          <form onSubmit={saveReport} className="mt-6 card p-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
+              <div className="flex-1 w-full">
+                <label className="label">{tPay('save')}</label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="field bg-[var(--color-ink-1)] text-[var(--color-text-dim)] cursor-not-allowed opacity-70"
+                  readOnly
+                  aria-readonly
+                />
+                <div className="mt-1 text-xs text-[var(--color-text-dim)]">
+                  <Link href="/account" className="hover:text-[var(--color-accent)]">
+                    Modifica email →
+                  </Link>
+                </div>
               </div>
+              <button
+                type="submit"
+                disabled={!dataUrl || saveStatus === 'sending'}
+                className="btn btn-primary whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {tPay('saveCta')} →
+              </button>
             </div>
-            <button
-              type="submit"
-              disabled={!dataUrl || saveStatus === 'sending'}
-              className="btn btn-primary whitespace-nowrap"
-            >
-              {tPay('saveCta')} →
-            </button>
-            {saveStatus === 'ok' && (
-              <span className="text-sm text-[var(--color-accent)]">{tPay('saveOk')}</span>
-            )}
-            {saveStatus === 'err' && (
-              <span className="text-sm text-red-400">{tPay('saveErr')}</span>
+            {saveStatus !== 'idle' && (
+              <div className="mt-3 text-sm">
+                {saveStatus === 'sending' && <span className="text-[var(--color-text-dim)]">…</span>}
+                {saveStatus === 'ok' && <span className="text-[var(--color-accent)]">{tPay('saveOk')}</span>}
+                {saveStatus === 'err' && <span className="text-red-400">{tPay('saveErr')}</span>}
+              </div>
             )}
           </form>
         ) : (
           <div className="mt-6 card p-6 text-center">
-            <p className="text-sm text-[var(--color-text-soft)]">{t('locked')}</p>
-            <Link href="/auth/signup" className="btn btn-dark mt-4">{t('signup')} →</Link>
+            <p className="text-sm text-[var(--color-text-soft)]">
+              {locked ? t('locked') : t('locked')}
+            </p>
+            <AuthTrigger mode="signup" className="btn btn-dark mt-4">{t('signup')} →</AuthTrigger>
           </div>
         )}
       </div>

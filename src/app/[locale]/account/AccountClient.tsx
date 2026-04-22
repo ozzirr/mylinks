@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {getBrowserClient} from '@/lib/supabase';
+import AuthTrigger from '@/components/AuthTrigger';
 
 type Status = 'loading' | 'authed' | 'anon';
 
@@ -92,9 +93,9 @@ export default function AccountClient() {
         <div className="max-w-3xl mx-auto px-6">
           <div className="card p-8">
             <p className="text-[var(--color-text-soft)]">{tAuth('notLogged')}</p>
-            <Link href="/auth/login" className="btn btn-primary mt-4 inline-flex">
+            <AuthTrigger mode="login" className="btn btn-primary mt-4 inline-flex">
               {tAuth('login')} →
-            </Link>
+            </AuthTrigger>
           </div>
         </div>
       </section>

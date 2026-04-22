@@ -22,8 +22,8 @@ export async function POST(req: Request) {
     console.log('[lead] (stub — no Supabase configured)', parsed.data);
   }
 
-  const {subject, html} = renderReport(parsed.data.tool, parsed.data.payload ?? {});
-  const mail = await sendEmail({to: parsed.data.email, subject, html});
+  const {subject, html, attachments} = renderReport(parsed.data.tool, parsed.data.payload ?? {});
+  const mail = await sendEmail({to: parsed.data.email, subject, html, attachments});
 
   return NextResponse.json({ok: true, emailed: mail.ok && !mail.skipped});
 }

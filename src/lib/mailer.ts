@@ -1,10 +1,13 @@
+type Attachment = {filename: string; content: string; content_type?: string};
+
 type SendArgs = {
   to: string;
   subject: string;
   html: string;
+  attachments?: Attachment[];
 };
 
-export async function sendEmail({to, subject, html}: SendArgs): Promise<{ok: boolean; skipped?: boolean; error?: string}> {
+export async function sendEmail({to, subject, html, attachments}: SendArgs): Promise<{ok: boolean; skipped?: boolean; error?: string}> {
   const key = process.env.RESEND_API_KEY;
   const from = process.env.MAIL_FROM ?? 'no-reply@2erre.it';
   if (!key) {
@@ -18,7 +21,7 @@ export async function sendEmail({to, subject, html}: SendArgs): Promise<{ok: boo
         Authorization: `Bearer ${key}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({from, to, subject, html})
+      body: JSON.stringify({from, to, subject, html, attachments})
     });
     if (!res.ok) {
       const text = await res.text();
@@ -36,7 +39,7 @@ function eur(n: number) {
   return new Intl.NumberFormat('it-IT', {style: 'currency', currency: 'EUR', maximumFractionDigits: 0}).format(n);
 }
 
-export function renderReport(tool: string, payload: Record<string, unknown>): {subject: string; html: string} {
+export function renderReport(tool: string, payload: Record<string, unknown>): {subject: string; html: string; attachments?: Attachment[]} {
   const brand = '2erre SRL';
   if (tool === 'paycheck') {
     const r = payload.result as {netMonthly: number; netAnnual: number; irpefAnnual: number; inpsAnnual: number; employerCost: number};
@@ -76,16 +79,21 @@ export function renderReport(tool: string, payload: Record<string, unknown>): {s
   if (tool === 'qr') {
     const target = String(payload.target ?? '');
     const dataUrl = typeof payload.dataUrl === 'string' ? payload.dataUrl : '';
+    const base64 = dataUrl.startsWith('data:image/png;base64,') ? dataUrl.slice('data:image/png;base64,'.length) : '';
+    const attachments: Attachment[] = base64
+      ? [{filename: '2erre-qr.png', content: base64, content_type: 'image/png'}]
+      : [];
     return {
       subject: `${brand} · Il tuo QR code`,
       html: `
         <div style="font-family:Inter,system-ui,Arial,sans-serif;background:#050507;color:#e7e7ea;padding:32px">
           <h2 style="margin:0 0 8px">Il tuo QR code</h2>
           <p style="color:#9aa">Destinazione: ${target}</p>
-          ${dataUrl ? `<img src="${dataUrl}" alt="QR" width="320" height="320" style="background:#fff;border-radius:16px;padding:12px;margin-top:16px"/>` : ''}
+          <p style="color:#e7e7ea;margin-top:16px">Il QR è allegato a questa email come <b>2erre-qr.png</b>.</p>
           <p style="color:#888;font-size:12px;margin-top:24px">Generato con 2erre · tools.</p>
         </div>
-      `
+      `,
+      attachments
     };
   }
   return {

@@ -1,23 +1,42 @@
 'use client';
 
 import {useEffect, useState} from 'react';
+import Image from 'next/image';
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
+import {usePathname} from 'next/navigation';
 import {getBrowserClient} from '@/lib/supabase';
 import LangSwitcher from './LangSwitcher';
+import AuthTrigger from './AuthTrigger';
 
 export default function PillNav() {
   const t = useTranslations('nav');
+  const pathname = usePathname();
+  const isHome = /^\/[a-z]{2}\/?$/.test(pathname);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [open, setOpen] = useState(false);
   const [authed, setAuthed] = useState(false);
+  const logoVisible = !isHome || pastHero;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      const marquee = document.querySelector('[data-section="clients"]') as HTMLElement | null;
+      const threshold = marquee
+        ? marquee.offsetTop + marquee.offsetHeight - 80
+        : window.innerHeight + 200;
+      setPastHero(y > threshold);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, {passive: true});
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     let unsub: (() => void) | undefined;
@@ -40,19 +59,30 @@ export default function PillNav() {
   }, [open]);
 
   const links = [
-    {href: '/servizi', label: t('services')},
+    {href: '/#servizi', label: t('solutions')},
+    {href: '/#casi', label: t('caseStudies')},
     {href: '/prodotti', label: t('products')},
-    {href: '/chi-siamo', label: t('about')},
-    {href: '/blog', label: t('blog')},
-    {href: '/contatti', label: t('contact')}
+    {href: '/blog', label: t('blog')}
   ] as const;
 
-  const authHref = authed ? '/dashboard' : '/auth/login';
   const authLabel = authed ? t('dashboard') : t('login');
+
+  function onNavClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
+    if (!href.includes('#')) return;
+    if (!isHome) return;
+    const hash = href.split('#')[1];
+    if (!hash) return;
+    const el = document.getElementById(hash);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({behavior: 'smooth', block: 'start'});
+    history.replaceState(null, '', `#${hash}`);
+    setOpen(false);
+  }
 
   return (
     <>
-      <header className="sticky top-4 z-50 flex justify-center px-4">
+      <header key={pathname} className="sticky top-4 z-50 flex justify-center px-4 animate-nav-drop">
         <nav
           className={`pill-nav flex items-center gap-1 rounded-full pl-2 pr-2 py-1.5 transition-all ${
             scrolled ? 'shadow-[0_8px_40px_-16px_rgba(0,0,0,0.8)]' : ''
@@ -60,10 +90,20 @@ export default function PillNav() {
         >
           <Link
             href="/"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full text-[var(--color-text-strong)] font-semibold tracking-tight"
+            aria-label={t('brand')}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[var(--color-text-strong)] font-semibold tracking-tight transition-all duration-300 ${
+              logoVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 pointer-events-none w-0 overflow-hidden px-0'
+            }`}
           >
-            <span className="accent-dot" aria-hidden />
-            <span>{t('brand')}</span>
+            <Image
+              src="/brand/logo_2erre.png"
+              alt={t('brand')}
+              width={120}
+              height={32}
+              priority
+              className="h-7 w-auto"
+            />
+            <span className="sr-only">{t('brand')}</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-0.5">
@@ -71,6 +111,7 @@ export default function PillNav() {
               <Link
                 key={l.href}
                 href={l.href}
+                onClick={(e) => onNavClick(e, l.href)}
                 className="px-3 py-1.5 rounded-full text-[0.8125rem] uppercase tracking-wider text-[var(--color-text-soft)] hover:text-[var(--color-text-strong)] transition"
               >
                 {l.label}
@@ -80,12 +121,14 @@ export default function PillNav() {
 
           <div className="hidden md:flex items-center gap-2 pl-1">
             <LangSwitcher />
-            <Link
-              href={authHref}
-              className="px-3 py-1.5 rounded-full text-[0.8125rem] uppercase tracking-wider text-[var(--color-text-soft)] hover:text-[var(--color-text-strong)] transition"
-            >
-              {authLabel}
-            </Link>
+            {authed && (
+              <Link
+                href="/dashboard"
+                className="px-3 py-1.5 rounded-full text-[0.8125rem] uppercase tracking-wider text-[var(--color-text-soft)] hover:text-[var(--color-text-strong)] transition"
+              >
+                {t('dashboard')}
+              </Link>
+            )}
             <Link href="/contatti" className="btn btn-dark !py-1.5 !px-4 !text-[0.8125rem]">
               {t('cta')}
             </Link>
@@ -124,7 +167,7 @@ export default function PillNav() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    onClick={() => setOpen(false)}
+                    onClick={(e) => { setOpen(false); onNavClick(e, l.href); }}
                     className="flex items-center justify-between px-4 py-4 rounded-2xl text-[var(--color-text-strong)] text-lg hover:bg-[var(--color-ink-1)] transition"
                   >
                     <span>{l.label}</span>
@@ -133,14 +176,25 @@ export default function PillNav() {
                 </li>
               ))}
               <li className="mt-1 pt-1 border-t border-[var(--color-line)]">
-                <Link
-                  href={authHref}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center justify-between px-4 py-4 rounded-2xl text-[var(--color-text-strong)] text-lg hover:bg-[var(--color-ink-1)] transition"
-                >
-                  <span>{authLabel}</span>
-                  <span className="text-[var(--color-accent)]">→</span>
-                </Link>
+                {authed ? (
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between px-4 py-4 rounded-2xl text-[var(--color-text-strong)] text-lg hover:bg-[var(--color-ink-1)] transition"
+                  >
+                    <span>{authLabel}</span>
+                    <span className="text-[var(--color-accent)]">→</span>
+                  </Link>
+                ) : (
+                  <AuthTrigger
+                    mode="login"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between px-4 py-4 rounded-2xl text-[var(--color-text-strong)] text-lg hover:bg-[var(--color-ink-1)] transition"
+                  >
+                    <span>{authLabel}</span>
+                    <span className="text-[var(--color-accent)]">→</span>
+                  </AuthTrigger>
+                )}
               </li>
             </ul>
           </div>

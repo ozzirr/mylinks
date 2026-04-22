@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
 import {Link} from '@/i18n/navigation';
 
@@ -10,8 +11,14 @@ export default async function Footer() {
     <footer className="mt-32 border-t border-[var(--color-line)]">
       <div className="max-w-6xl mx-auto px-6 py-16 grid gap-12 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2 text-[var(--color-text-strong)] text-xl font-semibold">
-            <span className="accent-dot" aria-hidden /> 2erre
+          <div className="flex items-center">
+            <Image
+              src="/brand/logo_2erre.png"
+              alt="2erre SRL"
+              width={160}
+              height={48}
+              className="h-10 w-auto"
+            />
           </div>
           <p className="mt-3 text-[var(--color-text-soft)] max-w-sm text-sm leading-relaxed">
             {t('tagline')}

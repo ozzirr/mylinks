@@ -4,8 +4,10 @@ import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import type {Metadata} from 'next';
 import {routing} from '@/i18n/routing';
+import {Suspense} from 'react';
 import PillNav from '@/components/PillNav';
 import Footer from '@/components/Footer';
+import AuthModal from '@/components/AuthModal';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
@@ -37,9 +39,14 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale}>
-      <PillNav />
+      <Suspense fallback={null}>
+        <PillNav />
+      </Suspense>
       <main className="flex-1">{children}</main>
       <Footer />
+      <Suspense fallback={null}>
+        <AuthModal />
+      </Suspense>
     </NextIntlClientProvider>
   );
 }

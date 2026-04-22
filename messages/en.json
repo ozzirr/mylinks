@@ -5,12 +5,14 @@
   },
   "nav": {
     "services": "Services",
+    "solutions": "Solutions",
+    "caseStudies": "Case studies",
     "products": "Products",
     "about": "About",
     "blog": "Blog",
     "tools": "Tools",
     "contact": "Contact",
-    "cta": "Let's talk",
+    "cta": "Contact us",
     "login": "Log in",
     "dashboard": "Dashboard",
     "menu": "Menu",
@@ -19,8 +21,9 @@
   },
   "hero": {
     "eyebrow": "2erre SRL · Digital partner",
-    "title": "The digital partner",
-    "titleAccent": "of your business.",
+    "titlePre": "The",
+    "titleAccent": "digital partner",
+    "titleSuffix": "of your business.",
     "subtitle": "We design, build and scale software, web and mobile products for Italian SMBs.",
     "ctaPrimary": "Start now",
     "ctaSecondary": "Explore services"
@@ -211,7 +214,9 @@
       "save": "Receive the report by email",
       "saveCta": "Send it to me",
       "saveOk": "Report sent. Thanks!",
-      "saveErr": "Failed to send. Try again."
+      "saveErr": "Failed to send. Try again.",
+      "locked": "Sign up to keep using this tool.",
+      "signup": "Sign up free"
     },
     "quote": {
       "title": "Project Quote Estimator",

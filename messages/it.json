@@ -5,12 +5,14 @@
   },
   "nav": {
     "services": "Servizi",
+    "solutions": "Soluzioni",
+    "caseStudies": "Casi studio",
     "products": "Prodotti",
     "about": "Chi siamo",
     "blog": "Blog",
     "tools": "Strumenti",
     "contact": "Contattaci",
-    "cta": "Parliamone",
+    "cta": "Contattaci",
     "login": "Accedi",
     "dashboard": "Dashboard",
     "menu": "Menu",
@@ -19,8 +21,9 @@
   },
   "hero": {
     "eyebrow": "2erre SRL · Partner digitale",
-    "title": "Il partner digitale",
-    "titleAccent": "della tua impresa.",
+    "titlePre": "Il partner",
+    "titleAccent": "digitale",
+    "titleSuffix": "della tua impresa.",
     "subtitle": "Progettiamo, sviluppiamo e facciamo crescere software, web e mobile per PMI italiane.",
     "ctaPrimary": "Inizia ora",
     "ctaSecondary": "Scopri i servizi"
@@ -211,7 +214,9 @@
       "save": "Ricevi il report via email",
       "saveCta": "Inviamelo",
       "saveOk": "Report inviato. Grazie!",
-      "saveErr": "Invio fallito. Riprova."
+      "saveErr": "Invio fallito. Riprova.",
+      "locked": "Registrati per continuare a usare lo strumento.",
+      "signup": "Registrati gratis"
     },
     "quote": {
       "title": "Preventivatore Progetto",
