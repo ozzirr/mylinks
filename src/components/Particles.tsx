@@ -13,7 +13,7 @@ export default function Particles() {
 
     let w = 0;
     let h = 0;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let raf = 0;
 
     type P = {x: number; y: number; vx: number; vy: number; r: number; a: number};

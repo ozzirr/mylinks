@@ -30,8 +30,6 @@ export default function AuthModal() {
       const params = new URLSearchParams(search.toString());
       params.set('auth', next);
       router.replace(`${pathname}?${params.toString()}`, {scroll: false});
-      setState('idle');
-      setErrorMsg('');
     },
     [router, pathname, search]
   );
