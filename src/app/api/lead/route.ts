@@ -9,21 +9,30 @@ export async function POST(req: Request) {
   if (!parsed.success) return NextResponse.json({error: 'invalid'}, {status: 400});
 
   const supabase = await getServerClient();
-  if (supabase) {
-    const {error} = await supabase.from('leads').insert({
-      type: 'tool',
-      tool: parsed.data.tool,
-      email: parsed.data.email,
-      payload: parsed.data.payload ?? null,
-      created_at: new Date().toISOString()
-    });
-    if (error) return NextResponse.json({error: 'db'}, {status: 500});
-  } else {
+  if (!supabase) {
     console.log('[lead] (stub — no Supabase configured)', parsed.data);
+    return NextResponse.json({error: 'unavailable'}, {status: 503});
   }
 
+  const {data: userData, error: userErr} = await supabase.auth.getUser();
+  if (userErr || !userData.user?.email) {
+    return NextResponse.json({error: 'unauthorized'}, {status: 401});
+  }
+
+  // Only allow sending to the authenticated user's email.
+  const recipient = userData.user.email;
+
+  const {error} = await supabase.from('leads').insert({
+    type: 'tool',
+    tool: parsed.data.tool,
+    email: recipient,
+    payload: parsed.data.payload ?? null,
+    created_at: new Date().toISOString()
+  });
+  if (error) return NextResponse.json({error: 'db'}, {status: 500});
+
   const {subject, html, attachments} = renderReport(parsed.data.tool, parsed.data.payload ?? {});
-  const mail = await sendEmail({to: parsed.data.email, subject, html, attachments});
+  const mail = await sendEmail({to: recipient, subject, html, attachments});
 
   return NextResponse.json({ok: true, emailed: mail.ok && !mail.skipped});
 }

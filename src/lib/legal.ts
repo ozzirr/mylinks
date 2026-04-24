@@ -3,7 +3,7 @@ export type Section = {heading: string; body: string[]};
 export type LegalDoc = {title: string; updated: string; intro: string; sections: Section[]};
 
 const COMPANY = '2erre SRL';
-const EMAIL = 'privacy@2erre.it';
+const EMAIL = 'privacy@2erre.online';
 const UPDATED = '2026-04-01';
 
 export const legal: Record<'privacy' | 'terms' | 'cookies', Record<Locale, LegalDoc>> = {

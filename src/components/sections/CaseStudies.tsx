@@ -6,19 +6,26 @@ import {useTranslations} from 'next-intl';
 
 const KEYS = ['odora', 'balance', 'generale'] as const;
 
+const UTM = '?utm_source=2erre.online&utm_medium=case-study&utm_campaign=portfolio';
+
 const CASE_META = {
   odora: {
     logoSrc: '/brand/white/logo_odora.webp',
     logoWidth: 164,
-    logoHeight: 52
+    logoHeight: 52,
+    url: `https://odora.it/${UTM}`
   },
   balance: {
-    wordmark: 'Balance'
+    logoSrc: '/brand/white/logo-balance.webp',
+    logoWidth: 180,
+    logoHeight: 52,
+    url: `https://ctrlbalance.com/${UTM}`
   },
   generale: {
     logoSrc: '/brand/white/logo-generale-elettrica-optimized.webp',
     logoWidth: 248,
-    logoHeight: 58
+    logoHeight: 58,
+    url: `https://generale-elettrica.com/${UTM}`
   }
 } as const;
 
@@ -57,19 +64,13 @@ export default function CaseStudies() {
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(260px,0.9fr)] lg:gap-14">
             <div className="lg:pr-10 lg:border-r lg:border-[var(--color-line)]">
               <div className="min-h-[3.5rem] flex items-center">
-                {'logoSrc' in meta ? (
-                  <Image
-                    src={meta.logoSrc}
-                    alt={t(`tabs.${active}`)}
-                    width={meta.logoWidth}
-                    height={meta.logoHeight}
-                    className="h-auto w-auto max-h-14 max-w-[15rem] object-contain opacity-88"
-                  />
-                ) : (
-                  <div className="text-3xl font-semibold tracking-tight text-[var(--color-text-strong)] opacity-90 md:text-4xl">
-                    {meta.wordmark}
-                  </div>
-                )}
+                <Image
+                  src={meta.logoSrc}
+                  alt={t(`tabs.${active}`)}
+                  width={meta.logoWidth}
+                  height={meta.logoHeight}
+                  className="h-auto w-auto max-h-14 max-w-[15rem] object-contain opacity-88"
+                />
               </div>
 
               <div className="mt-10">
@@ -88,6 +89,17 @@ export default function CaseStudies() {
                 <p className="mt-4 max-w-xl text-base leading-relaxed text-[var(--color-text)] md:text-lg">
                   {t(`items.${active}.solution`)}
                 </p>
+              </div>
+
+              <div className="mt-8">
+                <a
+                  href={meta.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-[var(--color-text-strong)] hover:text-[var(--color-accent)] transition"
+                >
+                  {t('visit', {name: t(`tabs.${active}`)})}
+                </a>
               </div>
             </div>
 

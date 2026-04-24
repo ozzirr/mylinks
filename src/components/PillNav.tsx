@@ -59,8 +59,8 @@ export default function PillNav() {
   }, [open]);
 
   const links = [
-    {href: '/#servizi', label: t('solutions')},
-    {href: '/#casi', label: t('caseStudies')},
+    {href: '/servizi', label: t('solutions')},
+    {href: '/chi-siamo', label: t('about')},
     {href: '/prodotti', label: t('products')},
     {href: '/blog', label: t('blog')}
   ] as const;

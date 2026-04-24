@@ -29,8 +29,10 @@
     "ctaSecondary": "Scopri i servizi"
   },
   "services": {
-    "eyebrow": "Scegli il tuo percorso.",
+    "headingPre": "Scegli un",
+    "headingAccent": "servizio.",
     "subtitle": "Dalla consulenza al prodotto: costruiamo con te o ti diamo chiavi in mano.",
+    "discover": "Scopri",
     "items": {
       "consulting": {
         "title": "Consulenza & Strategy",
@@ -55,6 +57,83 @@
         "tagline": "Agenti, RAG, integrazioni.",
         "body": "Integriamo LLM nei tuoi processi: agenti su WhatsApp/Slack, knowledge base, automazioni con Make, n8n, Zapier.",
         "cta": "Esplora"
+      }
+    }
+  },
+  "serviceDetail": {
+    "back": "← Tutti i servizi",
+    "processLabel": "Il processo",
+    "deliverablesLabel": "Cosa ottieni",
+    "portfolioLabel": "Progetti realizzati",
+    "contactEyebrow": "Partiamo insieme",
+    "items": {
+      "consulting": {
+        "hero": "Una roadmap chiara prima di scrivere una riga di codice.",
+        "intro": "La maggior parte dei progetti digitali falliscono perché nascono senza un'analisi seria del contesto. Noi partiamo da lì: mappiamo processi, vincoli e obiettivi, e ti consegniamo una strategia eseguibile — non una presentazione di 80 slide.",
+        "processTitle": "Come lavoriamo",
+        "process": [
+          {"title": "Discovery", "body": "Interviste con stakeholder, analisi dei flussi esistenti, audit tecnico e benchmark di mercato. Usciamo da questa fase sapendo esattamente cosa costruire e perché."},
+          {"title": "Strategia & Roadmap", "body": "Definiamo priorità, milestone e KPI. Scegliamo lo stack più adatto al tuo team e al tuo budget, senza mode passeggere."},
+          {"title": "Proof of Concept", "body": "Prototipiamo rapidamente le aree a maggiore rischio. Meglio scoprire un problema in 2 settimane che dopo 6 mesi di sviluppo."},
+          {"title": "Accompagnamento", "body": "Ti seguiamo durante l'esecuzione: review tecniche, supporto decisionale, stand-up settimanali."}
+        ],
+        "deliverables": [
+          "Audit tecnico e funzionale del prodotto o del processo",
+          "Roadmap priorizzata con stime tempo/costo",
+          "Documentazione architetturale e scelte di stack",
+          "Business case con KPI misurabili"
+        ]
+      },
+      "web": {
+        "hero": "Siti e piattaforme web che convertono davvero.",
+        "intro": "Ogni sito che costruiamo nasce da una domanda: cosa deve succedere dopo il click? Design, contenuti, performance e SEO lavorano insieme verso un obiettivo di business concreto — richieste, vendite, lead qualificati.",
+        "processTitle": "Il nostro approccio",
+        "process": [
+          {"title": "Strategia di brand", "body": "Posizionamento, tone of voice, identità visiva. La grafica viene dopo — e meglio — quando il messaggio è chiaro."},
+          {"title": "Design & Prototipazione", "body": "Wireframe e mockup ad alta fedeltà in Figma. Test di usabilità prima di sviluppare una sola riga di codice."},
+          {"title": "Sviluppo performante", "body": "Next.js, Tailwind, CMS headless. Punteggi Lighthouse >95, Core Web Vitals ottimizzati, SEO tecnica dal giorno uno."},
+          {"title": "Launch & Growth", "body": "Go-live monitorato, analytics configurati, A/B test sui flussi chiave. Ti consegniamo un sito che migliora nel tempo."}
+        ],
+        "deliverables": [
+          "Sito Next.js veloce, responsive, SEO-ready",
+          "CMS per gestire contenuti in autonomia",
+          "Integrazioni con CRM, analytics, email marketing",
+          "Dashboard di monitoraggio delle performance"
+        ]
+      },
+      "apps": {
+        "hero": "App mobile native e cross-platform, dall'idea allo store.",
+        "intro": "Che sia una native Swift/Kotlin o una cross-platform con React Native, costruiamo app che funzionano bene davvero — non solo nei video demo. Pensiamo a offline, push, crash, aggiornamenti e ai dettagli che gli utenti notano al terzo tap.",
+        "processTitle": "Dal concept al rilascio",
+        "process": [
+          {"title": "Product discovery", "body": "Definiamo insieme le feature essenziali del MVP. Quello che non serve al lancio lo mettiamo in roadmap, non nel primo rilascio."},
+          {"title": "Design mobile-first", "body": "Interazioni pensate per il pollice, non per il mouse. Prototipi testati su dispositivi reali prima dello sviluppo."},
+          {"title": "Sviluppo & QA", "body": "React Native, Swift o Kotlin in base al caso. CI/CD automatizzato, test su device farm, crash reporting integrato."},
+          {"title": "Pubblicazione & manutenzione", "body": "Ci occupiamo noi di App Store e Play Store, delle review e degli aggiornamenti post-lancio."}
+        ],
+        "deliverables": [
+          "App pubblicata su App Store e Google Play",
+          "Backend e API documentate",
+          "Dashboard admin per gestire utenti e contenuti",
+          "SLA di manutenzione e supporto post-lancio"
+        ]
+      },
+      "ai": {
+        "hero": "AI e automazioni che fanno davvero risparmiare tempo.",
+        "intro": "L'AI generativa è potente ma utile solo se integrata nei tuoi flussi reali. Non costruiamo chatbot per fare scena: costruiamo agenti che rispondono alle email, qualificano lead, estraggono dati da documenti e parlano con il tuo gestionale.",
+        "processTitle": "Come la integriamo",
+        "process": [
+          {"title": "Use case scoping", "body": "Individuiamo i processi ripetitivi con ROI più alto. Partiamo sempre da un caso d'uso misurabile, non dalla tecnologia."},
+          {"title": "Knowledge base & RAG", "body": "Indicizziamo la tua documentazione interna in un sistema RAG sicuro, così l'agente risponde con dati tuoi, non inventati."},
+          {"title": "Integrazioni", "body": "Colleghiamo l'AI ai tuoi strumenti: WhatsApp Business, Slack, email, CRM, gestionali. Con Make, n8n, Zapier o codice custom quando serve."},
+          {"title": "Monitoring & ottimizzazione", "body": "Tracciamo accuratezza delle risposte, costi per conversazione e soddisfazione utente. Ottimizziamo prompt e modelli nel tempo."}
+        ],
+        "deliverables": [
+          "Agente AI integrato nei tuoi canali",
+          "Knowledge base aggiornabile dal tuo team",
+          "Dashboard di utilizzo e metriche di qualità",
+          "Documentazione operativa e formazione interna"
+        ]
       }
     }
   },
@@ -86,8 +165,8 @@
     "eyebrow": "Il nostro impatto.",
     "items": {
       "projects": {"value": "40+", "label": "Progetti rilasciati"},
-      "clients": {"value": "25+", "label": "Clienti attivi"},
-      "years": {"value": "6+", "label": "Anni di esperienza"}
+      "clients": {"value": "100%", "label": "Clienti soddisfatti"},
+      "years": {"value": "10+", "label": "Anni di esperienza"}
     }
   },
   "cases": {
@@ -102,6 +181,7 @@
     "solution": "La nostra soluzione",
     "result": "Risultato",
     "viewMore": "Vedi altri casi studio",
+    "visit": "Scopri {name} →",
     "items": {
       "odora": {
         "challenge": "Un catalogo fragranze complesso da navigare e una conversion che non decollava.",
@@ -143,7 +223,7 @@
     "submit": "Invia richiesta",
     "sending": "Invio in corso...",
     "success": "Grazie! Ti ricontatteremo entro 24h.",
-    "error": "Errore durante l'invio. Riprova o scrivici a info@2erre.it.",
+    "error": "Errore durante l'invio. Riprova o scrivici a info@2erre.online.",
     "required": "Campo obbligatorio"
   },
   "newsletter": {

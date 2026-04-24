@@ -5,7 +5,6 @@ import Services from '@/components/sections/Services';
 import Products from '@/components/sections/Products';
 import Stats from '@/components/sections/Stats';
 import CaseStudies from '@/components/sections/CaseStudies';
-import ContactForm from '@/components/sections/ContactForm';
 import NewsletterInline from '@/components/sections/NewsletterInline';
 
 export default async function HomePage({
@@ -25,7 +24,6 @@ export default async function HomePage({
       <Stats />
       <CaseStudies />
       <NewsletterInline />
-      <ContactForm />
     </>
   );
 }

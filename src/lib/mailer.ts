@@ -9,7 +9,7 @@ type SendArgs = {
 
 export async function sendEmail({to, subject, html, attachments}: SendArgs): Promise<{ok: boolean; skipped?: boolean; error?: string}> {
   const key = process.env.RESEND_API_KEY;
-  const from = process.env.MAIL_FROM ?? 'no-reply@2erre.it';
+  const from = process.env.MAIL_FROM ?? 'no-reply@2erre.online';
   if (!key) {
     console.log('[mailer] RESEND_API_KEY missing — skip send', {to, subject});
     return {ok: true, skipped: true};

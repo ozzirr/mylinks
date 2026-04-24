@@ -360,10 +360,11 @@ body {
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 26s linear infinite;
+  animation: marquee 16s linear infinite;
   will-change: transform;
 }
 .marquee-mask {
   mask-image: linear-gradient(to right, transparent 0, black 10%, black 90%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0, black 10%, black 90%, transparent 100%);
 }
+

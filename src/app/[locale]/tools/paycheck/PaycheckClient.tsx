@@ -5,8 +5,6 @@ import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {computePaycheck, formatEUR} from '@/lib/paycheck';
 import {getBrowserClient} from '@/lib/supabase';
-import {usePersistentFlag} from '@/lib/usePersistentFlag';
-import AuthTrigger from '@/components/AuthTrigger';
 
 export default function PaycheckClient() {
   const t = useTranslations('tools.paycheck');
@@ -18,7 +16,6 @@ export default function PaycheckClient() {
   const [email, setEmail] = useState('');
   const [authedEmail, setAuthedEmail] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle');
-  const [used, setUsed] = usePersistentFlag('2erre.paycheck.used');
 
   useEffect(() => {
     let unsub: (() => void) | undefined;
@@ -40,14 +37,6 @@ export default function PaycheckClient() {
     })();
     return () => unsub?.();
   }, []);
-
-  const locked = used && !authedEmail;
-
-  function markUsed() {
-    if (!used) {
-      setUsed(true);
-    }
-  }
 
   const result = useMemo(
     () => computePaycheck({grossAnnual: gross, months, dependents, spouseDependent: spouse}),
@@ -95,16 +84,14 @@ export default function PaycheckClient() {
                   max={150000}
                   step={500}
                   value={gross}
-                  onChange={(e) => { if (locked) return; setGross(Number(e.target.value)); markUsed(); }}
-                  className="flex-1 accent-[var(--color-accent)] disabled:opacity-50"
-                  disabled={locked}
+                  onChange={(e) => setGross(Number(e.target.value))}
+                  className="flex-1 accent-[var(--color-accent)]"
                 />
                 <input
                   type="number"
                   value={gross}
-                  onChange={(e) => { if (locked) return; setGross(Number(e.target.value) || 0); markUsed(); }}
-                  className="field w-32 disabled:opacity-50"
-                  disabled={locked}
+                  onChange={(e) => setGross(Number(e.target.value) || 0)}
+                  className="field w-32"
                 />
               </div>
               <div className="mt-1 text-xs text-[var(--color-text-dim)]">
@@ -119,8 +106,7 @@ export default function PaycheckClient() {
                   <button
                     key={m}
                     type="button"
-                    onClick={() => { if (locked) return; setMonths(m); markUsed(); }}
-                disabled={locked}
+                    onClick={() => setMonths(m)}
                     className={`btn flex-1 ${months === m ? 'btn-primary' : 'btn-ghost'}`}
                   >
                     {m === 13 ? t('months13') : t('months14')}
@@ -136,9 +122,8 @@ export default function PaycheckClient() {
                 min={0}
                 max={10}
                 value={dependents}
-                onChange={(e) => { if (locked) return; setDependents(Math.max(0, Number(e.target.value) || 0)); markUsed(); }}
-                className="field disabled:opacity-50"
-                disabled={locked}
+                onChange={(e) => setDependents(Math.max(0, Number(e.target.value) || 0))}
+                className="field"
               />
             </div>
 
@@ -146,21 +131,14 @@ export default function PaycheckClient() {
               <input
                 type="checkbox"
                 checked={spouse}
-                onChange={(e) => { if (locked) return; setSpouse(e.target.checked); markUsed(); }}
+                onChange={(e) => setSpouse(e.target.checked)}
                 className="accent-[var(--color-accent)]"
-                disabled={locked}
               />
               {t('fields.spouse')}
             </label>
           </div>
 
           <div className="card p-8 flex flex-col relative">
-            {locked && (
-              <div className="absolute inset-0 z-10 rounded-[inherit] backdrop-blur-sm bg-black/40 flex flex-col items-center justify-center text-center p-6">
-                <p className="text-sm text-[var(--color-text-soft)] max-w-xs">{t('locked') || 'Registrati per continuare a usare lo strumento.'}</p>
-                <AuthTrigger mode="signup" className="btn btn-primary mt-4">{t('signup') || 'Registrati gratis'} →</AuthTrigger>
-              </div>
-            )}
             <div className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-dim)]">
               {t('results.title')}
             </div>

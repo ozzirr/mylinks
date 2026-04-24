@@ -1,6 +1,5 @@
 import {getTranslations} from 'next-intl/server';
-import {Link} from '@/i18n/navigation';
-import SectionHeader from '@/components/ui/SectionHeader';
+import ServiceCardLink from '@/components/ServiceCardLink';
 
 const ITEMS = ['consulting', 'web', 'apps', 'ai'] as const;
 
@@ -10,12 +9,23 @@ export default async function Services() {
   return (
     <section id="servizi" className="relative py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6">
-        <SectionHeader eyebrow={t('eyebrow')} subtitle={t('subtitle')} />
+        <div className="text-center mx-auto max-w-3xl">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-[var(--color-text-strong)] leading-[1.05]">
+            {t('headingPre')}{' '}
+            <span className="text-display gradient-text italic">{t('headingAccent')}</span>
+          </h2>
+          <p className="mt-5 text-base md:text-lg text-[var(--color-text-soft)] leading-relaxed">
+            {t('subtitle')}
+          </p>
+        </div>
+
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {ITEMS.map((key, i) => (
-            <article
+            <ServiceCardLink
               key={key}
-              className="card p-8 group relative overflow-hidden"
+              slug={key}
+              href={`/servizi/${key}`}
+              className="card p-8 group relative overflow-hidden block transition hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -34,15 +44,12 @@ export default async function Services() {
                 {t(`items.${key}.body`)}
               </p>
               <div className="mt-6 pt-6 border-t border-[var(--color-line)]">
-                <Link
-                  href="/contatti"
-                  className="inline-flex items-center gap-2 text-[var(--color-text-strong)] text-sm font-medium uppercase tracking-wider hover:text-[var(--color-accent)] transition"
-                >
-                  {t(`items.${key}.cta`)}
+                <span className="inline-flex items-center gap-2 text-[var(--color-text-strong)] text-sm font-medium uppercase tracking-wider group-hover:text-[var(--color-accent)] transition">
+                  {t('discover')}
                   <span className="text-[var(--color-accent)]">→</span>
-                </Link>
+                </span>
               </div>
-            </article>
+            </ServiceCardLink>
           ))}
         </div>
       </div>

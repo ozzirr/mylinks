@@ -13,7 +13,8 @@ const FILES = [
   'logo-ms-porte-optimized.webp',
   'logo-olio-arsieni-optimized.webp',
   'logo-generale-elettrica-optimized.webp',
-  'logo_odora.png'
+  'logo_odora.png',
+  'logo-balance.png'
 ];
 
 // Any pixel lighter than this luma is treated as background (transparent).
@@ -25,7 +26,8 @@ const TINTS = {
   'logo-ms-porte-optimized.webp': {r: 244, g: 244, b: 245},
   'logo-olio-arsieni-optimized.webp': {r: 212, g: 212, b: 216},
   'logo-generale-elettrica-optimized.webp': {r: 244, g: 244, b: 245},
-  'logo_odora.png': {r: 212, g: 212, b: 216}
+  'logo_odora.png': {r: 212, g: 212, b: 216},
+  'logo-balance.png': {r: 244, g: 244, b: 245}
 };
 
 async function whiten(file) {

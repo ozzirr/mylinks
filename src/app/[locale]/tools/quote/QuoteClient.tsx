@@ -5,15 +5,11 @@ import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {computeQuote, formatEUR, type QuoteInput} from '@/lib/quote';
 import {getBrowserClient} from '@/lib/supabase';
-import {usePersistentFlag} from '@/lib/usePersistentFlag';
-import AuthTrigger from '@/components/AuthTrigger';
 
 const TYPES: QuoteInput['type'][] = ['landing', 'website', 'ecommerce', 'webapp', 'mobile', 'ai'];
 const COMPLEXITIES: QuoteInput['complexity'][] = ['simple', 'medium', 'complex'];
 const URGENCIES: QuoteInput['urgency'][] = ['relaxed', 'normal', 'rush'];
 const INTEGRATIONS: QuoteInput['integrations'][] = ['none', 'few', 'many'];
-
-const USED_KEY = '2erre.quote.used';
 
 export default function QuoteClient() {
   const t = useTranslations('tools.quote');
@@ -27,7 +23,6 @@ export default function QuoteClient() {
   const [authedEmail, setAuthedEmail] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [saveStatus, setSaveStatus] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle');
-  const [used, setUsed] = usePersistentFlag(USED_KEY);
 
   useEffect(() => {
     let unsub: (() => void) | undefined;
@@ -49,14 +44,6 @@ export default function QuoteClient() {
     })();
     return () => unsub?.();
   }, []);
-
-  const locked = used && !authedEmail;
-
-  function markUsed() {
-    if (!used) {
-      setUsed(true);
-    }
-  }
 
   const result = useMemo(
     () => computeQuote({type, complexity, urgency, integrations}),
@@ -98,7 +85,7 @@ export default function QuoteClient() {
             <Group label={t('fields.type')}>
               <div className="grid grid-cols-2 gap-2">
                 {TYPES.map((k) => (
-                  <Chip key={k} active={type === k} onClick={() => { if (locked) return; setType(k); markUsed(); }} disabled={locked}>
+                  <Chip key={k} active={type === k} onClick={() => setType(k)}>
                     {t(`type.${k}`)}
                   </Chip>
                 ))}
@@ -108,7 +95,7 @@ export default function QuoteClient() {
             <Group label={t('fields.complexity')}>
               <div className="flex gap-2">
                 {COMPLEXITIES.map((k) => (
-                  <Chip key={k} active={complexity === k} onClick={() => { if (locked) return; setComplexity(k); markUsed(); }} disabled={locked} flex>
+                  <Chip key={k} active={complexity === k} onClick={() => setComplexity(k)} flex>
                     {t(`complexity.${k}`)}
                   </Chip>
                 ))}
@@ -118,7 +105,7 @@ export default function QuoteClient() {
             <Group label={t('fields.urgency')}>
               <div className="flex gap-2">
                 {URGENCIES.map((k) => (
-                  <Chip key={k} active={urgency === k} onClick={() => { if (locked) return; setUrgency(k); markUsed(); }} disabled={locked} flex>
+                  <Chip key={k} active={urgency === k} onClick={() => setUrgency(k)} flex>
                     {t(`urgency.${k}`)}
                   </Chip>
                 ))}
@@ -128,7 +115,7 @@ export default function QuoteClient() {
             <Group label={t('fields.integrations')}>
               <div className="flex gap-2">
                 {INTEGRATIONS.map((k) => (
-                  <Chip key={k} active={integrations === k} onClick={() => { if (locked) return; setIntegrations(k); markUsed(); }} disabled={locked} flex>
+                  <Chip key={k} active={integrations === k} onClick={() => setIntegrations(k)} flex>
                     {t(`integrations.${k}`)}
                   </Chip>
                 ))}
@@ -137,12 +124,6 @@ export default function QuoteClient() {
           </div>
 
           <div className="card p-8 flex flex-col relative">
-            {locked && (
-              <div className="absolute inset-0 z-10 rounded-[inherit] backdrop-blur-sm bg-black/40 flex flex-col items-center justify-center text-center p-6">
-                <p className="text-sm text-[var(--color-text-soft)] max-w-xs">{tPay('locked')}</p>
-                <AuthTrigger mode="signup" className="btn btn-primary mt-4">{tPay('signup')} →</AuthTrigger>
-              </div>
-            )}
             <div className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-dim)]">
               {t('results.title')}
             </div>
